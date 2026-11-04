@@ -1,0 +1,2542 @@
+{
+  "source": "https://gwosc.org/eventapi/jsonfull/GWTC/",
+  "retrieved": "2026-11-04",
+  "selection": "Latest event version; FAR <= 1/year; available source-frame component median masses >= 3 solar masses. Mass cut is a BH proxy, not a definitive classification. Missing masses omitted.",
+  "events": [
+    {
+      "name": "GW190408_181802",
+      "version": 2,
+      "masses": [
+        24.8,
+        18.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190408_181802/v2"
+    },
+    {
+      "name": "GW190412",
+      "version": 4,
+      "masses": [
+        27.7,
+        9.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190412/v4"
+    },
+    {
+      "name": "GW190413_052954",
+      "version": 2,
+      "masses": [
+        33.7,
+        24.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_052954/v2"
+    },
+    {
+      "name": "GW190413_134308",
+      "version": 2,
+      "masses": [
+        51.3,
+        30.4
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_134308/v2"
+    },
+    {
+      "name": "GW190421_213856",
+      "version": 2,
+      "masses": [
+        42.0,
+        32.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190421_213856/v2"
+    },
+    {
+      "name": "GW190503_185404",
+      "version": 2,
+      "masses": [
+        41.3,
+        28.3
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190503_185404/v2"
+    },
+    {
+      "name": "GW190512_180714",
+      "version": 2,
+      "masses": [
+        23.2,
+        12.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190512_180714/v2"
+    },
+    {
+      "name": "GW190513_205428",
+      "version": 2,
+      "masses": [
+        36.0,
+        18.3
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190513_205428/v2"
+    },
+    {
+      "name": "GW190517_055101",
+      "version": 2,
+      "masses": [
+        39.2,
+        24.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190517_055101/v2"
+    },
+    {
+      "name": "GW190519_153544",
+      "version": 2,
+      "masses": [
+        65.1,
+        40.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190519_153544/v2"
+    },
+    {
+      "name": "GW190521",
+      "version": 4,
+      "masses": [
+        98.4,
+        57.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521/v4"
+    },
+    {
+      "name": "GW190521_074359",
+      "version": 2,
+      "masses": [
+        43.4,
+        33.4
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521_074359/v2"
+    },
+    {
+      "name": "GW190527_092055",
+      "version": 2,
+      "masses": [
+        35.6,
+        22.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190527_092055/v2"
+    },
+    {
+      "name": "GW190602_175927",
+      "version": 2,
+      "masses": [
+        71.8,
+        44.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190602_175927/v2"
+    },
+    {
+      "name": "GW190620_030421",
+      "version": 2,
+      "masses": [
+        58.0,
+        35.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190620_030421/v2"
+    },
+    {
+      "name": "GW190630_185205",
+      "version": 2,
+      "masses": [
+        35.1,
+        24.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190630_185205/v2"
+    },
+    {
+      "name": "GW190701_203306",
+      "version": 2,
+      "masses": [
+        54.1,
+        40.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190701_203306/v2"
+    },
+    {
+      "name": "GW190706_222641",
+      "version": 2,
+      "masses": [
+        74.0,
+        39.4
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190706_222641/v2"
+    },
+    {
+      "name": "GW190707_093326",
+      "version": 2,
+      "masses": [
+        12.1,
+        7.9
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190707_093326/v2"
+    },
+    {
+      "name": "GW190708_232457",
+      "version": 2,
+      "masses": [
+        19.8,
+        11.6
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190708_232457/v2"
+    },
+    {
+      "name": "GW190719_215514",
+      "version": 2,
+      "masses": [
+        36.6,
+        19.9
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190719_215514/v2"
+    },
+    {
+      "name": "GW190720_000836",
+      "version": 2,
+      "masses": [
+        14.2,
+        7.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190720_000836/v2"
+    },
+    {
+      "name": "GW190725_174728",
+      "version": 1,
+      "masses": [
+        11.8,
+        6.3
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190725_174728/v1"
+    },
+    {
+      "name": "GW190727_060333",
+      "version": 2,
+      "masses": [
+        38.9,
+        30.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190727_060333/v2"
+    },
+    {
+      "name": "GW190728_064510",
+      "version": 2,
+      "masses": [
+        12.5,
+        8.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190728_064510/v2"
+    },
+    {
+      "name": "GW190731_140936",
+      "version": 2,
+      "masses": [
+        41.8,
+        29.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190731_140936/v2"
+    },
+    {
+      "name": "GW190803_022701",
+      "version": 2,
+      "masses": [
+        37.7,
+        27.6
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190803_022701/v2"
+    },
+    {
+      "name": "GW190805_211137",
+      "version": 1,
+      "masses": [
+        46.2,
+        30.6
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190805_211137/v1"
+    },
+    {
+      "name": "GW190814",
+      "version": 3,
+      "masses": [
+        23.3
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190814/v3"
+    },
+    {
+      "name": "GW190828_063405",
+      "version": 2,
+      "masses": [
+        31.9,
+        25.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_063405/v2"
+    },
+    {
+      "name": "GW190828_065509",
+      "version": 2,
+      "masses": [
+        23.7,
+        10.4
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_065509/v2"
+    },
+    {
+      "name": "GW190910_112807",
+      "version": 2,
+      "masses": [
+        43.8,
+        34.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190910_112807/v2"
+    },
+    {
+      "name": "GW190915_235702",
+      "version": 2,
+      "masses": [
+        32.6,
+        24.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190915_235702/v2"
+    },
+    {
+      "name": "GW190917_114630",
+      "version": 1,
+      "masses": [
+        9.7
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190917_114630/v1"
+    },
+    {
+      "name": "GW190924_021846",
+      "version": 2,
+      "masses": [
+        8.8,
+        5.1
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190924_021846/v2"
+    },
+    {
+      "name": "GW190925_232845",
+      "version": 1,
+      "masses": [
+        20.8,
+        15.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190925_232845/v1"
+    },
+    {
+      "name": "GW190929_012149",
+      "version": 2,
+      "masses": [
+        66.3,
+        26.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190929_012149/v2"
+    },
+    {
+      "name": "GW190930_133541",
+      "version": 2,
+      "masses": [
+        14.2,
+        6.9
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190930_133541/v2"
+    },
+    {
+      "name": "GW191103_012549",
+      "version": 1,
+      "masses": [
+        11.8,
+        7.9
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191103_012549/v1"
+    },
+    {
+      "name": "GW191105_143521",
+      "version": 1,
+      "masses": [
+        10.7,
+        7.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191105_143521/v1"
+    },
+    {
+      "name": "GW191109_010717",
+      "version": 1,
+      "masses": [
+        65.0,
+        47.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191109_010717/v1"
+    },
+    {
+      "name": "GW191127_050227",
+      "version": 1,
+      "masses": [
+        53.0,
+        24.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191127_050227/v1"
+    },
+    {
+      "name": "GW191129_134029",
+      "version": 1,
+      "masses": [
+        10.7,
+        6.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191129_134029/v1"
+    },
+    {
+      "name": "GW191204_171526",
+      "version": 1,
+      "masses": [
+        11.7,
+        8.4
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191204_171526/v1"
+    },
+    {
+      "name": "GW191215_223052",
+      "version": 1,
+      "masses": [
+        24.9,
+        18.1
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191215_223052/v1"
+    },
+    {
+      "name": "GW191216_213338",
+      "version": 1,
+      "masses": [
+        12.1,
+        7.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191216_213338/v1"
+    },
+    {
+      "name": "GW191222_033537",
+      "version": 1,
+      "masses": [
+        45.1,
+        34.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191222_033537/v1"
+    },
+    {
+      "name": "GW191230_180458",
+      "version": 1,
+      "masses": [
+        49.4,
+        37.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191230_180458/v1"
+    },
+    {
+      "name": "GW200112_155838",
+      "version": 1,
+      "masses": [
+        35.6,
+        28.3
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200112_155838/v1"
+    },
+    {
+      "name": "GW200115_042309",
+      "version": 2,
+      "masses": [
+        5.9
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200115_042309/v2"
+    },
+    {
+      "name": "GW200128_022011",
+      "version": 1,
+      "masses": [
+        42.2,
+        32.6
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200128_022011/v1"
+    },
+    {
+      "name": "GW200129_065458",
+      "version": 1,
+      "masses": [
+        34.5,
+        29.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200129_065458/v1"
+    },
+    {
+      "name": "GW200202_154313",
+      "version": 1,
+      "masses": [
+        10.1,
+        7.3
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200202_154313/v1"
+    },
+    {
+      "name": "GW200208_130117",
+      "version": 1,
+      "masses": [
+        37.7,
+        27.4
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200208_130117/v1"
+    },
+    {
+      "name": "GW200209_085452",
+      "version": 1,
+      "masses": [
+        35.6,
+        27.1
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200209_085452/v1"
+    },
+    {
+      "name": "GW200216_220804",
+      "version": 1,
+      "masses": [
+        51.0,
+        30.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200216_220804/v1"
+    },
+    {
+      "name": "GW200219_094415",
+      "version": 1,
+      "masses": [
+        37.5,
+        27.9
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200219_094415/v1"
+    },
+    {
+      "name": "GW200224_222234",
+      "version": 1,
+      "masses": [
+        40.0,
+        32.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200224_222234/v1"
+    },
+    {
+      "name": "GW200225_060421",
+      "version": 1,
+      "masses": [
+        19.3,
+        14.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200225_060421/v1"
+    },
+    {
+      "name": "GW200302_015811",
+      "version": 1,
+      "masses": [
+        37.8,
+        20.0
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200302_015811/v1"
+    },
+    {
+      "name": "GW200311_115853",
+      "version": 1,
+      "masses": [
+        34.2,
+        27.7
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200311_115853/v1"
+    },
+    {
+      "name": "GW200316_215756",
+      "version": 1,
+      "masses": [
+        13.1,
+        7.8
+      ],
+      "catalog": "GWTC-3-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200316_215756/v1"
+    },
+    {
+      "name": "GW230518_125908",
+      "version": 2,
+      "masses": [
+        8.17
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230518_125908/v2"
+    },
+    {
+      "name": "GW230529_181500",
+      "version": 3,
+      "masses": [
+        3.66
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230529_181500/v3"
+    },
+    {
+      "name": "GW230601_224134",
+      "version": 2,
+      "masses": [
+        64.0,
+        44.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230601_224134/v2"
+    },
+    {
+      "name": "GW230605_065343",
+      "version": 2,
+      "masses": [
+        17.4,
+        11.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230605_065343/v2"
+    },
+    {
+      "name": "GW230606_004305",
+      "version": 2,
+      "masses": [
+        37.6,
+        25.7
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230606_004305/v2"
+    },
+    {
+      "name": "GW230608_205047",
+      "version": 2,
+      "masses": [
+        48.0,
+        31.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230608_205047/v2"
+    },
+    {
+      "name": "GW230609_064958",
+      "version": 2,
+      "masses": [
+        35.4,
+        25.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230609_064958/v2"
+    },
+    {
+      "name": "GW230624_113103",
+      "version": 2,
+      "masses": [
+        27.1,
+        16.1
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230624_113103/v2"
+    },
+    {
+      "name": "GW230627_015337",
+      "version": 2,
+      "masses": [
+        8.4,
+        5.74
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230627_015337/v2"
+    },
+    {
+      "name": "GW230628_231200",
+      "version": 2,
+      "masses": [
+        32.5,
+        27.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230628_231200/v2"
+    },
+    {
+      "name": "GW230630_125806",
+      "version": 2,
+      "masses": [
+        51.0,
+        33.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_125806/v2"
+    },
+    {
+      "name": "GW230630_234532",
+      "version": 2,
+      "masses": [
+        10.0,
+        6.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_234532/v2"
+    },
+    {
+      "name": "GW230702_185453",
+      "version": 2,
+      "masses": [
+        40.0,
+        18.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230702_185453/v2"
+    },
+    {
+      "name": "GW230704_021211",
+      "version": 2,
+      "masses": [
+        32.6,
+        20.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_021211/v2"
+    },
+    {
+      "name": "GW230704_212616",
+      "version": 2,
+      "masses": [
+        89.0,
+        50.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_212616/v2"
+    },
+    {
+      "name": "GW230706_104333",
+      "version": 2,
+      "masses": [
+        16.3,
+        11.5
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230706_104333/v2"
+    },
+    {
+      "name": "GW230707_124047",
+      "version": 2,
+      "masses": [
+        46.1,
+        36.3
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230707_124047/v2"
+    },
+    {
+      "name": "GW230708_053705",
+      "version": 2,
+      "masses": [
+        29.1,
+        22.7
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_053705/v2"
+    },
+    {
+      "name": "GW230708_230935",
+      "version": 2,
+      "masses": [
+        64.0,
+        40.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_230935/v2"
+    },
+    {
+      "name": "GW230709_122727",
+      "version": 2,
+      "masses": [
+        45.0,
+        30.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230709_122727/v2"
+    },
+    {
+      "name": "GW230712_090405",
+      "version": 2,
+      "masses": [
+        32.0,
+        12.5
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230712_090405/v2"
+    },
+    {
+      "name": "GW230723_101834",
+      "version": 2,
+      "masses": [
+        16.6,
+        10.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230723_101834/v2"
+    },
+    {
+      "name": "GW230726_002940",
+      "version": 2,
+      "masses": [
+        35.6,
+        27.9
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230726_002940/v2"
+    },
+    {
+      "name": "GW230729_082317",
+      "version": 2,
+      "masses": [
+        12.3,
+        7.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230729_082317/v2"
+    },
+    {
+      "name": "GW230731_215307",
+      "version": 2,
+      "masses": [
+        10.3,
+        7.9
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230731_215307/v2"
+    },
+    {
+      "name": "GW230803_033412",
+      "version": 2,
+      "masses": [
+        44.0,
+        29.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230803_033412/v2"
+    },
+    {
+      "name": "GW230805_034249",
+      "version": 2,
+      "masses": [
+        32.2,
+        22.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230805_034249/v2"
+    },
+    {
+      "name": "GW230806_204041",
+      "version": 2,
+      "masses": [
+        51.0,
+        35.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230806_204041/v2"
+    },
+    {
+      "name": "GW230811_032116",
+      "version": 2,
+      "masses": [
+        35.4,
+        22.3
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230811_032116/v2"
+    },
+    {
+      "name": "GW230814_061920",
+      "version": 2,
+      "masses": [
+        69.0,
+        42.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_061920/v2"
+    },
+    {
+      "name": "GW230814_230901",
+      "version": 3,
+      "masses": [
+        33.7,
+        28.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_230901/v3"
+    },
+    {
+      "name": "GW230819_171910",
+      "version": 2,
+      "masses": [
+        70.0,
+        35.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230819_171910/v2"
+    },
+    {
+      "name": "GW230820_212515",
+      "version": 2,
+      "masses": [
+        62.0,
+        34.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230820_212515/v2"
+    },
+    {
+      "name": "GW230824_033047",
+      "version": 2,
+      "masses": [
+        53.0,
+        36.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230824_033047/v2"
+    },
+    {
+      "name": "GW230825_041334",
+      "version": 2,
+      "masses": [
+        44.0,
+        27.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230825_041334/v2"
+    },
+    {
+      "name": "GW230831_015414",
+      "version": 2,
+      "masses": [
+        42.0,
+        30.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230831_015414/v2"
+    },
+    {
+      "name": "GW230904_051013",
+      "version": 2,
+      "masses": [
+        10.6,
+        7.1
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230904_051013/v2"
+    },
+    {
+      "name": "GW230911_195324",
+      "version": 2,
+      "masses": [
+        33.9,
+        21.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230911_195324/v2"
+    },
+    {
+      "name": "GW230914_111401",
+      "version": 2,
+      "masses": [
+        60.0,
+        37.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230914_111401/v2"
+    },
+    {
+      "name": "GW230919_215712",
+      "version": 2,
+      "masses": [
+        27.3,
+        21.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230919_215712/v2"
+    },
+    {
+      "name": "GW230920_071124",
+      "version": 2,
+      "masses": [
+        32.4,
+        23.8
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230920_071124/v2"
+    },
+    {
+      "name": "GW230922_020344",
+      "version": 2,
+      "masses": [
+        39.3,
+        29.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_020344/v2"
+    },
+    {
+      "name": "GW230922_040658",
+      "version": 2,
+      "masses": [
+        76.0,
+        51.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_040658/v2"
+    },
+    {
+      "name": "GW230924_124453",
+      "version": 2,
+      "masses": [
+        28.8,
+        23.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230924_124453/v2"
+    },
+    {
+      "name": "GW230927_043729",
+      "version": 2,
+      "masses": [
+        35.0,
+        27.1
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_043729/v2"
+    },
+    {
+      "name": "GW230927_153832",
+      "version": 2,
+      "masses": [
+        21.7,
+        16.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_153832/v2"
+    },
+    {
+      "name": "GW230928_215827",
+      "version": 2,
+      "masses": [
+        54.0,
+        29.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230928_215827/v2"
+    },
+    {
+      "name": "GW230930_110730",
+      "version": 2,
+      "masses": [
+        34.5,
+        24.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230930_110730/v2"
+    },
+    {
+      "name": "GW231001_140220",
+      "version": 2,
+      "masses": [
+        76.0,
+        41.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231001_140220/v2"
+    },
+    {
+      "name": "GW231004_232346",
+      "version": 2,
+      "masses": [
+        64.0,
+        35.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231004_232346/v2"
+    },
+    {
+      "name": "GW231005_021030",
+      "version": 2,
+      "masses": [
+        84.0,
+        50.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_021030/v2"
+    },
+    {
+      "name": "GW231005_091549",
+      "version": 2,
+      "masses": [
+        28.8,
+        21.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_091549/v2"
+    },
+    {
+      "name": "GW231008_142521",
+      "version": 2,
+      "masses": [
+        45.0,
+        25.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231008_142521/v2"
+    },
+    {
+      "name": "GW231014_040532",
+      "version": 2,
+      "masses": [
+        20.6,
+        14.7
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231014_040532/v2"
+    },
+    {
+      "name": "GW231018_233037",
+      "version": 2,
+      "masses": [
+        11.6,
+        7.3
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231018_233037/v2"
+    },
+    {
+      "name": "GW231020_142947",
+      "version": 2,
+      "masses": [
+        12.0,
+        7.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231020_142947/v2"
+    },
+    {
+      "name": "GW231026_130704",
+      "version": 2,
+      "masses": [
+        34.0,
+        20.8
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231026_130704/v2"
+    },
+    {
+      "name": "GW231028_153006",
+      "version": 2,
+      "masses": [
+        94.0,
+        59.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231028_153006/v2"
+    },
+    {
+      "name": "GW231029_111508",
+      "version": 2,
+      "masses": [
+        65.0,
+        42.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231029_111508/v2"
+    },
+    {
+      "name": "GW231102_071736",
+      "version": 2,
+      "masses": [
+        61.0,
+        42.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231102_071736/v2"
+    },
+    {
+      "name": "GW231104_133418",
+      "version": 2,
+      "masses": [
+        12.2,
+        8.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231104_133418/v2"
+    },
+    {
+      "name": "GW231108_125142",
+      "version": 2,
+      "masses": [
+        23.2,
+        17.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231108_125142/v2"
+    },
+    {
+      "name": "GW231110_040320",
+      "version": 2,
+      "masses": [
+        19.4,
+        12.6
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231110_040320/v2"
+    },
+    {
+      "name": "GW231113_122623",
+      "version": 2,
+      "masses": [
+        39.8,
+        26.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_122623/v2"
+    },
+    {
+      "name": "GW231113_150041",
+      "version": 2,
+      "masses": [
+        56.0,
+        29.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_150041/v2"
+    },
+    {
+      "name": "GW231113_200417",
+      "version": 2,
+      "masses": [
+        11.6,
+        7.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_200417/v2"
+    },
+    {
+      "name": "GW231114_043211",
+      "version": 2,
+      "masses": [
+        22.8,
+        8.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231114_043211/v2"
+    },
+    {
+      "name": "GW231118_005626",
+      "version": 2,
+      "masses": [
+        20.0,
+        10.8
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_005626/v2"
+    },
+    {
+      "name": "GW231118_071402",
+      "version": 2,
+      "masses": [
+        43.0,
+        29.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_071402/v2"
+    },
+    {
+      "name": "GW231118_090602",
+      "version": 2,
+      "masses": [
+        12.9,
+        7.4
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_090602/v2"
+    },
+    {
+      "name": "GW231119_075248",
+      "version": 2,
+      "masses": [
+        49.0,
+        33.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231119_075248/v2"
+    },
+    {
+      "name": "GW231123_135430",
+      "version": 3,
+      "masses": [
+        137.0,
+        101.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231123_135430/v3"
+    },
+    {
+      "name": "GW231127_165300",
+      "version": 2,
+      "masses": [
+        45.0,
+        28.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231127_165300/v2"
+    },
+    {
+      "name": "GW231129_081745",
+      "version": 2,
+      "masses": [
+        45.0,
+        23.8
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231129_081745/v2"
+    },
+    {
+      "name": "GW231206_233134",
+      "version": 2,
+      "masses": [
+        35.6,
+        28.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233134/v2"
+    },
+    {
+      "name": "GW231206_233901",
+      "version": 2,
+      "masses": [
+        37.6,
+        28.5
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233901/v2"
+    },
+    {
+      "name": "GW231213_111417",
+      "version": 2,
+      "masses": [
+        35.6,
+        27.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231213_111417/v2"
+    },
+    {
+      "name": "GW231221_135041",
+      "version": 2,
+      "masses": [
+        47.0,
+        29.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231221_135041/v2"
+    },
+    {
+      "name": "GW231223_032836",
+      "version": 2,
+      "masses": [
+        46.0,
+        31.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_032836/v2"
+    },
+    {
+      "name": "GW231223_075055",
+      "version": 2,
+      "masses": [
+        11.9,
+        6.8
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_075055/v2"
+    },
+    {
+      "name": "GW231223_202619",
+      "version": 2,
+      "masses": [
+        11.1,
+        8.3
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_202619/v2"
+    },
+    {
+      "name": "GW231224_024321",
+      "version": 2,
+      "masses": [
+        9.3,
+        7.31
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231224_024321/v2"
+    },
+    {
+      "name": "GW231226_101520",
+      "version": 2,
+      "masses": [
+        40.2,
+        35.1
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231226_101520/v2"
+    },
+    {
+      "name": "GW231230_170116",
+      "version": 2,
+      "masses": [
+        53.0,
+        35.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231230_170116/v2"
+    },
+    {
+      "name": "GW231231_154016",
+      "version": 2,
+      "masses": [
+        22.5,
+        17.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231231_154016/v2"
+    },
+    {
+      "name": "GW240104_164932",
+      "version": 2,
+      "masses": [
+        42.3,
+        32.2
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240104_164932/v2"
+    },
+    {
+      "name": "GW240107_013215",
+      "version": 2,
+      "masses": [
+        59.0,
+        33.0
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240107_013215/v2"
+    },
+    {
+      "name": "GW240109_050431",
+      "version": 2,
+      "masses": [
+        28.7,
+        18.1
+      ],
+      "catalog": "GWTC-4.1",
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240109_050431/v2"
+    },
+    {
+      "name": "GW240413_022019",
+      "version": 1,
+      "masses": [
+        7.9,
+        5.57
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240413_022019/v1"
+    },
+    {
+      "name": "GW240414_054515",
+      "version": 1,
+      "masses": [
+        38.8,
+        25.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240414_054515/v1"
+    },
+    {
+      "name": "GW240420_175625",
+      "version": 1,
+      "masses": [
+        34.6,
+        23.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240420_175625/v1"
+    },
+    {
+      "name": "GW240426_031451",
+      "version": 1,
+      "masses": [
+        52.0,
+        36.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240426_031451/v1"
+    },
+    {
+      "name": "GW240428_225440",
+      "version": 1,
+      "masses": [
+        19.8,
+        14.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240428_225440/v1"
+    },
+    {
+      "name": "GW240501_033534",
+      "version": 1,
+      "masses": [
+        38.6,
+        27.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240501_033534/v1"
+    },
+    {
+      "name": "GW240505_133552",
+      "version": 1,
+      "masses": [
+        31.0,
+        23.1
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240505_133552/v1"
+    },
+    {
+      "name": "GW240507_041632",
+      "version": 1,
+      "masses": [
+        31.3,
+        8.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240507_041632/v1"
+    },
+    {
+      "name": "GW240511_031507",
+      "version": 1,
+      "masses": [
+        40.5,
+        32.2
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240511_031507/v1"
+    },
+    {
+      "name": "GW240512_024139",
+      "version": 1,
+      "masses": [
+        12.6,
+        8.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240512_024139/v1"
+    },
+    {
+      "name": "GW240513_183302",
+      "version": 1,
+      "masses": [
+        24.4,
+        16.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240513_183302/v1"
+    },
+    {
+      "name": "GW240514_121713",
+      "version": 1,
+      "masses": [
+        46.8,
+        36.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240514_121713/v1"
+    },
+    {
+      "name": "GW240515_005301",
+      "version": 1,
+      "masses": [
+        37.1,
+        18.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240515_005301/v1"
+    },
+    {
+      "name": "GW240519_012815",
+      "version": 1,
+      "masses": [
+        65.0,
+        39.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240519_012815/v1"
+    },
+    {
+      "name": "GW240520_213616",
+      "version": 1,
+      "masses": [
+        11.4,
+        8.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240520_213616/v1"
+    },
+    {
+      "name": "GW240525_031210",
+      "version": 1,
+      "masses": [
+        31.1,
+        21.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240525_031210/v1"
+    },
+    {
+      "name": "GW240526_093944",
+      "version": 1,
+      "masses": [
+        14.5,
+        8.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240526_093944/v1"
+    },
+    {
+      "name": "GW240527_183429",
+      "version": 1,
+      "masses": [
+        52.0,
+        33.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_183429/v1"
+    },
+    {
+      "name": "GW240527_230910",
+      "version": 1,
+      "masses": [
+        27.6,
+        10.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_230910/v1"
+    },
+    {
+      "name": "GW240530_012417",
+      "version": 1,
+      "masses": [
+        14.1,
+        8.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240530_012417/v1"
+    },
+    {
+      "name": "GW240531_040326",
+      "version": 1,
+      "masses": [
+        19.5,
+        14.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_040326/v1"
+    },
+    {
+      "name": "GW240531_075248",
+      "version": 1,
+      "masses": [
+        33.0,
+        22.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_075248/v1"
+    },
+    {
+      "name": "GW240601_061200",
+      "version": 1,
+      "masses": [
+        52.0,
+        32.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_061200/v1"
+    },
+    {
+      "name": "GW240601_231004",
+      "version": 1,
+      "masses": [
+        10.6,
+        7.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_231004/v1"
+    },
+    {
+      "name": "GW240612_081540",
+      "version": 1,
+      "masses": [
+        55.0,
+        38.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240612_081540/v1"
+    },
+    {
+      "name": "GW240615_113620",
+      "version": 1,
+      "masses": [
+        34.0,
+        26.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_113620/v1"
+    },
+    {
+      "name": "GW240615_160735",
+      "version": 1,
+      "masses": [
+        28.5,
+        20.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_160735/v1"
+    },
+    {
+      "name": "GW240618_071627",
+      "version": 1,
+      "masses": [
+        65.0,
+        40.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240618_071627/v1"
+    },
+    {
+      "name": "GW240621_195059",
+      "version": 1,
+      "masses": [
+        36.8,
+        29.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_195059/v1"
+    },
+    {
+      "name": "GW240621_200935",
+      "version": 1,
+      "masses": [
+        41.6,
+        31.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_200935/v1"
+    },
+    {
+      "name": "GW240621_214041",
+      "version": 1,
+      "masses": [
+        45.0,
+        32.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_214041/v1"
+    },
+    {
+      "name": "GW240622_004008",
+      "version": 1,
+      "masses": [
+        18.6,
+        11.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240622_004008/v1"
+    },
+    {
+      "name": "GW240627_131622",
+      "version": 1,
+      "masses": [
+        13.2,
+        6.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240627_131622/v1"
+    },
+    {
+      "name": "GW240629_145256",
+      "version": 1,
+      "masses": [
+        11.1,
+        7.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240629_145256/v1"
+    },
+    {
+      "name": "GW240630_101703",
+      "version": 1,
+      "masses": [
+        28.6,
+        21.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240630_101703/v1"
+    },
+    {
+      "name": "GW240703_191355",
+      "version": 1,
+      "masses": [
+        34.4,
+        26.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240703_191355/v1"
+    },
+    {
+      "name": "GW240705_053215",
+      "version": 1,
+      "masses": [
+        47.1,
+        35.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240705_053215/v1"
+    },
+    {
+      "name": "GW240716_034900",
+      "version": 1,
+      "masses": [
+        40.3,
+        26.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240716_034900/v1"
+    },
+    {
+      "name": "GW240824_205609",
+      "version": 1,
+      "masses": [
+        70.0,
+        37.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240824_205609/v1"
+    },
+    {
+      "name": "GW240825_055146",
+      "version": 1,
+      "masses": [
+        13.2,
+        7.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240825_055146/v1"
+    },
+    {
+      "name": "GW240830_211120",
+      "version": 1,
+      "masses": [
+        11.9,
+        7.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240830_211120/v1"
+    },
+    {
+      "name": "GW240902_143306",
+      "version": 1,
+      "masses": [
+        24.4,
+        18.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240902_143306/v1"
+    },
+    {
+      "name": "GW240907_153833",
+      "version": 1,
+      "masses": [
+        38.0,
+        28.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240907_153833/v1"
+    },
+    {
+      "name": "GW240908_082628",
+      "version": 1,
+      "masses": [
+        39.8,
+        27.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_082628/v1"
+    },
+    {
+      "name": "GW240908_125134",
+      "version": 1,
+      "masses": [
+        45.0,
+        32.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_125134/v1"
+    },
+    {
+      "name": "GW240910_103535",
+      "version": 1,
+      "masses": [
+        10.9,
+        6.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240910_103535/v1"
+    },
+    {
+      "name": "GW240915_001357",
+      "version": 1,
+      "masses": [
+        10.9,
+        7.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_001357/v1"
+    },
+    {
+      "name": "GW240915_105151",
+      "version": 1,
+      "masses": [
+        11.6,
+        7.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_105151/v1"
+    },
+    {
+      "name": "GW240916_184352",
+      "version": 1,
+      "masses": [
+        10.7,
+        7.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240916_184352/v1"
+    },
+    {
+      "name": "GW240919_061559",
+      "version": 1,
+      "masses": [
+        38.3,
+        29.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240919_061559/v1"
+    },
+    {
+      "name": "GW240920_073424",
+      "version": 1,
+      "masses": [
+        24.7,
+        13.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_073424/v1"
+    },
+    {
+      "name": "GW240920_124024",
+      "version": 1,
+      "masses": [
+        37.1,
+        31.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_124024/v1"
+    },
+    {
+      "name": "GW240921_201835",
+      "version": 1,
+      "masses": [
+        34.9,
+        9.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240921_201835/v1"
+    },
+    {
+      "name": "GW240922_142106",
+      "version": 1,
+      "masses": [
+        11.5,
+        7.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240922_142106/v1"
+    },
+    {
+      "name": "GW240923_204006",
+      "version": 1,
+      "masses": [
+        46.1,
+        34.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240923_204006/v1"
+    },
+    {
+      "name": "GW240924_000316",
+      "version": 1,
+      "masses": [
+        46.0,
+        34.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240924_000316/v1"
+    },
+    {
+      "name": "GW240925_005809",
+      "version": 2,
+      "masses": [
+        9.02,
+        6.99
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240925_005809/v2"
+    },
+    {
+      "name": "GW240930_035959",
+      "version": 1,
+      "masses": [
+        25.5,
+        11.2
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_035959/v1"
+    },
+    {
+      "name": "GW240930_234614",
+      "version": 1,
+      "masses": [
+        35.8,
+        21.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_234614/v1"
+    },
+    {
+      "name": "GW241002_030559",
+      "version": 1,
+      "masses": [
+        37.3,
+        29.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241002_030559/v1"
+    },
+    {
+      "name": "GW241006_015333",
+      "version": 1,
+      "masses": [
+        24.6,
+        20.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241006_015333/v1"
+    },
+    {
+      "name": "GW241007_082943",
+      "version": 1,
+      "masses": [
+        36.6,
+        26.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241007_082943/v1"
+    },
+    {
+      "name": "GW241009_022835",
+      "version": 1,
+      "masses": [
+        37.1,
+        26.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_022835/v1"
+    },
+    {
+      "name": "GW241009_084816",
+      "version": 1,
+      "masses": [
+        12.7,
+        8.1
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_084816/v1"
+    },
+    {
+      "name": "GW241009_220455",
+      "version": 1,
+      "masses": [
+        33.2,
+        25.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_220455/v1"
+    },
+    {
+      "name": "GW241011_233834",
+      "version": 2,
+      "masses": [
+        19.5,
+        5.96
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241011_233834/v2"
+    },
+    {
+      "name": "GW241101_220523",
+      "version": 1,
+      "masses": [
+        41.0,
+        19.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241101_220523/v1"
+    },
+    {
+      "name": "GW241102_124058",
+      "version": 1,
+      "masses": [
+        10.9,
+        8.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_124058/v1"
+    },
+    {
+      "name": "GW241102_144729",
+      "version": 1,
+      "masses": [
+        44.4,
+        31.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_144729/v1"
+    },
+    {
+      "name": "GW241109_033317",
+      "version": 1,
+      "masses": [
+        42.4,
+        31.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_033317/v1"
+    },
+    {
+      "name": "GW241109_115924",
+      "version": 1,
+      "masses": [
+        7.3,
+        5.14
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_115924/v1"
+    },
+    {
+      "name": "GW241110_124123",
+      "version": 2,
+      "masses": [
+        16.4,
+        8.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241110_124123/v2"
+    },
+    {
+      "name": "GW241111_111552",
+      "version": 1,
+      "masses": [
+        25.3,
+        20.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241111_111552/v1"
+    },
+    {
+      "name": "GW241113_163507",
+      "version": 1,
+      "masses": [
+        19.3,
+        14.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241113_163507/v1"
+    },
+    {
+      "name": "GW241114_024711",
+      "version": 1,
+      "masses": [
+        47.0,
+        25.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_024711/v1"
+    },
+    {
+      "name": "GW241114_235258",
+      "version": 1,
+      "masses": [
+        11.3,
+        7.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_235258/v1"
+    },
+    {
+      "name": "GW241116_151753",
+      "version": 1,
+      "masses": [
+        70.0,
+        24.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241116_151753/v1"
+    },
+    {
+      "name": "GW241124_024914",
+      "version": 1,
+      "masses": [
+        42.0,
+        26.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241124_024914/v1"
+    },
+    {
+      "name": "GW241125_010116",
+      "version": 1,
+      "masses": [
+        60.0,
+        47.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241125_010116/v1"
+    },
+    {
+      "name": "GW241127_061008",
+      "version": 1,
+      "masses": [
+        63.8,
+        20.8
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241127_061008/v1"
+    },
+    {
+      "name": "GW241129_021832",
+      "version": 1,
+      "masses": [
+        30.4,
+        23.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241129_021832/v1"
+    },
+    {
+      "name": "GW241130_034908",
+      "version": 1,
+      "masses": [
+        29.9,
+        24.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_034908/v1"
+    },
+    {
+      "name": "GW241130_110422",
+      "version": 1,
+      "masses": [
+        11.1,
+        6.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_110422/v1"
+    },
+    {
+      "name": "GW241201_055758",
+      "version": 1,
+      "masses": [
+        47.0,
+        33.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241201_055758/v1"
+    },
+    {
+      "name": "GW241210_060606",
+      "version": 1,
+      "masses": [
+        29.0,
+        21.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_060606/v1"
+    },
+    {
+      "name": "GW241210_120900",
+      "version": 1,
+      "masses": [
+        40.0,
+        23.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_120900/v1"
+    },
+    {
+      "name": "GW241225_042553",
+      "version": 1,
+      "masses": [
+        12.4,
+        8.1
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_042553/v1"
+    },
+    {
+      "name": "GW241225_082815",
+      "version": 1,
+      "masses": [
+        55.7,
+        42.2
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_082815/v1"
+    },
+    {
+      "name": "GW241229_155844",
+      "version": 1,
+      "masses": [
+        52.0,
+        33.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241229_155844/v1"
+    },
+    {
+      "name": "GW241230_084504",
+      "version": 1,
+      "masses": [
+        42.4,
+        33.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_084504/v1"
+    },
+    {
+      "name": "GW241230_233618",
+      "version": 1,
+      "masses": [
+        68.0,
+        49.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_233618/v1"
+    },
+    {
+      "name": "GW241231_054133",
+      "version": 1,
+      "masses": [
+        12.4,
+        7.1
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241231_054133/v1"
+    },
+    {
+      "name": "GW250101_011205",
+      "version": 1,
+      "masses": [
+        30.0,
+        21.1
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250101_011205/v1"
+    },
+    {
+      "name": "GW250104_015122",
+      "version": 1,
+      "masses": [
+        45.8,
+        34.5
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250104_015122/v1"
+    },
+    {
+      "name": "GW250108_152221",
+      "version": 1,
+      "masses": [
+        54.0,
+        36.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250108_152221/v1"
+    },
+    {
+      "name": "GW250109_010541",
+      "version": 1,
+      "masses": [
+        37.5,
+        27.4
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_010541/v1"
+    },
+    {
+      "name": "GW250109_074552",
+      "version": 1,
+      "masses": [
+        39.0,
+        30.2
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_074552/v1"
+    },
+    {
+      "name": "GW250114_082203",
+      "version": 2,
+      "masses": [
+        33.76,
+        32.26
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250114_082203/v2"
+    },
+    {
+      "name": "GW250116_015318",
+      "version": 1,
+      "masses": [
+        34.2,
+        21.3
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250116_015318/v1"
+    },
+    {
+      "name": "GW250118_023225",
+      "version": 1,
+      "masses": [
+        44.0,
+        31.0
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_023225/v1"
+    },
+    {
+      "name": "GW250118_055802",
+      "version": 1,
+      "masses": [
+        10.3,
+        6.9
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_055802/v1"
+    },
+    {
+      "name": "GW250118_170523",
+      "version": 1,
+      "masses": [
+        38.1,
+        29.6
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_170523/v1"
+    },
+    {
+      "name": "GW250119_025138",
+      "version": 1,
+      "masses": [
+        33.8,
+        26.7
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_025138/v1"
+    },
+    {
+      "name": "GW250119_190238",
+      "version": 1,
+      "masses": [
+        11.54,
+        9.95
+      ],
+      "catalog": "GWTC-5.0",
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_190238/v1"
+    }
+  ]
+}

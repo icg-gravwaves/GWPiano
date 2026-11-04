@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 350" role="img" aria-labelledby="title">
+  <title id="title">GW Piano — a gravitational-wave chirp becoming piano keys</title>
+  <path d="M25 165 C53 169 69 162 88 153 S115 145 129 161 S153 180 167 153 S190 126 203 160 S225 197 238 151 S258 104 271 157 S290 215 303 147 S320 78 333 155 S350 237 363 142 S378 51 389 153 S403 257 415 133 S429 23 438 147 L445 231 Q447 250 464 245 L476 242 Q487 240 486 224 L482 54 M486 224 Q486 240 502 236 L516 232 Q528 229 527 213 L523 48 M527 213 Q528 229 545 224 L560 220 Q572 217 571 201 L567 44" fill="none" stroke="#b077cf" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#c6f078">
+    <rect x="467" y="27" width="29" height="102" rx="3"/>
+    <rect x="508" y="23" width="29" height="102" rx="3"/>
+    <rect x="552" y="19" width="29" height="102" rx="3"/>
+  </g>
+  <text x="310" y="327" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="77" font-weight="700" letter-spacing="1"><tspan fill="#b077cf">GW</tspan><tspan fill="#ffffff"> PIANO</tspan></text>
+</svg>
