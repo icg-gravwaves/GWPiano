@@ -52,6 +52,12 @@ The workflow needs `pages: write` and `id-token: write` (already declared). For 
 
 Deployment is not automatic from this local workspace: a repository push and Pages configuration are required. No pull request is created by this project.
 
+## Sampler pack in Git LFS
+
+`sound-packs/GWPiano.zip` contains the full 88-key sampler pack and is tracked with Git LFS. Install [Git LFS](https://git-lfs.com/), run `git lfs install`, and clone normally (or run `git lfs pull` in an existing clone) to download the ZIP instead of its pointer.
+
+To refresh the committed pack, run `gw-piano --output dist`, then `cp dist/gw-piano-sound-pack.zip sound-packs/GWPiano.zip` and commit it. The Pages workflow regenerates its own pack from source. GitHub source ZIP archives may contain only the LFS pointer depending on repository settings; use Git LFS or the website download for the audio pack.
+
 ## Licensing and branding
 
 Project code: **GPL-3.0-or-later**, see LICENSE. LALSuite is GPL-2.0-or-later and is installed as a dependency, not bundled into the website. Generated waveform audio is offered under **CC0-1.0**, separately from code. GWOSC data retains its source attribution and applicable source terms; no project license is asserted over third-party data.
