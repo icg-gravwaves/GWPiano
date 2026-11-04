@@ -1,3 +1,5 @@
+import {musicalSample} from './musical.mjs';
+
 'use strict';
 const status = document.querySelector('#status');
 const current = document.querySelector('#current');
@@ -5,7 +7,7 @@ const keyboard = document.querySelector('#keyboard');
 const shortcuts = 'awsedftgyhujk';
 let context, master, manifest;
 let loadingAudio = false;
-const buffers = new Map(), onsets = new Map(), voices = new Set(), buttons = new Map();
+const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
 const wavePath = Array.from({length: 1200}, (_, i) => {
   const t = i / 1199;
@@ -19,6 +21,20 @@ function stopAll() {
   for (const button of buttons.values()) button.classList.remove('active');
 }
 document.querySelector('#stop').onclick = stopAll;
+function describeMode() {
+  const musical = document.querySelector('#musical-mode').checked;
+  document.querySelector('#mode-description').textContent = musical
+    ? 'Musical: short model chirp + 350 ms decaying tone at the note frequency. The tone is synthetic.'
+    : 'Scientific: full IMRPhenomD waveform, including its quiet lead-in; no added tone.';
+}
+document.querySelector('#musical-mode').addEventListener('change', () => {
+  stopAll();
+  describeMode();
+  status.textContent = document.querySelector('#musical-mode').checked
+    ? 'Musical mode selected · short chirp + synthetic note tone'
+    : 'Scientific mode selected · full waveform with quiet lead-in';
+});
+describeMode();
 window.addEventListener('blur', stopAll);
 document.querySelector('#volume').oninput = event => {
   if (master) master.gain.setTargetAtTime(Number(event.target.value), context.currentTime, 0.015);
@@ -30,16 +46,6 @@ function createAudio() {
   const compressor = context.createDynamicsCompressor();
   master.gain.value = Number(document.querySelector('#volume').value);
   master.connect(compressor).connect(context.destination);
-}
-function audibleOnset(buffer) {
-  const samples = buffer.getChannelData(0);
-  let peak = 0;
-  for (const sample of samples) peak = Math.max(peak, Math.abs(sample));
-  // Skip very quiet lead-in while retaining the note's merger and ringdown.
-  for (let i = 0; i < samples.length; i++) {
-    if (Math.abs(samples[i]) >= peak * 0.05) return i / buffer.sampleRate;
-  }
-  return 0;
 }
 async function preloadAudio() {
   if (loadingAudio) return;
@@ -58,7 +64,10 @@ async function preloadAudio() {
           const response = await fetch(note.file);
           if (!response.ok) throw new Error(`Sample download failed: ${response.status}`);
           const buffer = await context.decodeAudioData(await response.arrayBuffer());
-          onsets.set(note.midi, audibleOnset(buffer));
+          const samples = musicalSample(buffer.getChannelData(0), buffer.sampleRate, note.frequency);
+          const musical = context.createBuffer(1, samples.length, buffer.sampleRate);
+          musical.copyToChannel(samples, 0);
+          musicalBuffers.set(note.midi, musical);
           buffers.set(note.midi, buffer);
           buttons.get(note.midi).disabled = false;
         } catch (error) { console.debug('GW Piano sample unavailable', note.name, error); }
@@ -89,7 +98,8 @@ async function play(note) {
     const startAt = context.currentTime;
     gain.gain.setValueAtTime(0, startAt);
     gain.gain.linearRampToValueAtTime(0.25, startAt + 0.005);
-    source.buffer = buffers.get(note.midi);
+    const musical = document.querySelector('#musical-mode').checked;
+    source.buffer = (musical ? musicalBuffers : buffers).get(note.midi);
     source.connect(gain).connect(master);
     voices.add(source);
     const button = buttons.get(note.midi);
@@ -99,15 +109,15 @@ async function play(note) {
       if (![...voices].some(voice => voice.note === note.midi)) button.classList.remove('active');
     };
     source.note = note.midi;
-    source.start(startAt, onsets.get(note.midi) || 0);
+    source.start(startAt);
     button.dataset.playbackLatencyMs = (performance.now() - pressedAt).toFixed(2);
     console.debug('GW Piano playback', {note: note.name,
       softwareLatencyMs: Number(button.dataset.playbackLatencyMs),
-      skippedLeadInSeconds: onsets.get(note.midi), baseLatencySeconds: context.baseLatency});
+      mode: musical ? 'musical' : 'scientific', baseLatencySeconds: context.baseLatency});
     played.push(note.mass, note.mass);
     drawHistogram();
     current.textContent = `${note.name} / ${note.frequency.toFixed(2)} Hz / ${note.mass.toFixed(1)} + ${note.mass.toFixed(1)} M☉`;
-    status.textContent = 'One-shot chirps · play multiple keys for a chord';
+    status.textContent = musical ? 'Musical · short chirp + synthetic note tone' : 'Scientific · full IMRPhenomD waveform';
   } catch (error) { status.textContent = `Could not play audio. ${error.message}. Try again.`; }
 }
 async function setup() {

@@ -30,3 +30,5 @@ input[type=range]::-moz-range-thumb{width:22px;height:26px;border:2px solid #101
 section:focus-visible{outline:3px solid #ffffff;outline-offset:3px}
 
 #retry-audio{background:#c6f078;color:#101716;border:1px solid #c6f078;border-radius:4px;padding:10px 15px}.playback-note{font-size:14px;color:var(--muted);line-height:1.5;margin:8px 0 0}.key:disabled{cursor:wait}.key:disabled span,.key:disabled kbd{color:inherit}.instrument.outreach .playback-note{font-size:12px;flex-shrink:0}
+
+.pack-download{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;border-top:1px solid var(--line);padding:36px 0 44px}.pack-download .download{margin:0;min-width:260px}.pack-download .small{line-height:1.6}
