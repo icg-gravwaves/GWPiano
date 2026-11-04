@@ -65,11 +65,9 @@ The calendar timeline shows linked GWOSC observing-run intervals (O1, O2, O3a, O
 
 The workflow needs `pages: write` and `id-token: write` (already declared). For a private repository, check your GitHub plan's Pages availability. No backend, credentials, custom domain or separate `gh-pages` branch is needed. See [GitHub's custom workflow instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-## Sampler pack in Git LFS
+## Sampler pack
 
-`sound-packs/GWPiano.zip` contains the full 88-key sampler pack and is tracked with Git LFS. Install [Git LFS](https://git-lfs.com/), run `git lfs install`, and clone normally (or run `git lfs pull` in an existing clone) to download the ZIP instead of its pointer.
-
-To refresh the committed pack, run `gw-piano --output dist`, then `cp dist/gw-piano-sound-pack.zip sound-packs/GWPiano.zip` and commit it. The Pages workflow regenerates its own pack from source. GitHub source ZIP archives may contain only the LFS pointer depending on repository settings; use Git LFS or the website download for the audio pack.
+The full 88-key sampler pack (`gw-piano-sound-pack.zip`) is built by `gw-piano --output dist` and is not committed. The Pages workflow rebuilds it on every deploy, and the site's **Download sound pack** button links to that copy.
 
 ## Licensing and branding
 
