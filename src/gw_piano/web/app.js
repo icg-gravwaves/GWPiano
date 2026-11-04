@@ -13,6 +13,17 @@ let loadingAudio = false;
 const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
 const eventsButton = document.querySelector('#play-events');
+const pauseButton = document.querySelector('#pause-events');
+let catalogPaused = false;
+function setPaused(paused) {
+  catalogPaused = paused;
+  pauseButton.textContent = paused ? 'Resume ▶' : 'Pause ❚❚';
+  pauseButton.setAttribute('aria-pressed', String(paused));
+}
+function showPause(visible) {
+  pauseButton.hidden = !visible;
+  if (!visible) setPaused(false);
+}
 const pendingBuffers = new Map();
 let catalogLoading = null;
 let catalogBusy = false, ensembleSource = null;
@@ -63,6 +74,8 @@ function stopAll() {
   for (const button of buttons.values()) button.classList.remove('active');
   ensembleSource = null;
   catalogBusy = false;
+  if (catalogPaused && context && context.state === 'suspended') context.resume();
+  showPause(false);
   eventsButton.textContent = 'Play detections in order';
   eventsButton.dataset.state = 'idle';
 }
@@ -150,6 +163,8 @@ async function preloadAudio() {
 document.querySelector('#retry-audio').addEventListener('click', preloadAudio);
 async function play(note) {
   const pressedAt = performance.now();
+  // A keyboard note while detections are paused ends the paused run.
+  if (catalogPaused) stopAll();
   const ticket = generation;
   try {
     // Unavailable notes are never queued to play late after a download.
@@ -251,6 +266,9 @@ function svgElement(tag, attributes, text) {
   if (text !== undefined) element.textContent = text;
   return element;
 }
+// Continuous rainbow over the 12 semitones, starting at A (red) and ending at G# (violet).
+// Sharps sit between their neighbours, so they stay distinct from naturals.
+const noteColor = midi => `hsl(${((midi - 21) % 12 + 12) % 12 * 25}, 85%, 70%)`;
 function drawHistogram() {
   if (!catalog || !fullNotes.length) return;
   const observed = catalog.events.flatMap(event => event.masses);
@@ -298,15 +316,13 @@ function drawHistogram() {
     table.append(row);
   }
   const noteTable = document.querySelector('#note-mass-table'); noteTable.replaceChildren();
-  const noteColors = ['#c6f078', '#a8d8ff', '#e5b0ff', '#ffada8', '#ffd080', '#7ee2c4',
-    '#f4b5d8', '#c0c8ff', '#f5ec97', '#91dff5', '#dbbda0', '#b4e6b8'];
   const labelRowEnds = [];
   const labelLayer = svgElement('g', {class:'note-labels'});
   for (const note of [...fullNotes].sort((a, b) => a.mass - b.mass)) {
     // Markers and bars share the same linear component-mass axis.
     const x = 60 + axis.position(note.mass) * 920;
     const selected = latestNote?.midi === note.midi;
-    const color = noteColors[note.midi % 12];
+    const color = noteColor(note.midi);
     const marker = svgElement('g', {class:'note-marker', 'data-midi':note.midi});
     marker.append(svgElement('title', {}, `${note.name}: ${note.mass.toFixed(2)} M☉ per black hole; ${note.frequency.toFixed(2)} Hz`));
     marker.append(svgElement('line', {x1:x, x2:x, y1:60, y2:305,
@@ -471,6 +487,7 @@ async function playCatalog() {
       if (ensembleSource === source) {
         progress(context.currentTime - start);
         ensembleSource = null;
+        showPause(false);
         clearHighlights();
         eventsButton.textContent = 'Play detections in order';
         eventsButton.dataset.state = 'idle';
@@ -488,6 +505,7 @@ async function playCatalog() {
     drawHistogram();
     highlightTimeline(plan, start, ticket, progress);
     eventsButton.textContent = 'Stop all events';
+    showPause(true);
     eventsButton.dataset.state = 'playing';
     eventsButton.dataset.components = String(plan.length);
     eventsButton.dataset.events = String(catalog.events.length);
@@ -502,6 +520,20 @@ async function playCatalog() {
   } finally { if (ticket === generation) catalogBusy = false; }
 }
 eventsButton.addEventListener('click', playCatalog);
+// Pausing suspends the shared audio clock, so scheduled sounds, highlights and the
+// timeline cursor all freeze and resume from the same point.
+pauseButton.addEventListener('click', async () => {
+  if (!ensembleSource || !context) return;
+  if (catalogPaused) {
+    await context.resume();
+    setPaused(false);
+    status.textContent = 'Detection playback resumed.';
+  } else {
+    await context.suspend();
+    setPaused(true);
+    status.textContent = 'Detection playback paused. Press Resume to continue.';
+  }
+});
 
 const instrument = document.querySelector('#instrument');
 const fullscreenButton = document.querySelector('#fullscreen');
