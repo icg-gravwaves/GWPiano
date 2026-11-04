@@ -4,7 +4,8 @@ const current = document.querySelector('#current');
 const keyboard = document.querySelector('#keyboard');
 const shortcuts = 'awsedftgyhujk';
 let context, master, manifest;
-const buffers = new Map(), pending = new Map(), voices = new Set(), buttons = new Map();
+let loadingAudio = false;
+const buffers = new Map(), onsets = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
 const wavePath = Array.from({length: 1200}, (_, i) => {
   const t = i / 1199;
@@ -22,32 +23,72 @@ window.addEventListener('blur', stopAll);
 document.querySelector('#volume').oninput = event => {
   if (master) master.gain.setTargetAtTime(Number(event.target.value), context.currentTime, 0.015);
 };
+function createAudio() {
+  if (context) return;
+  context = new AudioContext({latencyHint: 'interactive'});
+  master = context.createGain();
+  const compressor = context.createDynamicsCompressor();
+  master.gain.value = Number(document.querySelector('#volume').value);
+  master.connect(compressor).connect(context.destination);
+}
+function audibleOnset(buffer) {
+  const samples = buffer.getChannelData(0);
+  let peak = 0;
+  for (const sample of samples) peak = Math.max(peak, Math.abs(sample));
+  // Skip very quiet lead-in while retaining the note's merger and ringdown.
+  for (let i = 0; i < samples.length; i++) {
+    if (Math.abs(samples[i]) >= peak * 0.05) return i / buffer.sampleRate;
+  }
+  return 0;
+}
+async function preloadAudio() {
+  if (loadingAudio) return;
+  loadingAudio = true;
+  const retry = document.querySelector('#retry-audio');
+  retry.hidden = true;
+  status.textContent = 'Preparing keyboard audio… Keys become available as sounds load.';
+  try {
+    createAudio();
+    const queue = manifest.notes.filter(note => !buffers.has(note.midi));
+    // Limit concurrent decoding to keep tablet memory and startup work bounded.
+    await Promise.all(Array.from({length: 4}, async () => {
+      while (queue.length) {
+        const note = queue.shift();
+        try {
+          const response = await fetch(note.file);
+          if (!response.ok) throw new Error(`Sample download failed: ${response.status}`);
+          const buffer = await context.decodeAudioData(await response.arrayBuffer());
+          onsets.set(note.midi, audibleOnset(buffer));
+          buffers.set(note.midi, buffer);
+          buttons.get(note.midi).disabled = false;
+        } catch (error) { console.debug('GW Piano sample unavailable', note.name, error); }
+      }
+    }));
+    const missing = manifest.notes.length - buffers.size;
+    retry.hidden = missing === 0;
+    status.textContent = missing
+      ? `${buffers.size} sounds ready; ${missing} unavailable. Use Retry audio to try again.`
+      : 'Ready · sounds preloaded for immediate playback';
+  } catch (error) {
+    retry.hidden = false;
+    status.textContent = `Could not prepare audio: ${error.message}. Use Retry audio.`;
+  } finally { loadingAudio = false; }
+}
+document.querySelector('#retry-audio').addEventListener('click', preloadAudio);
 async function play(note) {
+  const pressedAt = performance.now();
   const ticket = generation;
   try {
-    if (!context) {
-      context = new AudioContext();
-      master = context.createGain();
-      // Fixed headroom and a compressor keep chords under control.
-      const compressor = context.createDynamicsCompressor();
-      master.gain.value = Number(document.querySelector('#volume').value);
-      master.connect(compressor).connect(context.destination);
-    }
-    await context.resume();
-    if (!buffers.has(note.midi)) {
-      status.textContent = `Loading ${note.name}…`;
-      if (!pending.has(note.midi)) pending.set(note.midi, (async () => {
-        const response = await fetch(note.file);
-        if (!response.ok) throw new Error('Sample download failed');
-        buffers.set(note.midi, await context.decodeAudioData(await response.arrayBuffer()));
-      })().finally(() => pending.delete(note.midi)));
-      await pending.get(note.midi);
-    }
+    // Unavailable notes are never queued to play late after a download.
+    if (!context || !buffers.has(note.midi)) return;
+    if (context.state !== 'running') await context.resume();
     if (ticket !== generation) return;
     if (voices.size >= 24) { const oldest = voices.values().next().value; oldest.stop(); voices.delete(oldest); }
     const source = context.createBufferSource();
     const gain = context.createGain();
-    gain.gain.value = 0.25;
+    const startAt = context.currentTime;
+    gain.gain.setValueAtTime(0, startAt);
+    gain.gain.linearRampToValueAtTime(0.25, startAt + 0.005);
     source.buffer = buffers.get(note.midi);
     source.connect(gain).connect(master);
     voices.add(source);
@@ -58,7 +99,11 @@ async function play(note) {
       if (![...voices].some(voice => voice.note === note.midi)) button.classList.remove('active');
     };
     source.note = note.midi;
-    source.start();
+    source.start(startAt, onsets.get(note.midi) || 0);
+    button.dataset.playbackLatencyMs = (performance.now() - pressedAt).toFixed(2);
+    console.debug('GW Piano playback', {note: note.name,
+      softwareLatencyMs: Number(button.dataset.playbackLatencyMs),
+      skippedLeadInSeconds: onsets.get(note.midi), baseLatencySeconds: context.baseLatency});
     played.push(note.mass, note.mass);
     drawHistogram();
     current.textContent = `${note.name} / ${note.frequency.toFixed(2)} Hz / ${note.mass.toFixed(1)} + ${note.mass.toFixed(1)} M☉`;
@@ -78,6 +123,7 @@ async function setup() {
     const black = note.name.includes('#');
     const button = document.createElement('button');
     button.className = `key ${black ? 'black' : 'white'}`;
+    button.disabled = true;
     const position = black ? whiteIndex - 0.32 : whiteIndex++;
     button.style.left = `${Math.max(0, position) / whites * 100}%`;
     button.style.width = `${(black ? 0.64 : 1) / whites * 100}%`;
@@ -98,14 +144,17 @@ async function setup() {
   }
   document.addEventListener('keydown', event => {
     if (!document.querySelector('#shortcuts').checked) return;
-    if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || /INPUT|BUTTON|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+    const target = event.target;
+    const editingText = target.isContentEditable || target.matches('textarea, select, input:not([type="checkbox"]):not([type="range"])');
+    if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || editingText) return;
     const index = shortcuts.indexOf(event.key.toLowerCase());
     if (index >= 0 && mapped[index]) { event.preventDefault(); play(mapped[index]); }
-    if (event.code === 'Space') { event.preventDefault(); stopAll(); }
+    // Space retains native activation for focused buttons and checkboxes.
+    if (event.code === 'Space' && !target.closest('button, input, a, summary')) { event.preventDefault(); stopAll(); }
   });
   document.querySelector('#range').textContent = `${manifest.notes[0].name} — ${manifest.notes.at(-1).name} / ${manifest.notes.length} SAMPLES`;
   document.querySelector('#pack-info').textContent = `${manifest.pack.count}-key sound pack · ${manifest.pack.first}–${manifest.pack.last} · WAV + SFZ · 44.1 kHz`;
-  status.textContent = 'Ready · select a key to enable audio';
+  await preloadAudio();
 }
 setup().catch(error => { status.textContent = `${error.message}. Serve this folder over HTTP.`; });
 
