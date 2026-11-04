@@ -27,3 +27,10 @@ test('invalid masses and bin widths are rejected', () => {
   for (const masses of [[],[0],[-1],[NaN]]) assert.throws(()=>massBins(masses),RangeError);
   for (const width of [0,-1,NaN]) assert.throws(()=>massBins([1],width),RangeError);
 });
+test('displayed range can end at 150 without changing linear bin widths',()=>{
+ const axis=massBins([137],2,150);
+ assert.equal(axis.edges.at(-1),150);
+ assert.equal(axis.edges.length,76);
+ assert.equal(axis.index(150),74);
+ assert.equal(axis.position(75),0.5);
+});

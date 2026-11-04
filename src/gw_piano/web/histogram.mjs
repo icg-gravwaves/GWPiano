@@ -1,10 +1,11 @@
 /** Small equal-width component-mass bins on a linear axis starting at zero. */
-export function massBins(masses, binWidth = 2) {
+export function massBins(masses, binWidth = 2, maximum = null) {
   if (!masses.length || masses.some(value => !Number.isFinite(value) || value <= 0)) {
     throw new RangeError('Masses must be finite and positive');
   }
   if (!Number.isFinite(binWidth) || binWidth <= 0) throw new RangeError('Bin width must be positive');
-  const count = Math.max(10, Math.ceil(Math.max(...masses) / (binWidth * 10)) * 10);
+  if (maximum !== null && (!Number.isFinite(maximum) || maximum <= 0)) throw new RangeError('Maximum mass must be positive');
+  const count = maximum === null ? Math.max(10, Math.ceil(Math.max(...masses) / (binWidth * 10)) * 10) : Math.ceil(maximum / binWidth);
   const edges = Array.from({length: count + 1}, (_, i) => i * binWidth);
   return {
     edges,

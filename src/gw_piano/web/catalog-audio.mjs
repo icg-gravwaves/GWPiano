@@ -3,13 +3,13 @@ import {musicalSample} from './musical.mjs';
 /** Preserve each selected catalog component and derive its exact mass-scaled pitch. */
 export function catalogPlan(events, notes, spacing = 0) {
   if (!notes.length) throw new RangeError('Reference piano samples are required');
-  const ordered = [...events].sort((a,b) => a.name.localeCompare(b.name));
+  const ordered = [...events].sort((a,b) => (a.offset ?? 0)-(b.offset ?? 0) || a.name.localeCompare(b.name));
   return ordered.flatMap((event, index) => event.masses.map(mass => {
     if (!Number.isFinite(mass) || mass <= 0) throw new RangeError('Catalog masses must be positive');
     const note = notes.reduce((best, candidate) =>
       Math.abs(Math.log(candidate.mass / mass)) < Math.abs(Math.log(best.mass / mass)) ? candidate : best);
     const playbackRate = note.mass / mass;
-    return {event: event.name, offset: index * spacing, mass, note, playbackRate, frequency: note.frequency * playbackRate};
+    return {event: event.name, offset: event.offset ?? index * spacing, mass, note, playbackRate, frequency: note.frequency * playbackRate};
   }));
 }
 

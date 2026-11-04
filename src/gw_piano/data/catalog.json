@@ -1,8 +1,128 @@
 {
   "source": "https://gwosc.org/eventapi/jsonfull/GWTC/",
   "retrieved": "2026-11-04",
-  "selection": "Latest event version; FAR <= 1/year; available source-frame component median masses >= 3 solar masses. Mass cut is a BH proxy, not a definitive classification. Missing masses omitted.",
+  "selection": "Latest event version; FAR <= 1/year, or confident-catalog classification when FAR is unavailable; available source-frame component median masses >= 3 solar masses. Mass cut is a BH proxy, not a definitive classification. Missing masses omitted.",
   "events": [
+    {
+      "name": "GW150914",
+      "version": 4,
+      "masses": [
+        34.6,
+        30.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW150914/v4",
+      "gps": 1126259462.4,
+      "utc": "2015-09-14T09:50:45+00:00"
+    },
+    {
+      "name": "GW151012",
+      "version": 4,
+      "masses": [
+        24.8,
+        13.6
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW151012/v4",
+      "gps": 1128678900.4,
+      "utc": "2015-10-12T09:54:43+00:00"
+    },
+    {
+      "name": "GW151226",
+      "version": 3,
+      "masses": [
+        14.2,
+        7.5
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW151226/v3",
+      "gps": 1135136350.6,
+      "utc": "2015-12-26T03:38:53+00:00"
+    },
+    {
+      "name": "GW170104",
+      "version": 3,
+      "masses": [
+        28.7,
+        20.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170104/v3",
+      "gps": 1167559936.6,
+      "utc": "2017-01-04T10:11:58+00:00"
+    },
+    {
+      "name": "GW170608",
+      "version": 4,
+      "masses": [
+        10.6,
+        7.8
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170608/v4",
+      "gps": 1180922494.5,
+      "utc": "2017-06-08T02:01:16+00:00"
+    },
+    {
+      "name": "GW170729",
+      "version": 2,
+      "masses": [
+        54.7,
+        30.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170729/v2",
+      "gps": 1185389807.3,
+      "utc": "2017-07-29T18:56:29+00:00"
+    },
+    {
+      "name": "GW170809",
+      "version": 2,
+      "masses": [
+        34.1,
+        24.2
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170809/v2",
+      "gps": 1186302519.8,
+      "utc": "2017-08-09T08:28:21+00:00"
+    },
+    {
+      "name": "GW170814",
+      "version": 4,
+      "masses": [
+        30.9,
+        24.9
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170814/v4",
+      "gps": 1186741861.5,
+      "utc": "2017-08-14T10:30:43+00:00"
+    },
+    {
+      "name": "GW170818",
+      "version": 2,
+      "masses": [
+        34.8,
+        27.6
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170818/v2",
+      "gps": 1187058327.1,
+      "utc": "2017-08-18T02:25:09+00:00"
+    },
+    {
+      "name": "GW170823",
+      "version": 2,
+      "masses": [
+        38.3,
+        29.0
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW170823/v2",
+      "gps": 1187529256.5,
+      "utc": "2017-08-23T13:13:58+00:00"
+    },
     {
       "name": "GW190408_181802",
       "version": 2,
@@ -11,7 +131,9 @@
         18.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190408_181802/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190408_181802/v2",
+      "gps": 1238782700.2,
+      "utc": "2019-04-08T18:18:02+00:00"
     },
     {
       "name": "GW190412",
@@ -21,7 +143,9 @@
         9.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190412/v4"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190412/v4",
+      "gps": 1239082262.1,
+      "utc": "2019-04-12T05:30:44+00:00"
     },
     {
       "name": "GW190413_052954",
@@ -31,7 +155,9 @@
         24.2
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_052954/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_052954/v2",
+      "gps": 1239168612.5,
+      "utc": "2019-04-13T05:29:54+00:00"
     },
     {
       "name": "GW190413_134308",
@@ -41,7 +167,9 @@
         30.4
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_134308/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190413_134308/v2",
+      "gps": 1239198206.7,
+      "utc": "2019-04-13T13:43:08+00:00"
     },
     {
       "name": "GW190421_213856",
@@ -51,7 +179,9 @@
         32.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190421_213856/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190421_213856/v2",
+      "gps": 1239917954.2,
+      "utc": "2019-04-21T21:38:56+00:00"
     },
     {
       "name": "GW190503_185404",
@@ -61,7 +191,9 @@
         28.3
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190503_185404/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190503_185404/v2",
+      "gps": 1240944862.2,
+      "utc": "2019-05-03T18:54:04+00:00"
     },
     {
       "name": "GW190512_180714",
@@ -71,7 +203,9 @@
         12.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190512_180714/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190512_180714/v2",
+      "gps": 1241719652.4,
+      "utc": "2019-05-12T18:07:14+00:00"
     },
     {
       "name": "GW190513_205428",
@@ -81,7 +215,9 @@
         18.3
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190513_205428/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190513_205428/v2",
+      "gps": 1241816086.7,
+      "utc": "2019-05-13T20:54:28+00:00"
     },
     {
       "name": "GW190517_055101",
@@ -91,7 +227,9 @@
         24.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190517_055101/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190517_055101/v2",
+      "gps": 1242107479.8,
+      "utc": "2019-05-17T05:51:01+00:00"
     },
     {
       "name": "GW190519_153544",
@@ -101,7 +239,9 @@
         40.8
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190519_153544/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190519_153544/v2",
+      "gps": 1242315362.3,
+      "utc": "2019-05-19T15:35:44+00:00"
     },
     {
       "name": "GW190521",
@@ -111,7 +251,9 @@
         57.2
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521/v4"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521/v4",
+      "gps": 1242442967.4,
+      "utc": "2019-05-21T03:02:29+00:00"
     },
     {
       "name": "GW190521_074359",
@@ -121,7 +263,9 @@
         33.4
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521_074359/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190521_074359/v2",
+      "gps": 1242459857.4,
+      "utc": "2019-05-21T07:43:59+00:00"
     },
     {
       "name": "GW190527_092055",
@@ -131,7 +275,9 @@
         22.2
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190527_092055/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190527_092055/v2",
+      "gps": 1242984073.7,
+      "utc": "2019-05-27T09:20:55+00:00"
     },
     {
       "name": "GW190602_175927",
@@ -141,7 +287,9 @@
         44.8
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190602_175927/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190602_175927/v2",
+      "gps": 1243533585.0,
+      "utc": "2019-06-02T17:59:27+00:00"
     },
     {
       "name": "GW190620_030421",
@@ -151,7 +299,9 @@
         35.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190620_030421/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190620_030421/v2",
+      "gps": 1245035079.3,
+      "utc": "2019-06-20T03:04:21+00:00"
     },
     {
       "name": "GW190630_185205",
@@ -161,7 +311,9 @@
         24.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190630_185205/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190630_185205/v2",
+      "gps": 1245955943.1,
+      "utc": "2019-06-30T18:52:05+00:00"
     },
     {
       "name": "GW190701_203306",
@@ -171,7 +323,9 @@
         40.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190701_203306/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190701_203306/v2",
+      "gps": 1246048404.5,
+      "utc": "2019-07-01T20:33:06+00:00"
     },
     {
       "name": "GW190706_222641",
@@ -181,7 +335,9 @@
         39.4
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190706_222641/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190706_222641/v2",
+      "gps": 1246487219.3,
+      "utc": "2019-07-06T22:26:41+00:00"
     },
     {
       "name": "GW190707_093326",
@@ -191,7 +347,9 @@
         7.9
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190707_093326/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190707_093326/v2",
+      "gps": 1246527224.1,
+      "utc": "2019-07-07T09:33:26+00:00"
     },
     {
       "name": "GW190708_232457",
@@ -201,7 +359,9 @@
         11.6
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190708_232457/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190708_232457/v2",
+      "gps": 1246663515.3,
+      "utc": "2019-07-08T23:24:57+00:00"
     },
     {
       "name": "GW190719_215514",
@@ -211,7 +371,9 @@
         19.9
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190719_215514/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190719_215514/v2",
+      "gps": 1247608532.9,
+      "utc": "2019-07-19T21:55:14+00:00"
     },
     {
       "name": "GW190720_000836",
@@ -221,7 +383,9 @@
         7.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190720_000836/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190720_000836/v2",
+      "gps": 1247616534.7,
+      "utc": "2019-07-20T00:08:36+00:00"
     },
     {
       "name": "GW190725_174728",
@@ -231,7 +395,9 @@
         6.3
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190725_174728/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190725_174728/v1",
+      "gps": 1248112066.4,
+      "utc": "2019-07-25T17:47:28+00:00"
     },
     {
       "name": "GW190727_060333",
@@ -241,7 +407,9 @@
         30.2
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190727_060333/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190727_060333/v2",
+      "gps": 1248242631.9,
+      "utc": "2019-07-27T06:03:33+00:00"
     },
     {
       "name": "GW190728_064510",
@@ -251,7 +419,9 @@
         8.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190728_064510/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190728_064510/v2",
+      "gps": 1248331528.5,
+      "utc": "2019-07-28T06:45:10+00:00"
     },
     {
       "name": "GW190731_140936",
@@ -261,7 +431,9 @@
         29.0
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190731_140936/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190731_140936/v2",
+      "gps": 1248617394.6,
+      "utc": "2019-07-31T14:09:36+00:00"
     },
     {
       "name": "GW190803_022701",
@@ -271,7 +443,9 @@
         27.6
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190803_022701/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190803_022701/v2",
+      "gps": 1248834439.8,
+      "utc": "2019-08-03T02:27:01+00:00"
     },
     {
       "name": "GW190805_211137",
@@ -281,7 +455,9 @@
         30.6
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190805_211137/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190805_211137/v1",
+      "gps": 1249074715.3,
+      "utc": "2019-08-05T21:11:37+00:00"
     },
     {
       "name": "GW190814",
@@ -290,7 +466,9 @@
         23.3
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190814/v3"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190814/v3",
+      "gps": 1249852257.0,
+      "utc": "2019-08-14T21:10:39+00:00"
     },
     {
       "name": "GW190828_063405",
@@ -300,7 +478,9 @@
         25.8
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_063405/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_063405/v2",
+      "gps": 1251009263.7,
+      "utc": "2019-08-28T06:34:05+00:00"
     },
     {
       "name": "GW190828_065509",
@@ -310,7 +490,9 @@
         10.4
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_065509/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190828_065509/v2",
+      "gps": 1251010527.8,
+      "utc": "2019-08-28T06:55:09+00:00"
     },
     {
       "name": "GW190910_112807",
@@ -320,7 +502,9 @@
         34.2
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190910_112807/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190910_112807/v2",
+      "gps": 1252150105.3,
+      "utc": "2019-09-10T11:28:07+00:00"
     },
     {
       "name": "GW190915_235702",
@@ -330,7 +514,9 @@
         24.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190915_235702/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190915_235702/v2",
+      "gps": 1252627040.6,
+      "utc": "2019-09-15T23:57:02+00:00"
     },
     {
       "name": "GW190917_114630",
@@ -339,7 +525,9 @@
         9.7
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190917_114630/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190917_114630/v1",
+      "gps": 1252756008.0,
+      "utc": "2019-09-17T11:46:30+00:00"
     },
     {
       "name": "GW190924_021846",
@@ -349,7 +537,9 @@
         5.1
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190924_021846/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190924_021846/v2",
+      "gps": 1253326744.8,
+      "utc": "2019-09-24T02:18:46+00:00"
     },
     {
       "name": "GW190925_232845",
@@ -359,7 +549,9 @@
         15.5
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190925_232845/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190925_232845/v1",
+      "gps": 1253489343.1,
+      "utc": "2019-09-25T23:28:45+00:00"
     },
     {
       "name": "GW190929_012149",
@@ -369,7 +561,9 @@
         26.8
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190929_012149/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190929_012149/v2",
+      "gps": 1253755327.4,
+      "utc": "2019-09-29T01:21:49+00:00"
     },
     {
       "name": "GW190930_133541",
@@ -379,7 +573,9 @@
         6.9
       ],
       "catalog": "GWTC-2.1-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190930_133541/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190930_133541/v2",
+      "gps": 1253885759.2,
+      "utc": "2019-09-30T13:35:41+00:00"
     },
     {
       "name": "GW191103_012549",
@@ -389,7 +585,9 @@
         7.9
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191103_012549/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191103_012549/v1",
+      "gps": 1256779567.5,
+      "utc": "2019-11-03T01:25:49+00:00"
     },
     {
       "name": "GW191105_143521",
@@ -399,7 +597,9 @@
         7.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191105_143521/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191105_143521/v1",
+      "gps": 1256999739.9,
+      "utc": "2019-11-05T14:35:21+00:00"
     },
     {
       "name": "GW191109_010717",
@@ -409,7 +609,9 @@
         47.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191109_010717/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191109_010717/v1",
+      "gps": 1257296855.2,
+      "utc": "2019-11-09T01:07:17+00:00"
     },
     {
       "name": "GW191127_050227",
@@ -419,7 +621,9 @@
         24.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191127_050227/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191127_050227/v1",
+      "gps": 1258866165.5,
+      "utc": "2019-11-27T05:02:27+00:00"
     },
     {
       "name": "GW191129_134029",
@@ -429,7 +633,9 @@
         6.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191129_134029/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191129_134029/v1",
+      "gps": 1259070047.1,
+      "utc": "2019-11-29T13:40:29+00:00"
     },
     {
       "name": "GW191204_171526",
@@ -439,7 +645,9 @@
         8.4
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191204_171526/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191204_171526/v1",
+      "gps": 1259514944.0,
+      "utc": "2019-12-04T17:15:26+00:00"
     },
     {
       "name": "GW191215_223052",
@@ -449,7 +657,9 @@
         18.1
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191215_223052/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191215_223052/v1",
+      "gps": 1260484270.3,
+      "utc": "2019-12-15T22:30:52+00:00"
     },
     {
       "name": "GW191216_213338",
@@ -459,7 +669,9 @@
         7.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191216_213338/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191216_213338/v1",
+      "gps": 1260567236.4,
+      "utc": "2019-12-16T21:33:38+00:00"
     },
     {
       "name": "GW191222_033537",
@@ -469,7 +681,9 @@
         34.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191222_033537/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191222_033537/v1",
+      "gps": 1261020955.1,
+      "utc": "2019-12-22T03:35:37+00:00"
     },
     {
       "name": "GW191230_180458",
@@ -479,7 +693,9 @@
         37.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191230_180458/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW191230_180458/v1",
+      "gps": 1261764316.4,
+      "utc": "2019-12-30T18:04:58+00:00"
     },
     {
       "name": "GW200112_155838",
@@ -489,7 +705,9 @@
         28.3
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200112_155838/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200112_155838/v1",
+      "gps": 1262879936.0,
+      "utc": "2020-01-12T15:58:38+00:00"
     },
     {
       "name": "GW200115_042309",
@@ -498,7 +716,9 @@
         5.9
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200115_042309/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200115_042309/v2",
+      "gps": 1263097407.7,
+      "utc": "2020-01-15T04:23:09+00:00"
     },
     {
       "name": "GW200128_022011",
@@ -508,7 +728,9 @@
         32.6
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200128_022011/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200128_022011/v1",
+      "gps": 1264213229.9,
+      "utc": "2020-01-28T02:20:11+00:00"
     },
     {
       "name": "GW200129_065458",
@@ -518,7 +740,9 @@
         29.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200129_065458/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200129_065458/v1",
+      "gps": 1264316116.4,
+      "utc": "2020-01-29T06:54:58+00:00"
     },
     {
       "name": "GW200202_154313",
@@ -528,7 +752,9 @@
         7.3
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200202_154313/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200202_154313/v1",
+      "gps": 1264693411.5,
+      "utc": "2020-02-02T15:43:13+00:00"
     },
     {
       "name": "GW200208_130117",
@@ -538,7 +764,9 @@
         27.4
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200208_130117/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200208_130117/v1",
+      "gps": 1265202095.9,
+      "utc": "2020-02-08T13:01:17+00:00"
     },
     {
       "name": "GW200209_085452",
@@ -548,7 +776,9 @@
         27.1
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200209_085452/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200209_085452/v1",
+      "gps": 1265273710.1,
+      "utc": "2020-02-09T08:54:52+00:00"
     },
     {
       "name": "GW200216_220804",
@@ -558,7 +788,9 @@
         30.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200216_220804/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200216_220804/v1",
+      "gps": 1265926102.8,
+      "utc": "2020-02-16T22:08:04+00:00"
     },
     {
       "name": "GW200219_094415",
@@ -568,7 +800,9 @@
         27.9
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200219_094415/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200219_094415/v1",
+      "gps": 1266140673.1,
+      "utc": "2020-02-19T09:44:15+00:00"
     },
     {
       "name": "GW200224_222234",
@@ -578,7 +812,9 @@
         32.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200224_222234/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200224_222234/v1",
+      "gps": 1266618172.4,
+      "utc": "2020-02-24T22:22:34+00:00"
     },
     {
       "name": "GW200225_060421",
@@ -588,7 +824,9 @@
         14.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200225_060421/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200225_060421/v1",
+      "gps": 1266645879.3,
+      "utc": "2020-02-25T06:04:21+00:00"
     },
     {
       "name": "GW200302_015811",
@@ -598,7 +836,9 @@
         20.0
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200302_015811/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200302_015811/v1",
+      "gps": 1267149509.5,
+      "utc": "2020-03-02T01:58:11+00:00"
     },
     {
       "name": "GW200311_115853",
@@ -608,7 +848,9 @@
         27.7
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200311_115853/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200311_115853/v1",
+      "gps": 1267963151.3,
+      "utc": "2020-03-11T11:58:53+00:00"
     },
     {
       "name": "GW200316_215756",
@@ -618,7 +860,9 @@
         7.8
       ],
       "catalog": "GWTC-3-confident",
-      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200316_215756/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200316_215756/v1",
+      "gps": 1268431094.1,
+      "utc": "2020-03-16T21:57:56+00:00"
     },
     {
       "name": "GW230518_125908",
@@ -627,7 +871,9 @@
         8.17
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230518_125908/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230518_125908/v2",
+      "gps": 1368449966.2,
+      "utc": "2023-05-18T12:59:08+00:00"
     },
     {
       "name": "GW230529_181500",
@@ -636,7 +882,9 @@
         3.66
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230529_181500/v3"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230529_181500/v3",
+      "gps": 1369419318.7,
+      "utc": "2023-05-29T18:15:00+00:00"
     },
     {
       "name": "GW230601_224134",
@@ -646,7 +894,9 @@
         44.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230601_224134/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230601_224134/v2",
+      "gps": 1369694512.1,
+      "utc": "2023-06-01T22:41:34+00:00"
     },
     {
       "name": "GW230605_065343",
@@ -656,7 +906,9 @@
         11.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230605_065343/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230605_065343/v2",
+      "gps": 1369983241.5,
+      "utc": "2023-06-05T06:53:43+00:00"
     },
     {
       "name": "GW230606_004305",
@@ -666,7 +918,9 @@
         25.7
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230606_004305/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230606_004305/v2",
+      "gps": 1370047403.8,
+      "utc": "2023-06-06T00:43:05+00:00"
     },
     {
       "name": "GW230608_205047",
@@ -676,7 +930,9 @@
         31.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230608_205047/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230608_205047/v2",
+      "gps": 1370292665.2,
+      "utc": "2023-06-08T20:50:47+00:00"
     },
     {
       "name": "GW230609_064958",
@@ -686,7 +942,9 @@
         25.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230609_064958/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230609_064958/v2",
+      "gps": 1370328616.3,
+      "utc": "2023-06-09T06:49:58+00:00"
     },
     {
       "name": "GW230624_113103",
@@ -696,7 +954,9 @@
         16.1
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230624_113103/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230624_113103/v2",
+      "gps": 1371641481.7,
+      "utc": "2023-06-24T11:31:03+00:00"
     },
     {
       "name": "GW230627_015337",
@@ -706,7 +966,9 @@
         5.74
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230627_015337/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230627_015337/v2",
+      "gps": 1371866035.8,
+      "utc": "2023-06-27T01:53:37+00:00"
     },
     {
       "name": "GW230628_231200",
@@ -716,7 +978,9 @@
         27.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230628_231200/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230628_231200/v2",
+      "gps": 1372029138.4,
+      "utc": "2023-06-28T23:12:00+00:00"
     },
     {
       "name": "GW230630_125806",
@@ -726,7 +990,9 @@
         33.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_125806/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_125806/v2",
+      "gps": 1372165104.9,
+      "utc": "2023-06-30T12:58:06+00:00"
     },
     {
       "name": "GW230630_234532",
@@ -736,7 +1002,9 @@
         6.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_234532/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230630_234532/v2",
+      "gps": 1372203950.4,
+      "utc": "2023-06-30T23:45:32+00:00"
     },
     {
       "name": "GW230702_185453",
@@ -746,7 +1014,9 @@
         18.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230702_185453/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230702_185453/v2",
+      "gps": 1372359311.7,
+      "utc": "2023-07-02T18:54:53+00:00"
     },
     {
       "name": "GW230704_021211",
@@ -756,7 +1026,9 @@
         20.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_021211/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_021211/v2",
+      "gps": 1372471949.2,
+      "utc": "2023-07-04T02:12:11+00:00"
     },
     {
       "name": "GW230704_212616",
@@ -766,7 +1038,9 @@
         50.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_212616/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230704_212616/v2",
+      "gps": 1372541194.7,
+      "utc": "2023-07-04T21:26:16+00:00"
     },
     {
       "name": "GW230706_104333",
@@ -776,7 +1050,9 @@
         11.5
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230706_104333/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230706_104333/v2",
+      "gps": 1372675431.2,
+      "utc": "2023-07-06T10:43:33+00:00"
     },
     {
       "name": "GW230707_124047",
@@ -786,7 +1062,9 @@
         36.3
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230707_124047/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230707_124047/v2",
+      "gps": 1372768865.3,
+      "utc": "2023-07-07T12:40:47+00:00"
     },
     {
       "name": "GW230708_053705",
@@ -796,7 +1074,9 @@
         22.7
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_053705/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_053705/v2",
+      "gps": 1372829843.1,
+      "utc": "2023-07-08T05:37:05+00:00"
     },
     {
       "name": "GW230708_230935",
@@ -806,7 +1086,9 @@
         40.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_230935/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230708_230935/v2",
+      "gps": 1372892993.5,
+      "utc": "2023-07-08T23:09:35+00:00"
     },
     {
       "name": "GW230709_122727",
@@ -816,7 +1098,9 @@
         30.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230709_122727/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230709_122727/v2",
+      "gps": 1372940865.2,
+      "utc": "2023-07-09T12:27:27+00:00"
     },
     {
       "name": "GW230712_090405",
@@ -826,7 +1110,9 @@
         12.5
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230712_090405/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230712_090405/v2",
+      "gps": 1373187863.9,
+      "utc": "2023-07-12T09:04:05+00:00"
     },
     {
       "name": "GW230723_101834",
@@ -836,7 +1122,9 @@
         10.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230723_101834/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230723_101834/v2",
+      "gps": 1374142732.4,
+      "utc": "2023-07-23T10:18:34+00:00"
     },
     {
       "name": "GW230726_002940",
@@ -846,7 +1134,9 @@
         27.9
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230726_002940/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230726_002940/v2",
+      "gps": 1374366598.1,
+      "utc": "2023-07-26T00:29:40+00:00"
     },
     {
       "name": "GW230729_082317",
@@ -856,7 +1146,9 @@
         7.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230729_082317/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230729_082317/v2",
+      "gps": 1374654215.2,
+      "utc": "2023-07-29T08:23:17+00:00"
     },
     {
       "name": "GW230731_215307",
@@ -866,7 +1158,9 @@
         7.9
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230731_215307/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230731_215307/v2",
+      "gps": 1374875605.9,
+      "utc": "2023-07-31T21:53:07+00:00"
     },
     {
       "name": "GW230803_033412",
@@ -876,7 +1170,9 @@
         29.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230803_033412/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230803_033412/v2",
+      "gps": 1375068870.4,
+      "utc": "2023-08-03T03:34:12+00:00"
     },
     {
       "name": "GW230805_034249",
@@ -886,7 +1182,9 @@
         22.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230805_034249/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230805_034249/v2",
+      "gps": 1375242188.0,
+      "utc": "2023-08-05T03:42:50+00:00"
     },
     {
       "name": "GW230806_204041",
@@ -896,7 +1194,9 @@
         35.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230806_204041/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230806_204041/v2",
+      "gps": 1375389659.9,
+      "utc": "2023-08-06T20:40:41+00:00"
     },
     {
       "name": "GW230811_032116",
@@ -906,7 +1206,9 @@
         22.3
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230811_032116/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230811_032116/v2",
+      "gps": 1375759294.3,
+      "utc": "2023-08-11T03:21:16+00:00"
     },
     {
       "name": "GW230814_061920",
@@ -916,7 +1218,9 @@
         42.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_061920/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_061920/v2",
+      "gps": 1376029178.5,
+      "utc": "2023-08-14T06:19:20+00:00"
     },
     {
       "name": "GW230814_230901",
@@ -926,7 +1230,9 @@
         28.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_230901/v3"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230814_230901/v3",
+      "gps": 1376089759.8,
+      "utc": "2023-08-14T23:09:01+00:00"
     },
     {
       "name": "GW230819_171910",
@@ -936,7 +1242,9 @@
         35.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230819_171910/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230819_171910/v2",
+      "gps": 1376500768.4,
+      "utc": "2023-08-19T17:19:10+00:00"
     },
     {
       "name": "GW230820_212515",
@@ -946,7 +1254,9 @@
         34.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230820_212515/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230820_212515/v2",
+      "gps": 1376601934.0,
+      "utc": "2023-08-20T21:25:16+00:00"
     },
     {
       "name": "GW230824_033047",
@@ -956,7 +1266,9 @@
         36.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230824_033047/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230824_033047/v2",
+      "gps": 1376883065.7,
+      "utc": "2023-08-24T03:30:47+00:00"
     },
     {
       "name": "GW230825_041334",
@@ -966,7 +1278,9 @@
         27.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230825_041334/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230825_041334/v2",
+      "gps": 1376972032.5,
+      "utc": "2023-08-25T04:13:34+00:00"
     },
     {
       "name": "GW230831_015414",
@@ -976,7 +1290,9 @@
         30.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230831_015414/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230831_015414/v2",
+      "gps": 1377482072.1,
+      "utc": "2023-08-31T01:54:14+00:00"
     },
     {
       "name": "GW230904_051013",
@@ -986,7 +1302,9 @@
         7.1
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230904_051013/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230904_051013/v2",
+      "gps": 1377839431.1,
+      "utc": "2023-09-04T05:10:13+00:00"
     },
     {
       "name": "GW230911_195324",
@@ -996,7 +1314,9 @@
         21.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230911_195324/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230911_195324/v2",
+      "gps": 1378497222.2,
+      "utc": "2023-09-11T19:53:24+00:00"
     },
     {
       "name": "GW230914_111401",
@@ -1006,7 +1326,9 @@
         37.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230914_111401/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230914_111401/v2",
+      "gps": 1378725259.7,
+      "utc": "2023-09-14T11:14:01+00:00"
     },
     {
       "name": "GW230919_215712",
@@ -1016,7 +1338,9 @@
         21.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230919_215712/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230919_215712/v2",
+      "gps": 1379195850.0,
+      "utc": "2023-09-19T21:57:12+00:00"
     },
     {
       "name": "GW230920_071124",
@@ -1026,7 +1350,9 @@
         23.8
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230920_071124/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230920_071124/v2",
+      "gps": 1379229102.7,
+      "utc": "2023-09-20T07:11:24+00:00"
     },
     {
       "name": "GW230922_020344",
@@ -1036,7 +1362,9 @@
         29.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_020344/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_020344/v2",
+      "gps": 1379383442.9,
+      "utc": "2023-09-22T02:03:44+00:00"
     },
     {
       "name": "GW230922_040658",
@@ -1046,7 +1374,9 @@
         51.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_040658/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230922_040658/v2",
+      "gps": 1379390836.1,
+      "utc": "2023-09-22T04:06:58+00:00"
     },
     {
       "name": "GW230924_124453",
@@ -1056,7 +1386,9 @@
         23.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230924_124453/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230924_124453/v2",
+      "gps": 1379594711.8,
+      "utc": "2023-09-24T12:44:53+00:00"
     },
     {
       "name": "GW230927_043729",
@@ -1066,7 +1398,9 @@
         27.1
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_043729/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_043729/v2",
+      "gps": 1379824667.1,
+      "utc": "2023-09-27T04:37:29+00:00"
     },
     {
       "name": "GW230927_153832",
@@ -1076,7 +1410,9 @@
         16.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_153832/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230927_153832/v2",
+      "gps": 1379864330.9,
+      "utc": "2023-09-27T15:38:32+00:00"
     },
     {
       "name": "GW230928_215827",
@@ -1086,7 +1422,9 @@
         29.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230928_215827/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230928_215827/v2",
+      "gps": 1379973525.1,
+      "utc": "2023-09-28T21:58:27+00:00"
     },
     {
       "name": "GW230930_110730",
@@ -1096,7 +1434,9 @@
         24.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230930_110730/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230930_110730/v2",
+      "gps": 1380107268.4,
+      "utc": "2023-09-30T11:07:30+00:00"
     },
     {
       "name": "GW231001_140220",
@@ -1106,7 +1446,9 @@
         41.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231001_140220/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231001_140220/v2",
+      "gps": 1380204158.7,
+      "utc": "2023-10-01T14:02:20+00:00"
     },
     {
       "name": "GW231004_232346",
@@ -1116,7 +1458,9 @@
         35.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231004_232346/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231004_232346/v2",
+      "gps": 1380497044.3,
+      "utc": "2023-10-04T23:23:46+00:00"
     },
     {
       "name": "GW231005_021030",
@@ -1126,7 +1470,9 @@
         50.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_021030/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_021030/v2",
+      "gps": 1380507049.0,
+      "utc": "2023-10-05T02:10:31+00:00"
     },
     {
       "name": "GW231005_091549",
@@ -1136,7 +1482,9 @@
         21.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_091549/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231005_091549/v2",
+      "gps": 1380532567.5,
+      "utc": "2023-10-05T09:15:49+00:00"
     },
     {
       "name": "GW231008_142521",
@@ -1146,7 +1494,9 @@
         25.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231008_142521/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231008_142521/v2",
+      "gps": 1380810339.8,
+      "utc": "2023-10-08T14:25:21+00:00"
     },
     {
       "name": "GW231014_040532",
@@ -1156,7 +1506,9 @@
         14.7
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231014_040532/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231014_040532/v2",
+      "gps": 1381291551.0,
+      "utc": "2023-10-14T04:05:33+00:00"
     },
     {
       "name": "GW231018_233037",
@@ -1166,7 +1518,9 @@
         7.3
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231018_233037/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231018_233037/v2",
+      "gps": 1381707055.0,
+      "utc": "2023-10-18T23:30:37+00:00"
     },
     {
       "name": "GW231020_142947",
@@ -1176,7 +1530,9 @@
         7.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231020_142947/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231020_142947/v2",
+      "gps": 1381847405.6,
+      "utc": "2023-10-20T14:29:47+00:00"
     },
     {
       "name": "GW231026_130704",
@@ -1186,7 +1542,9 @@
         20.8
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231026_130704/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231026_130704/v2",
+      "gps": 1382360842.2,
+      "utc": "2023-10-26T13:07:04+00:00"
     },
     {
       "name": "GW231028_153006",
@@ -1196,7 +1554,9 @@
         59.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231028_153006/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231028_153006/v2",
+      "gps": 1382542224.3,
+      "utc": "2023-10-28T15:30:06+00:00"
     },
     {
       "name": "GW231029_111508",
@@ -1206,7 +1566,9 @@
         42.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231029_111508/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231029_111508/v2",
+      "gps": 1382613326.8,
+      "utc": "2023-10-29T11:15:08+00:00"
     },
     {
       "name": "GW231102_071736",
@@ -1216,7 +1578,9 @@
         42.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231102_071736/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231102_071736/v2",
+      "gps": 1382944674.4,
+      "utc": "2023-11-02T07:17:36+00:00"
     },
     {
       "name": "GW231104_133418",
@@ -1226,7 +1590,9 @@
         8.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231104_133418/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231104_133418/v2",
+      "gps": 1383140076.9,
+      "utc": "2023-11-04T13:34:18+00:00"
     },
     {
       "name": "GW231108_125142",
@@ -1236,7 +1602,9 @@
         17.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231108_125142/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231108_125142/v2",
+      "gps": 1383483120.5,
+      "utc": "2023-11-08T12:51:42+00:00"
     },
     {
       "name": "GW231110_040320",
@@ -1246,7 +1614,9 @@
         12.6
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231110_040320/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231110_040320/v2",
+      "gps": 1383624218.2,
+      "utc": "2023-11-10T04:03:20+00:00"
     },
     {
       "name": "GW231113_122623",
@@ -1256,7 +1626,9 @@
         26.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_122623/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_122623/v2",
+      "gps": 1383913601.9,
+      "utc": "2023-11-13T12:26:23+00:00"
     },
     {
       "name": "GW231113_150041",
@@ -1266,7 +1638,9 @@
         29.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_150041/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_150041/v2",
+      "gps": 1383922859.4,
+      "utc": "2023-11-13T15:00:41+00:00"
     },
     {
       "name": "GW231113_200417",
@@ -1276,7 +1650,9 @@
         7.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_200417/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231113_200417/v2",
+      "gps": 1383941075.9,
+      "utc": "2023-11-13T20:04:17+00:00"
     },
     {
       "name": "GW231114_043211",
@@ -1286,7 +1662,9 @@
         8.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231114_043211/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231114_043211/v2",
+      "gps": 1383971549.2,
+      "utc": "2023-11-14T04:32:11+00:00"
     },
     {
       "name": "GW231118_005626",
@@ -1296,7 +1674,9 @@
         10.8
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_005626/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_005626/v2",
+      "gps": 1384304204.8,
+      "utc": "2023-11-18T00:56:26+00:00"
     },
     {
       "name": "GW231118_071402",
@@ -1306,7 +1686,9 @@
         29.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_071402/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_071402/v2",
+      "gps": 1384326860.2,
+      "utc": "2023-11-18T07:14:02+00:00"
     },
     {
       "name": "GW231118_090602",
@@ -1316,7 +1698,9 @@
         7.4
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_090602/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231118_090602/v2",
+      "gps": 1384333580.0,
+      "utc": "2023-11-18T09:06:02+00:00"
     },
     {
       "name": "GW231119_075248",
@@ -1326,7 +1710,9 @@
         33.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231119_075248/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231119_075248/v2",
+      "gps": 1384415586.1,
+      "utc": "2023-11-19T07:52:48+00:00"
     },
     {
       "name": "GW231123_135430",
@@ -1336,7 +1722,9 @@
         101.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231123_135430/v3"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231123_135430/v3",
+      "gps": 1384782888.7,
+      "utc": "2023-11-23T13:54:30+00:00"
     },
     {
       "name": "GW231127_165300",
@@ -1346,7 +1734,9 @@
         28.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231127_165300/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231127_165300/v2",
+      "gps": 1385139198.9,
+      "utc": "2023-11-27T16:53:00+00:00"
     },
     {
       "name": "GW231129_081745",
@@ -1356,7 +1746,9 @@
         23.8
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231129_081745/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231129_081745/v2",
+      "gps": 1385281083.6,
+      "utc": "2023-11-29T08:17:45+00:00"
     },
     {
       "name": "GW231206_233134",
@@ -1366,7 +1758,9 @@
         28.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233134/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233134/v2",
+      "gps": 1385940712.5,
+      "utc": "2023-12-06T23:31:34+00:00"
     },
     {
       "name": "GW231206_233901",
@@ -1376,7 +1770,9 @@
         28.5
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233901/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231206_233901/v2",
+      "gps": 1385941159.5,
+      "utc": "2023-12-06T23:39:01+00:00"
     },
     {
       "name": "GW231213_111417",
@@ -1386,7 +1782,9 @@
         27.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231213_111417/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231213_111417/v2",
+      "gps": 1386501275.9,
+      "utc": "2023-12-13T11:14:17+00:00"
     },
     {
       "name": "GW231221_135041",
@@ -1396,7 +1794,9 @@
         29.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231221_135041/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231221_135041/v2",
+      "gps": 1387201859.3,
+      "utc": "2023-12-21T13:50:41+00:00"
     },
     {
       "name": "GW231223_032836",
@@ -1406,7 +1806,9 @@
         31.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_032836/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_032836/v2",
+      "gps": 1387337334.1,
+      "utc": "2023-12-23T03:28:36+00:00"
     },
     {
       "name": "GW231223_075055",
@@ -1416,7 +1818,9 @@
         6.8
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_075055/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_075055/v2",
+      "gps": 1387353073.3,
+      "utc": "2023-12-23T07:50:55+00:00"
     },
     {
       "name": "GW231223_202619",
@@ -1426,7 +1830,9 @@
         8.3
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_202619/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231223_202619/v2",
+      "gps": 1387398397.0,
+      "utc": "2023-12-23T20:26:19+00:00"
     },
     {
       "name": "GW231224_024321",
@@ -1436,7 +1842,9 @@
         7.31
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231224_024321/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231224_024321/v2",
+      "gps": 1387421020.0,
+      "utc": "2023-12-24T02:43:22+00:00"
     },
     {
       "name": "GW231226_101520",
@@ -1446,7 +1854,9 @@
         35.1
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231226_101520/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231226_101520/v2",
+      "gps": 1387620938.3,
+      "utc": "2023-12-26T10:15:20+00:00"
     },
     {
       "name": "GW231230_170116",
@@ -1456,7 +1866,9 @@
         35.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231230_170116/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231230_170116/v2",
+      "gps": 1387990895.0,
+      "utc": "2023-12-30T17:01:17+00:00"
     },
     {
       "name": "GW231231_154016",
@@ -1466,7 +1878,9 @@
         17.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231231_154016/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW231231_154016/v2",
+      "gps": 1388072434.7,
+      "utc": "2023-12-31T15:40:16+00:00"
     },
     {
       "name": "GW240104_164932",
@@ -1476,7 +1890,9 @@
         32.2
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240104_164932/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240104_164932/v2",
+      "gps": 1388422190.6,
+      "utc": "2024-01-04T16:49:32+00:00"
     },
     {
       "name": "GW240107_013215",
@@ -1486,7 +1902,9 @@
         33.0
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240107_013215/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240107_013215/v2",
+      "gps": 1388626353.7,
+      "utc": "2024-01-07T01:32:15+00:00"
     },
     {
       "name": "GW240109_050431",
@@ -1496,7 +1914,9 @@
         18.1
       ],
       "catalog": "GWTC-4.1",
-      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240109_050431/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW240109_050431/v2",
+      "gps": 1388811889.8,
+      "utc": "2024-01-09T05:04:31+00:00"
     },
     {
       "name": "GW240413_022019",
@@ -1506,7 +1926,9 @@
         5.57
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240413_022019/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240413_022019/v1",
+      "gps": 1397010037.8,
+      "utc": "2024-04-13T02:20:19+00:00"
     },
     {
       "name": "GW240414_054515",
@@ -1516,7 +1938,9 @@
         25.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240414_054515/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240414_054515/v1",
+      "gps": 1397108733.2,
+      "utc": "2024-04-14T05:45:15+00:00"
     },
     {
       "name": "GW240420_175625",
@@ -1526,7 +1950,9 @@
         23.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240420_175625/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240420_175625/v1",
+      "gps": 1397671003.5,
+      "utc": "2024-04-20T17:56:25+00:00"
     },
     {
       "name": "GW240426_031451",
@@ -1536,7 +1962,9 @@
         36.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240426_031451/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240426_031451/v1",
+      "gps": 1398136510.0,
+      "utc": "2024-04-26T03:14:52+00:00"
     },
     {
       "name": "GW240428_225440",
@@ -1546,7 +1974,9 @@
         14.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240428_225440/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240428_225440/v1",
+      "gps": 1398380098.1,
+      "utc": "2024-04-28T22:54:40+00:00"
     },
     {
       "name": "GW240501_033534",
@@ -1556,7 +1986,9 @@
         27.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240501_033534/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240501_033534/v1",
+      "gps": 1398569752.9,
+      "utc": "2024-05-01T03:35:34+00:00"
     },
     {
       "name": "GW240505_133552",
@@ -1566,7 +1998,9 @@
         23.1
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240505_133552/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240505_133552/v1",
+      "gps": 1398951370.6,
+      "utc": "2024-05-05T13:35:52+00:00"
     },
     {
       "name": "GW240507_041632",
@@ -1576,7 +2010,9 @@
         8.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240507_041632/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240507_041632/v1",
+      "gps": 1399090610.4,
+      "utc": "2024-05-07T04:16:32+00:00"
     },
     {
       "name": "GW240511_031507",
@@ -1586,7 +2022,9 @@
         32.2
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240511_031507/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240511_031507/v1",
+      "gps": 1399432526.0,
+      "utc": "2024-05-11T03:15:08+00:00"
     },
     {
       "name": "GW240512_024139",
@@ -1596,7 +2034,9 @@
         8.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240512_024139/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240512_024139/v1",
+      "gps": 1399516917.1,
+      "utc": "2024-05-12T02:41:39+00:00"
     },
     {
       "name": "GW240513_183302",
@@ -1606,7 +2046,9 @@
         16.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240513_183302/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240513_183302/v1",
+      "gps": 1399660400.9,
+      "utc": "2024-05-13T18:33:02+00:00"
     },
     {
       "name": "GW240514_121713",
@@ -1616,7 +2058,9 @@
         36.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240514_121713/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240514_121713/v1",
+      "gps": 1399724251.7,
+      "utc": "2024-05-14T12:17:13+00:00"
     },
     {
       "name": "GW240515_005301",
@@ -1626,7 +2070,9 @@
         18.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240515_005301/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240515_005301/v1",
+      "gps": 1399769599.1,
+      "utc": "2024-05-15T00:53:01+00:00"
     },
     {
       "name": "GW240519_012815",
@@ -1636,7 +2082,9 @@
         39.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240519_012815/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240519_012815/v1",
+      "gps": 1400117314.0,
+      "utc": "2024-05-19T01:28:16+00:00"
     },
     {
       "name": "GW240520_213616",
@@ -1646,7 +2094,9 @@
         8.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240520_213616/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240520_213616/v1",
+      "gps": 1400276195.0,
+      "utc": "2024-05-20T21:36:17+00:00"
     },
     {
       "name": "GW240525_031210",
@@ -1656,7 +2106,9 @@
         21.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240525_031210/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240525_031210/v1",
+      "gps": 1400641948.6,
+      "utc": "2024-05-25T03:12:10+00:00"
     },
     {
       "name": "GW240526_093944",
@@ -1666,7 +2118,9 @@
         8.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240526_093944/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240526_093944/v1",
+      "gps": 1400751602.7,
+      "utc": "2024-05-26T09:39:44+00:00"
     },
     {
       "name": "GW240527_183429",
@@ -1676,7 +2130,9 @@
         33.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_183429/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_183429/v1",
+      "gps": 1400870087.1,
+      "utc": "2024-05-27T18:34:29+00:00"
     },
     {
       "name": "GW240527_230910",
@@ -1686,7 +2142,9 @@
         10.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_230910/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240527_230910/v1",
+      "gps": 1400886568.4,
+      "utc": "2024-05-27T23:09:10+00:00"
     },
     {
       "name": "GW240530_012417",
@@ -1696,7 +2154,9 @@
         8.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240530_012417/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240530_012417/v1",
+      "gps": 1401067476.0,
+      "utc": "2024-05-30T01:24:18+00:00"
     },
     {
       "name": "GW240531_040326",
@@ -1706,7 +2166,9 @@
         14.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_040326/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_040326/v1",
+      "gps": 1401163424.6,
+      "utc": "2024-05-31T04:03:26+00:00"
     },
     {
       "name": "GW240531_075248",
@@ -1716,7 +2178,9 @@
         22.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_075248/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240531_075248/v1",
+      "gps": 1401177186.5,
+      "utc": "2024-05-31T07:52:48+00:00"
     },
     {
       "name": "GW240601_061200",
@@ -1726,7 +2190,9 @@
         32.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_061200/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_061200/v1",
+      "gps": 1401257538.3,
+      "utc": "2024-06-01T06:12:00+00:00"
     },
     {
       "name": "GW240601_231004",
@@ -1736,7 +2202,9 @@
         7.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_231004/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240601_231004/v1",
+      "gps": 1401318622.0,
+      "utc": "2024-06-01T23:10:04+00:00"
     },
     {
       "name": "GW240612_081540",
@@ -1746,7 +2214,9 @@
         38.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240612_081540/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240612_081540/v1",
+      "gps": 1402215358.7,
+      "utc": "2024-06-12T08:15:40+00:00"
     },
     {
       "name": "GW240615_113620",
@@ -1756,7 +2226,9 @@
         26.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_113620/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_113620/v1",
+      "gps": 1402486598.7,
+      "utc": "2024-06-15T11:36:20+00:00"
     },
     {
       "name": "GW240615_160735",
@@ -1766,7 +2238,9 @@
         20.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_160735/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240615_160735/v1",
+      "gps": 1402502873.4,
+      "utc": "2024-06-15T16:07:35+00:00"
     },
     {
       "name": "GW240618_071627",
@@ -1776,7 +2250,9 @@
         40.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240618_071627/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240618_071627/v1",
+      "gps": 1402730205.2,
+      "utc": "2024-06-18T07:16:27+00:00"
     },
     {
       "name": "GW240621_195059",
@@ -1786,7 +2262,9 @@
         29.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_195059/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_195059/v1",
+      "gps": 1403034677.4,
+      "utc": "2024-06-21T19:50:59+00:00"
     },
     {
       "name": "GW240621_200935",
@@ -1796,7 +2274,9 @@
         31.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_200935/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_200935/v1",
+      "gps": 1403035793.5,
+      "utc": "2024-06-21T20:09:35+00:00"
     },
     {
       "name": "GW240621_214041",
@@ -1806,7 +2286,9 @@
         32.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_214041/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240621_214041/v1",
+      "gps": 1403041259.7,
+      "utc": "2024-06-21T21:40:41+00:00"
     },
     {
       "name": "GW240622_004008",
@@ -1816,7 +2298,9 @@
         11.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240622_004008/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240622_004008/v1",
+      "gps": 1403052026.4,
+      "utc": "2024-06-22T00:40:08+00:00"
     },
     {
       "name": "GW240627_131622",
@@ -1826,7 +2310,9 @@
         6.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240627_131622/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240627_131622/v1",
+      "gps": 1403529400.2,
+      "utc": "2024-06-27T13:16:22+00:00"
     },
     {
       "name": "GW240629_145256",
@@ -1836,7 +2322,9 @@
         7.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240629_145256/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240629_145256/v1",
+      "gps": 1403707994.8,
+      "utc": "2024-06-29T14:52:56+00:00"
     },
     {
       "name": "GW240630_101703",
@@ -1846,7 +2334,9 @@
         21.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240630_101703/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240630_101703/v1",
+      "gps": 1403777841.4,
+      "utc": "2024-06-30T10:17:03+00:00"
     },
     {
       "name": "GW240703_191355",
@@ -1856,7 +2346,9 @@
         26.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240703_191355/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240703_191355/v1",
+      "gps": 1404069253.3,
+      "utc": "2024-07-03T19:13:55+00:00"
     },
     {
       "name": "GW240705_053215",
@@ -1866,7 +2358,9 @@
         35.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240705_053215/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240705_053215/v1",
+      "gps": 1404192753.9,
+      "utc": "2024-07-05T05:32:15+00:00"
     },
     {
       "name": "GW240716_034900",
@@ -1876,7 +2370,9 @@
         26.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240716_034900/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240716_034900/v1",
+      "gps": 1405136958.5,
+      "utc": "2024-07-16T03:49:00+00:00"
     },
     {
       "name": "GW240824_205609",
@@ -1886,7 +2382,9 @@
         37.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240824_205609/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240824_205609/v1",
+      "gps": 1408568187.3,
+      "utc": "2024-08-24T20:56:09+00:00"
     },
     {
       "name": "GW240825_055146",
@@ -1896,7 +2394,9 @@
         7.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240825_055146/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240825_055146/v1",
+      "gps": 1408600325.0,
+      "utc": "2024-08-25T05:51:47+00:00"
     },
     {
       "name": "GW240830_211120",
@@ -1906,7 +2406,9 @@
         7.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240830_211120/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240830_211120/v1",
+      "gps": 1409087498.4,
+      "utc": "2024-08-30T21:11:20+00:00"
     },
     {
       "name": "GW240902_143306",
@@ -1916,7 +2418,9 @@
         18.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240902_143306/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240902_143306/v1",
+      "gps": 1409322804.8,
+      "utc": "2024-09-02T14:33:06+00:00"
     },
     {
       "name": "GW240907_153833",
@@ -1926,7 +2430,9 @@
         28.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240907_153833/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240907_153833/v1",
+      "gps": 1409758731.8,
+      "utc": "2024-09-07T15:38:33+00:00"
     },
     {
       "name": "GW240908_082628",
@@ -1936,7 +2442,9 @@
         27.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_082628/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_082628/v1",
+      "gps": 1409819206.4,
+      "utc": "2024-09-08T08:26:28+00:00"
     },
     {
       "name": "GW240908_125134",
@@ -1946,7 +2454,9 @@
         32.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_125134/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240908_125134/v1",
+      "gps": 1409835112.3,
+      "utc": "2024-09-08T12:51:34+00:00"
     },
     {
       "name": "GW240910_103535",
@@ -1956,7 +2466,9 @@
         6.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240910_103535/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240910_103535/v1",
+      "gps": 1409999753.5,
+      "utc": "2024-09-10T10:35:35+00:00"
     },
     {
       "name": "GW240915_001357",
@@ -1966,7 +2478,9 @@
         7.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_001357/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_001357/v1",
+      "gps": 1410394455.7,
+      "utc": "2024-09-15T00:13:57+00:00"
     },
     {
       "name": "GW240915_105151",
@@ -1976,7 +2490,9 @@
         7.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_105151/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240915_105151/v1",
+      "gps": 1410432729.1,
+      "utc": "2024-09-15T10:51:51+00:00"
     },
     {
       "name": "GW240916_184352",
@@ -1986,7 +2502,9 @@
         7.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240916_184352/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240916_184352/v1",
+      "gps": 1410547450.3,
+      "utc": "2024-09-16T18:43:52+00:00"
     },
     {
       "name": "GW240919_061559",
@@ -1996,7 +2514,9 @@
         29.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240919_061559/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240919_061559/v1",
+      "gps": 1410761777.2,
+      "utc": "2024-09-19T06:15:59+00:00"
     },
     {
       "name": "GW240920_073424",
@@ -2006,7 +2526,9 @@
         13.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_073424/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_073424/v1",
+      "gps": 1410852882.5,
+      "utc": "2024-09-20T07:34:24+00:00"
     },
     {
       "name": "GW240920_124024",
@@ -2016,7 +2538,9 @@
         31.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_124024/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240920_124024/v1",
+      "gps": 1410871242.9,
+      "utc": "2024-09-20T12:40:24+00:00"
     },
     {
       "name": "GW240921_201835",
@@ -2026,7 +2550,9 @@
         9.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240921_201835/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240921_201835/v1",
+      "gps": 1410985133.8,
+      "utc": "2024-09-21T20:18:35+00:00"
     },
     {
       "name": "GW240922_142106",
@@ -2036,7 +2562,9 @@
         7.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240922_142106/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240922_142106/v1",
+      "gps": 1411050084.4,
+      "utc": "2024-09-22T14:21:06+00:00"
     },
     {
       "name": "GW240923_204006",
@@ -2046,7 +2574,9 @@
         34.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240923_204006/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240923_204006/v1",
+      "gps": 1411159224.1,
+      "utc": "2024-09-23T20:40:06+00:00"
     },
     {
       "name": "GW240924_000316",
@@ -2056,7 +2586,9 @@
         34.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240924_000316/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240924_000316/v1",
+      "gps": 1411171414.5,
+      "utc": "2024-09-24T00:03:16+00:00"
     },
     {
       "name": "GW240925_005809",
@@ -2066,7 +2598,9 @@
         6.99
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240925_005809/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240925_005809/v2",
+      "gps": 1411261108.0,
+      "utc": "2024-09-25T00:58:10+00:00"
     },
     {
       "name": "GW240930_035959",
@@ -2076,7 +2610,9 @@
         11.2
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_035959/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_035959/v1",
+      "gps": 1411704018.0,
+      "utc": "2024-09-30T04:00:00+00:00"
     },
     {
       "name": "GW240930_234614",
@@ -2086,7 +2622,9 @@
         21.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_234614/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW240930_234614/v1",
+      "gps": 1411775192.9,
+      "utc": "2024-09-30T23:46:14+00:00"
     },
     {
       "name": "GW241002_030559",
@@ -2096,7 +2634,9 @@
         29.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241002_030559/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241002_030559/v1",
+      "gps": 1411873577.7,
+      "utc": "2024-10-02T03:05:59+00:00"
     },
     {
       "name": "GW241006_015333",
@@ -2106,7 +2646,9 @@
         20.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241006_015333/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241006_015333/v1",
+      "gps": 1412214831.5,
+      "utc": "2024-10-06T01:53:33+00:00"
     },
     {
       "name": "GW241007_082943",
@@ -2116,7 +2658,9 @@
         26.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241007_082943/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241007_082943/v1",
+      "gps": 1412325001.2,
+      "utc": "2024-10-07T08:29:43+00:00"
     },
     {
       "name": "GW241009_022835",
@@ -2126,7 +2670,9 @@
         26.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_022835/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_022835/v1",
+      "gps": 1412476133.7,
+      "utc": "2024-10-09T02:28:35+00:00"
     },
     {
       "name": "GW241009_084816",
@@ -2136,7 +2682,9 @@
         8.1
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_084816/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_084816/v1",
+      "gps": 1412498914.8,
+      "utc": "2024-10-09T08:48:16+00:00"
     },
     {
       "name": "GW241009_220455",
@@ -2146,7 +2694,9 @@
         25.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_220455/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241009_220455/v1",
+      "gps": 1412546713.5,
+      "utc": "2024-10-09T22:04:55+00:00"
     },
     {
       "name": "GW241011_233834",
@@ -2156,7 +2706,9 @@
         5.96
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241011_233834/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241011_233834/v2",
+      "gps": 1412725133.0,
+      "utc": "2024-10-11T23:38:35+00:00"
     },
     {
       "name": "GW241101_220523",
@@ -2166,7 +2718,9 @@
         19.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241101_220523/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241101_220523/v1",
+      "gps": 1414533941.1,
+      "utc": "2024-11-01T22:05:23+00:00"
     },
     {
       "name": "GW241102_124058",
@@ -2176,7 +2730,9 @@
         8.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_124058/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_124058/v1",
+      "gps": 1414586476.8,
+      "utc": "2024-11-02T12:40:58+00:00"
     },
     {
       "name": "GW241102_144729",
@@ -2186,7 +2742,9 @@
         31.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_144729/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241102_144729/v1",
+      "gps": 1414594067.7,
+      "utc": "2024-11-02T14:47:29+00:00"
     },
     {
       "name": "GW241109_033317",
@@ -2196,7 +2754,9 @@
         31.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_033317/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_033317/v1",
+      "gps": 1415158416.0,
+      "utc": "2024-11-09T03:33:18+00:00"
     },
     {
       "name": "GW241109_115924",
@@ -2206,7 +2766,9 @@
         5.14
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_115924/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241109_115924/v1",
+      "gps": 1415188782.9,
+      "utc": "2024-11-09T11:59:24+00:00"
     },
     {
       "name": "GW241110_124123",
@@ -2216,7 +2778,9 @@
         8.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241110_124123/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241110_124123/v2",
+      "gps": 1415277701.7,
+      "utc": "2024-11-10T12:41:23+00:00"
     },
     {
       "name": "GW241111_111552",
@@ -2226,7 +2790,9 @@
         20.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241111_111552/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241111_111552/v1",
+      "gps": 1415358970.6,
+      "utc": "2024-11-11T11:15:52+00:00"
     },
     {
       "name": "GW241113_163507",
@@ -2236,7 +2802,9 @@
         14.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241113_163507/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241113_163507/v1",
+      "gps": 1415550925.5,
+      "utc": "2024-11-13T16:35:07+00:00"
     },
     {
       "name": "GW241114_024711",
@@ -2246,7 +2814,9 @@
         25.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_024711/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_024711/v1",
+      "gps": 1415587649.8,
+      "utc": "2024-11-14T02:47:11+00:00"
     },
     {
       "name": "GW241114_235258",
@@ -2256,7 +2826,9 @@
         7.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_235258/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241114_235258/v1",
+      "gps": 1415663596.1,
+      "utc": "2024-11-14T23:52:58+00:00"
     },
     {
       "name": "GW241116_151753",
@@ -2266,7 +2838,9 @@
         24.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241116_151753/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241116_151753/v1",
+      "gps": 1415805491.7,
+      "utc": "2024-11-16T15:17:53+00:00"
     },
     {
       "name": "GW241124_024914",
@@ -2276,7 +2850,9 @@
         26.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241124_024914/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241124_024914/v1",
+      "gps": 1416451772.3,
+      "utc": "2024-11-24T02:49:14+00:00"
     },
     {
       "name": "GW241125_010116",
@@ -2286,7 +2862,9 @@
         47.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241125_010116/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241125_010116/v1",
+      "gps": 1416531694.8,
+      "utc": "2024-11-25T01:01:16+00:00"
     },
     {
       "name": "GW241127_061008",
@@ -2296,7 +2874,9 @@
         20.8
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241127_061008/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241127_061008/v1",
+      "gps": 1416723026.2,
+      "utc": "2024-11-27T06:10:08+00:00"
     },
     {
       "name": "GW241129_021832",
@@ -2306,7 +2886,9 @@
         23.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241129_021832/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241129_021832/v1",
+      "gps": 1416881930.6,
+      "utc": "2024-11-29T02:18:32+00:00"
     },
     {
       "name": "GW241130_034908",
@@ -2316,7 +2898,9 @@
         24.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_034908/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_034908/v1",
+      "gps": 1416973766.6,
+      "utc": "2024-11-30T03:49:08+00:00"
     },
     {
       "name": "GW241130_110422",
@@ -2326,7 +2910,9 @@
         6.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_110422/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241130_110422/v1",
+      "gps": 1416999880.1,
+      "utc": "2024-11-30T11:04:22+00:00"
     },
     {
       "name": "GW241201_055758",
@@ -2336,7 +2922,9 @@
         33.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241201_055758/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241201_055758/v1",
+      "gps": 1417067896.6,
+      "utc": "2024-12-01T05:57:58+00:00"
     },
     {
       "name": "GW241210_060606",
@@ -2346,7 +2934,9 @@
         21.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_060606/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_060606/v1",
+      "gps": 1417845984.8,
+      "utc": "2024-12-10T06:06:06+00:00"
     },
     {
       "name": "GW241210_120900",
@@ -2356,7 +2946,9 @@
         23.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_120900/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241210_120900/v1",
+      "gps": 1417867758.6,
+      "utc": "2024-12-10T12:09:00+00:00"
     },
     {
       "name": "GW241225_042553",
@@ -2366,7 +2958,9 @@
         8.1
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_042553/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_042553/v1",
+      "gps": 1419135971.2,
+      "utc": "2024-12-25T04:25:53+00:00"
     },
     {
       "name": "GW241225_082815",
@@ -2376,7 +2970,9 @@
         42.2
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_082815/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241225_082815/v1",
+      "gps": 1419150513.7,
+      "utc": "2024-12-25T08:28:15+00:00"
     },
     {
       "name": "GW241229_155844",
@@ -2386,7 +2982,9 @@
         33.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241229_155844/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241229_155844/v1",
+      "gps": 1419523142.7,
+      "utc": "2024-12-29T15:58:44+00:00"
     },
     {
       "name": "GW241230_084504",
@@ -2396,7 +2994,9 @@
         33.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_084504/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_084504/v1",
+      "gps": 1419583522.5,
+      "utc": "2024-12-30T08:45:04+00:00"
     },
     {
       "name": "GW241230_233618",
@@ -2406,7 +3006,9 @@
         49.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_233618/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241230_233618/v1",
+      "gps": 1419636996.1,
+      "utc": "2024-12-30T23:36:18+00:00"
     },
     {
       "name": "GW241231_054133",
@@ -2416,7 +3018,9 @@
         7.1
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241231_054133/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW241231_054133/v1",
+      "gps": 1419658911.6,
+      "utc": "2024-12-31T05:41:33+00:00"
     },
     {
       "name": "GW250101_011205",
@@ -2426,7 +3030,9 @@
         21.1
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250101_011205/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250101_011205/v1",
+      "gps": 1419729143.0,
+      "utc": "2025-01-01T01:12:05+00:00"
     },
     {
       "name": "GW250104_015122",
@@ -2436,7 +3042,9 @@
         34.5
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250104_015122/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250104_015122/v1",
+      "gps": 1419990700.3,
+      "utc": "2025-01-04T01:51:22+00:00"
     },
     {
       "name": "GW250108_152221",
@@ -2446,7 +3054,9 @@
         36.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250108_152221/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250108_152221/v1",
+      "gps": 1420384959.7,
+      "utc": "2025-01-08T15:22:21+00:00"
     },
     {
       "name": "GW250109_010541",
@@ -2456,7 +3066,9 @@
         27.4
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_010541/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_010541/v1",
+      "gps": 1420419959.5,
+      "utc": "2025-01-09T01:05:41+00:00"
     },
     {
       "name": "GW250109_074552",
@@ -2466,7 +3078,9 @@
         30.2
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_074552/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250109_074552/v1",
+      "gps": 1420443970.4,
+      "utc": "2025-01-09T07:45:52+00:00"
     },
     {
       "name": "GW250114_082203",
@@ -2476,7 +3090,9 @@
         32.26
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250114_082203/v2"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250114_082203/v2",
+      "gps": 1420878141.2,
+      "utc": "2025-01-14T08:22:03+00:00"
     },
     {
       "name": "GW250116_015318",
@@ -2486,7 +3102,9 @@
         21.3
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250116_015318/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250116_015318/v1",
+      "gps": 1421027616.4,
+      "utc": "2025-01-16T01:53:18+00:00"
     },
     {
       "name": "GW250118_023225",
@@ -2496,7 +3114,9 @@
         31.0
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_023225/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_023225/v1",
+      "gps": 1421202763.9,
+      "utc": "2025-01-18T02:32:25+00:00"
     },
     {
       "name": "GW250118_055802",
@@ -2506,7 +3126,9 @@
         6.9
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_055802/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_055802/v1",
+      "gps": 1421215100.5,
+      "utc": "2025-01-18T05:58:02+00:00"
     },
     {
       "name": "GW250118_170523",
@@ -2516,7 +3138,9 @@
         29.6
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_170523/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250118_170523/v1",
+      "gps": 1421255141.2,
+      "utc": "2025-01-18T17:05:23+00:00"
     },
     {
       "name": "GW250119_025138",
@@ -2526,7 +3150,9 @@
         26.7
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_025138/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_025138/v1",
+      "gps": 1421290316.8,
+      "utc": "2025-01-19T02:51:38+00:00"
     },
     {
       "name": "GW250119_190238",
@@ -2536,7 +3162,9 @@
         9.95
       ],
       "catalog": "GWTC-5.0",
-      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_190238/v1"
+      "url": "https://gwosc.org/eventapi/json/GWTC-5.0/GW250119_190238/v1",
+      "gps": 1421348576.3,
+      "utc": "2025-01-19T19:02:38+00:00"
     }
   ]
 }

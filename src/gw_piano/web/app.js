@@ -1,3 +1,4 @@
+import {eventTimeline, observingRuns} from './timeline.mjs';
 import {musicalSample} from './musical.mjs';
 import {massBins} from './histogram.mjs';
 import {catalogPlan, mixCatalog, activeNotes} from './catalog-audio.mjs';
@@ -15,21 +16,31 @@ const eventsButton = document.querySelector('#play-events');
 const pendingBuffers = new Map(), catalogMixes = new Map();
 let catalogBusy = false, ensembleSource = null;
 let markerFrame = 0;
+const soundingManual = new Map();
+let soundingCatalog = [];
+function updateSoundingBars() {
+  const masses = [...soundingCatalog, ...soundingManual.values()];
+  document.querySelectorAll('.played-bar').forEach(bar => {
+    bar.classList.toggle('sounding-bin', masses.some(mass => mass >= Number(bar.dataset.low) && mass < Number(bar.dataset.high)));
+  });
+}
 function clearHighlights() {
   cancelAnimationFrame(markerFrame);
-  document.querySelectorAll('.sounding-note, .sounding-bin').forEach(element => {
+  soundingCatalog = [];
+  updateSoundingBars();
+  document.querySelectorAll('.sounding-note').forEach(element => {
     element.classList.remove('sounding-note', 'sounding-bin');
   });
 }
-function highlightTimeline(plan, start, ticket) {
+function highlightTimeline(plan, start, ticket, progress = () => {}) {
   const update = () => {
     if (ticket !== generation || !ensembleSource) { clearHighlights(); return; }
     const elapsed = context.currentTime - start;
+    progress(elapsed);
     const active = activeNotes(plan, elapsed);
     const masses = plan.filter(part => elapsed >= part.offset && elapsed < part.offset + part.duration).map(part => part.mass);
-    document.querySelectorAll('.played-bar').forEach(bar => {
-      bar.classList.toggle('sounding-bin', masses.some(mass => mass >= Number(bar.dataset.low) && mass < Number(bar.dataset.high)));
-    });
+    soundingCatalog = masses;
+    updateSoundingBars();
     document.querySelectorAll('.note-marker, .note-label').forEach(element => {
       element.classList.toggle('sounding-note', active.has(Number(element.dataset.midi)));
     });
@@ -44,13 +55,14 @@ const wavePath = Array.from({length: 1200}, (_, i) => {
 document.querySelector('#waveform').setAttribute('d', wavePath);
 function stopAll() {
   generation++;
+  soundingManual.clear();
   clearHighlights();
   for (const source of voices) source.stop();
   voices.clear();
   for (const button of buttons.values()) button.classList.remove('active');
   ensembleSource = null;
   catalogBusy = false;
-  eventsButton.textContent = 'Play all found events at once';
+  eventsButton.textContent = 'Play detections in order';
   eventsButton.dataset.state = 'idle';
 }
 document.querySelector('#stop').onclick = stopAll;
@@ -150,8 +162,11 @@ async function play(note) {
     button.classList.add('active');
     source.onended = () => {
       voices.delete(source); source.disconnect(); gain.disconnect();
+      soundingManual.delete(source);
+      updateSoundingBars();
       if (![...voices].some(voice => voice.note === note.midi)) button.classList.remove('active');
     };
+    soundingManual.set(source, note.mass);
     source.note = note.midi;
     source.start(startAt);
     button.dataset.playbackLatencyMs = (performance.now() - pressedAt).toFixed(2);
@@ -162,6 +177,7 @@ async function play(note) {
     playedNotes++;
     latestNote = note;
     drawHistogram();
+    updateSoundingBars();
     current.textContent = `${note.name} / ${note.frequency.toFixed(2)} Hz / ${note.mass.toFixed(1)} + ${note.mass.toFixed(1)} M☉`;
     status.textContent = musical ? 'Musical · short chirp + synthetic note tone' : 'Scientific · full IMRPhenomD waveform';
   } catch (error) { status.textContent = `Could not play audio. ${error.message}. Try again.`; }
@@ -229,19 +245,17 @@ function svgElement(tag, attributes, text) {
 function drawHistogram() {
   if (!catalog || !fullNotes.length) return;
   const observed = catalog.events.flatMap(event => event.masses);
-  const axis = massBins([...observed, ...fullNotes.map(note => note.mass)]);
+  const axis = massBins([150], 2, 150);
   const bins = axis.edges.length - 1;
   const formatMass = mass => Number(mass.toPrecision(4)).toString();
   const tickStride = Math.ceil(bins / 6 / 5) * 5;
   const count = values => {
     const result = Array(bins).fill(0);
-    for (const value of values) result[axis.index(value)]++;
+    for (const value of values) if (value <= 150) result[axis.index(value)]++;
     return result;
   };
   const a = count(observed), b = count(played);
-  const percentages = (values, total) => values.map(value => total ? value / total * 100 : 0);
-  const pa = percentages(a, observed.length), pb = percentages(b, played.length);
-  const ymax = Math.max(10, Math.ceil(Math.max(...pa, ...pb) / 10) * 10);
+  const ymax = Math.max(20, Math.ceil(Math.max(...a, ...b) / 20) * 20);
   const svg = document.querySelector('#histogram'); svg.replaceChildren();
   const defs = svgElement('defs', {});
   const stripes = svgElement('pattern', {id:'played-stripes', patternUnits:'userSpaceOnUse', width:8, height:8});
@@ -252,19 +266,26 @@ function drawHistogram() {
   for (let i = 0; i <= 4; i++) {
     const y = 305 - i * 60;
     svg.append(svgElement('line', {x1: 60, x2: 980, y1:y, y2:y, stroke:'#34413b'}));
-    svg.append(svgElement('text', {x: 48, y:y+4, 'text-anchor':'end'}, `${(ymax*i/4).toFixed(0)}%`));
+    svg.append(svgElement('text', {x: 48, y:y+4, 'text-anchor':'end'}, `${ymax*i/4}`));
   }
+  svg.append(svgElement('text', {x:60,y:48}, 'Component count'));
   const table = document.querySelector('#bin-table'); table.replaceChildren();
   for (let i = 0; i < bins; i++) {
     const x = 60 + i * 920 / bins, width = 920 / bins;
-    for (const [values, color, isPlayed] of [[pa,'#b077cf',false],[pb,'url(#played-stripes)',true]]) {
+    for (const [values, color, isPlayed] of [[a,'#b077cf',false],[b,'#c6f078',true]]) {
       const height = values[i] / ymax * 240;
       const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? '#ffffff' : 'none', 'stroke-width':isPlayed ? 1 : 0});
-      bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i].toFixed(2)}%`)); svg.append(bar);
+      bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i]} components`)); svg.append(bar);
     }
     if (i % tickStride === 0) svg.append(svgElement('text', {x, y:329, 'text-anchor':'middle'}, axis.edges[i]));
     const row = document.createElement('tr');
     for (const value of [`${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])}`,a[i],b[i]]) { const cell = document.createElement('td'); cell.textContent=value; row.append(cell); }
+    table.append(row);
+  }
+  const overflow = played.filter(mass=>mass>150).length;
+  if (overflow) {
+    const row = document.createElement('tr');
+    for (const value of ['>150 (off chart)',0,overflow]) { const cell=document.createElement('td');cell.textContent=value;row.append(cell); }
     table.append(row);
   }
   const noteTable = document.querySelector('#note-mass-table'); noteTable.replaceChildren();
@@ -281,7 +302,7 @@ function drawHistogram() {
     marker.append(svgElement('title', {}, `${note.name}: ${note.mass.toFixed(2)} M☉ per black hole; ${note.frequency.toFixed(2)} Hz`));
     marker.append(svgElement('line', {x1:x, x2:x, y1:60, y2:305,
       stroke:color, 'stroke-opacity':selected ? 0.85 : 0.45, 'stroke-width':selected ? 2.5 : 1}));
-    if (note.midi <= 45 || (note.midi <= 57 && (note.midi - 45) % 2 === 0) || note.midi % 12 === 9) {
+    if (note.mass <= 150 && (note.midi <= 45 || (note.midi <= 57 && (note.midi - 45) % 2 === 0) || note.midi % 12 === 9)) {
       const labelX = x + 4;
       let labelRow = labelRowEnds.findIndex(end => labelX >= end + 5);
       if (labelRow === -1) labelRow = labelRowEnds.length;
@@ -292,7 +313,7 @@ function drawHistogram() {
       labelLayer.append(svgElement('text', {x:labelX, y:labelY, 'data-midi':note.midi,
         class:`note-label${selected ? ' played-note' : ''}`, style:`fill:${color}`}, note.name));
     }
-    markerLayer.append(marker);
+    if (note.mass <= 150) markerLayer.append(marker);
     const row = document.createElement('tr');
     for (const value of [note.name, note.frequency.toFixed(2), note.mass.toFixed(2)]) {
       const cell = document.createElement('td'); cell.textContent = value; row.append(cell);
@@ -301,9 +322,9 @@ function drawHistogram() {
   }
   svg.append(svgElement('text', {x:980, y:329, 'text-anchor':'middle'}, axis.edges.at(-1)));
   svg.append(labelLayer);
-  svg.append(svgElement('text', {x:520,y:360,'text-anchor':'middle'}, 'Component mass / M☉ (linear scale; 2 M☉ bins)'));
+  svg.append(svgElement('text', {x:520,y:360,'text-anchor':'middle'}, 'Component mass / M☉'));
   const activity = [playedNotes ? `${playedNotes} notes` : '', playedEvents ? `${playedEvents} catalog events` : ''].filter(Boolean).join(' + ') || '0 notes';
-  document.querySelector('#chart-status').textContent = `${observed.length} catalog components · ${activity} played / ${played.length} played components`;
+  document.querySelector('#chart-status').textContent = `${observed.length} catalog components · ${activity} played / ${played.length} played components${overflow ? ` · ${overflow} above 150 M☉ (off chart)` : ""}`;
 }
 document.querySelector('#reset').onclick = () => { stopAll(); played.length = 0; playedNotes = 0; playedEvents = 0; latestNote = null; drawHistogram(); };
 Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(async responses => {
@@ -326,12 +347,13 @@ async function playCatalog() {
   eventsButton.dataset.state = 'preparing';
   const musical = document.querySelector('#musical-mode').checked;
   const mode = musical ? 'musical' : 'scientific';
-  const chronological = document.querySelector('#event-order').checked;
-  const cacheKey = `${mode}-${chronological}`;
+  const condensed = document.querySelector('#condensed-timeline').checked;
+  const cacheKey = `${mode}-${condensed}`;
   try {
     createAudio();
     if (context.state !== 'running') await context.resume();
-    const plan = catalogPlan(catalog.events, fullNotes, chronological ? 0.1 : 0);
+    const plan = catalogPlan(eventTimeline(catalog.events, condensed, 30), fullNotes, 0.1);
+    eventsButton.dataset.timelineSeconds = String(plan.at(-1).offset);
     status.textContent = `Preparing ${catalog.events.length} events / ${plan.length} component sounds…`;
     const cached = catalogMixes.get(cacheKey);
     let mixed = cached?.buffer;
@@ -362,32 +384,68 @@ async function playCatalog() {
     source.connect(gain).connect(master);
     ensembleSource = source;
     voices.add(source);
+    let nextComponent = 0;
+    const startedEvents = new Set();
+    const firstGPS = Math.min(...catalog.events.map(event => event.gps));
+    const lastGPS = Math.max(...catalog.events.map(event => event.gps));
+    const timeline = document.querySelector('#detection-timeline');
+    timeline.hidden = false;
+    const segments = document.querySelector('#run-segments');
+    segments.replaceChildren();
+    for (const run of observingRuns) {
+      if (run.end < firstGPS || run.start > lastGPS) continue;
+      const segment = document.createElement('a');
+      segment.href = run.url; segment.textContent = run.name;
+      segment.style.left = `${Math.max(0,(run.start-firstGPS)/(lastGPS-firstGPS))*100}%`;
+      segment.style.width = `${(Math.min(lastGPS,run.end)-Math.max(firstGPS,run.start))/(lastGPS-firstGPS)*100}%`;
+      segments.append(segment);
+    }
+    const progress = elapsed => {
+      const fraction = Math.max(0,Math.min(1,elapsed/plan.at(-1).offset));
+      const lastStarted = plan.filter(part => part.offset <= elapsed).at(-1);
+      const gps = condensed ? firstGPS + fraction*(lastGPS-firstGPS) : lastStarted ? catalog.events.find(event=>event.name===lastStarted.event).gps : firstGPS;
+      const run = observingRuns.find(run=>gps>=run.start && gps<=run.end);
+      document.querySelector('#timeline-cursor').style.left = `${(gps-firstGPS)/(lastGPS-firstGPS)*100}%`;
+      document.querySelector('#timeline-date').textContent = `${new Date(Date.parse(catalog.events.find(event=>event.gps===firstGPS).utc)+(gps-firstGPS)*1000).toISOString().slice(0,10)} · ${run?.name || 'Between observing runs'}${lastStarted ? ` · Latest: ${lastStarted.event}` : ''}`;
+
+      const before = nextComponent;
+      while (nextComponent < plan.length && plan[nextComponent].offset <= elapsed) {
+        const part = plan[nextComponent++];
+        played.push(part.mass);
+        startedEvents.add(part.event);
+      }
+      if (nextComponent !== before) {
+        playedEvents = startedEvents.size;
+        drawHistogram();
+        if (nextComponent === plan.length) document.querySelector('#chart-status').textContent += ' · matches catalog';
+      }
+    };
     source.onended = () => {
       voices.delete(source); source.disconnect(); gain.disconnect();
       if (ensembleSource === source) {
+        progress(context.currentTime - start);
         ensembleSource = null;
         clearHighlights();
-        eventsButton.textContent = 'Play all found events at once';
+        eventsButton.textContent = 'Play detections in order';
         eventsButton.dataset.state = 'idle';
       }
     };
     source.start(start);
-    played.splice(0, played.length, ...plan.map(part => part.mass));
+    played.length = 0;
     playedNotes = 0;
-    playedEvents = catalog.events.length;
+    playedEvents = 0;
     latestNote = null;
     drawHistogram();
-    highlightTimeline(plan, start, ticket);
+    highlightTimeline(plan, start, ticket, progress);
     eventsButton.textContent = 'Stop all events';
     eventsButton.dataset.state = 'playing';
     eventsButton.dataset.components = String(plan.length);
     eventsButton.dataset.events = String(catalog.events.length);
-    current.textContent = `${catalog.events.length} catalog events ${chronological ? "in time order" : "together"}`;
-    status.textContent = `Playing all ${plan.length} catalog component sounds ${chronological ? "in time order (100 ms apart)" : "together"} · ${mode} mode`;
-    document.querySelector('#chart-status').textContent += ' · matches catalog';
+    current.textContent = `${catalog.events.length} catalog events in time order`;
+    status.textContent = `Playing all ${plan.length} catalog component sounds ${condensed ? "on a 30-second calendar timeline" : "in time order (100 ms apart)"} · ${mode} mode`;
   } catch (error) {
     if (ticket === generation) {
-      eventsButton.textContent = 'Play all found events at once';
+      eventsButton.textContent = 'Play detections in order';
       eventsButton.dataset.state = 'idle';
       status.textContent = `Could not play catalog: ${error.message}. Try again.`;
     }
