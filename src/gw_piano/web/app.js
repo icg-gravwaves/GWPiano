@@ -1,4 +1,6 @@
 import {musicalSample} from './musical.mjs';
+import {massBins} from './histogram.mjs';
+import {catalogPlan, mixCatalog, activeNotes} from './catalog-audio.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
@@ -9,6 +11,32 @@ let context, master, manifest;
 let loadingAudio = false;
 const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
+const eventsButton = document.querySelector('#play-events');
+const pendingBuffers = new Map(), catalogMixes = new Map();
+let catalogBusy = false, ensembleSource = null;
+let markerFrame = 0;
+function clearHighlights() {
+  cancelAnimationFrame(markerFrame);
+  document.querySelectorAll('.sounding-note, .sounding-bin').forEach(element => {
+    element.classList.remove('sounding-note', 'sounding-bin');
+  });
+}
+function highlightTimeline(plan, start, ticket) {
+  const update = () => {
+    if (ticket !== generation || !ensembleSource) { clearHighlights(); return; }
+    const elapsed = context.currentTime - start;
+    const active = activeNotes(plan, elapsed);
+    const masses = plan.filter(part => elapsed >= part.offset && elapsed < part.offset + part.duration).map(part => part.mass);
+    document.querySelectorAll('.played-bar').forEach(bar => {
+      bar.classList.toggle('sounding-bin', masses.some(mass => mass >= Number(bar.dataset.low) && mass < Number(bar.dataset.high)));
+    });
+    document.querySelectorAll('.note-marker, .note-label').forEach(element => {
+      element.classList.toggle('sounding-note', active.has(Number(element.dataset.midi)));
+    });
+    markerFrame = requestAnimationFrame(update);
+  };
+  update();
+}
 const wavePath = Array.from({length: 1200}, (_, i) => {
   const t = i / 1199;
   return `${i ? 'L' : 'M'}${(t * 600).toFixed(2)},${(180 + Math.sin(12*t + 220*t**4) * (8 + 140*t**3)).toFixed(2)}`;
@@ -16,9 +44,14 @@ const wavePath = Array.from({length: 1200}, (_, i) => {
 document.querySelector('#waveform').setAttribute('d', wavePath);
 function stopAll() {
   generation++;
+  clearHighlights();
   for (const source of voices) source.stop();
   voices.clear();
   for (const button of buttons.values()) button.classList.remove('active');
+  ensembleSource = null;
+  catalogBusy = false;
+  eventsButton.textContent = 'Play all found events at once';
+  eventsButton.dataset.state = 'idle';
 }
 document.querySelector('#stop').onclick = stopAll;
 function describeMode() {
@@ -47,6 +80,19 @@ function createAudio() {
   master.gain.value = Number(document.querySelector('#volume').value);
   master.connect(compressor).connect(context.destination);
 }
+async function referenceBuffer(note) {
+  if (buffers.has(note.midi)) return buffers.get(note.midi);
+  if (!pendingBuffers.has(note.midi)) {
+    pendingBuffers.set(note.midi, (async () => {
+      const response = await fetch(note.file);
+      if (!response.ok) throw new Error(`Sample download failed: ${response.status}`);
+      const buffer = await context.decodeAudioData(await response.arrayBuffer());
+      buffers.set(note.midi, buffer);
+      return buffer;
+    })().finally(() => pendingBuffers.delete(note.midi)));
+  }
+  return pendingBuffers.get(note.midi);
+}
 async function preloadAudio() {
   if (loadingAudio) return;
   loadingAudio = true;
@@ -61,9 +107,7 @@ async function preloadAudio() {
       while (queue.length) {
         const note = queue.shift();
         try {
-          const response = await fetch(note.file);
-          if (!response.ok) throw new Error(`Sample download failed: ${response.status}`);
-          const buffer = await context.decodeAudioData(await response.arrayBuffer());
+          const buffer = await referenceBuffer(note);
           const samples = musicalSample(buffer.getChannelData(0), buffer.sampleRate, note.frequency);
           const musical = context.createBuffer(1, samples.length, buffer.sampleRate);
           musical.copyToChannel(samples, 0);
@@ -115,6 +159,8 @@ async function play(note) {
       softwareLatencyMs: Number(button.dataset.playbackLatencyMs),
       mode: musical ? 'musical' : 'scientific', baseLatencySeconds: context.baseLatency});
     played.push(note.mass, note.mass);
+    playedNotes++;
+    latestNote = note;
     drawHistogram();
     current.textContent = `${note.name} / ${note.frequency.toFixed(2)} Hz / ${note.mass.toFixed(1)} + ${note.mass.toFixed(1)} M☉`;
     status.textContent = musical ? 'Musical · short chirp + synthetic note tone' : 'Scientific · full IMRPhenomD waveform';
@@ -169,7 +215,10 @@ async function setup() {
 setup().catch(error => { status.textContent = `${error.message}. Serve this folder over HTTP.`; });
 
 let catalog = null;
+let fullNotes = [];
 const played = [];
+let playedNotes = 0, playedEvents = 0;
+let latestNote = null;
 const ns = 'http://www.w3.org/2000/svg';
 function svgElement(tag, attributes, text) {
   const element = document.createElementNS(ns, tag);
@@ -178,14 +227,15 @@ function svgElement(tag, attributes, text) {
   return element;
 }
 function drawHistogram() {
-  if (!catalog) return;
+  if (!catalog || !fullNotes.length) return;
   const observed = catalog.events.flatMap(event => event.masses);
-  const max = Math.max(100, ...observed, ...manifest.notes.map(note => note.mass));
-  const binWidth = Math.ceil(max / 20 / 5) * 5;
-  const bins = Math.ceil(max / binWidth);
+  const axis = massBins([...observed, ...fullNotes.map(note => note.mass)]);
+  const bins = axis.edges.length - 1;
+  const formatMass = mass => Number(mass.toPrecision(4)).toString();
+  const tickStride = Math.ceil(bins / 6 / 5) * 5;
   const count = values => {
     const result = Array(bins).fill(0);
-    for (const value of values) result[Math.min(bins - 1, Math.floor(value / binWidth))]++;
+    for (const value of values) result[axis.index(value)]++;
     return result;
   };
   const a = count(observed), b = count(played);
@@ -197,8 +247,10 @@ function drawHistogram() {
   const stripes = svgElement('pattern', {id:'played-stripes', patternUnits:'userSpaceOnUse', width:8, height:8});
   stripes.append(svgElement('path', {d:'M-2 2 L2 -2 M0 8 L8 0 M6 10 L10 6', stroke:'#c6f078', 'stroke-width':3}));
   defs.append(stripes); svg.append(defs);
+  const markerLayer = svgElement('g', {class:'note-markers'});
+  svg.append(markerLayer);
   for (let i = 0; i <= 4; i++) {
-    const y = 265 - i * 60;
+    const y = 305 - i * 60;
     svg.append(svgElement('line', {x1: 60, x2: 980, y1:y, y2:y, stroke:'#34413b'}));
     svg.append(svgElement('text', {x: 48, y:y+4, 'text-anchor':'end'}, `${(ymax*i/4).toFixed(0)}%`));
   }
@@ -207,25 +259,141 @@ function drawHistogram() {
     const x = 60 + i * 920 / bins, width = 920 / bins;
     for (const [values, color, isPlayed] of [[pa,'#b077cf',false],[pb,'url(#played-stripes)',true]]) {
       const height = values[i] / ymax * 240;
-      const bar = svgElement('rect', {x:x+(isPlayed ? width*0.2 : 1), y:265-height, width:isPlayed ? width*0.6 : width-2, height, fill:color, stroke:isPlayed ? '#ffffff' : 'none', 'stroke-width':isPlayed ? 2 : 0});
-      bar.append(svgElement('title', {}, `${i*binWidth}–${(i+1)*binWidth} M☉: ${values[i].toFixed(2)}%`)); svg.append(bar);
+      const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? '#ffffff' : 'none', 'stroke-width':isPlayed ? 1 : 0});
+      bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i].toFixed(2)}%`)); svg.append(bar);
     }
-    if (i % Math.ceil(bins/10) === 0) svg.append(svgElement('text', {x, y:289}, i*binWidth));
+    if (i % tickStride === 0) svg.append(svgElement('text', {x, y:329, 'text-anchor':'middle'}, axis.edges[i]));
     const row = document.createElement('tr');
-    for (const value of [`${i*binWidth}–${(i+1)*binWidth}`,a[i],b[i]]) { const cell = document.createElement('td'); cell.textContent=value; row.append(cell); }
+    for (const value of [`${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])}`,a[i],b[i]]) { const cell = document.createElement('td'); cell.textContent=value; row.append(cell); }
     table.append(row);
   }
-  svg.append(svgElement('text', {x:520,y:320,'text-anchor':'middle'}, 'Component mass / M☉ (linear bins)'));
-  document.querySelector('#chart-status').textContent = `${observed.length} catalog components · ${played.length/2} notes played / ${played.length} played components`;
+  const noteTable = document.querySelector('#note-mass-table'); noteTable.replaceChildren();
+  const noteColors = ['#c6f078', '#a8d8ff', '#e5b0ff', '#ffada8', '#ffd080', '#7ee2c4',
+    '#f4b5d8', '#c0c8ff', '#f5ec97', '#91dff5', '#dbbda0', '#b4e6b8'];
+  const labelRowEnds = [];
+  const labelLayer = svgElement('g', {class:'note-labels'});
+  for (const note of [...fullNotes].sort((a, b) => a.mass - b.mass)) {
+    // Markers and bars share the same linear component-mass axis.
+    const x = 60 + axis.position(note.mass) * 920;
+    const selected = latestNote?.midi === note.midi;
+    const color = noteColors[note.midi % 12];
+    const marker = svgElement('g', {class:'note-marker', 'data-midi':note.midi});
+    marker.append(svgElement('title', {}, `${note.name}: ${note.mass.toFixed(2)} M☉ per black hole; ${note.frequency.toFixed(2)} Hz`));
+    marker.append(svgElement('line', {x1:x, x2:x, y1:60, y2:305,
+      stroke:color, 'stroke-opacity':selected ? 0.85 : 0.45, 'stroke-width':selected ? 2.5 : 1}));
+    if (note.midi <= 45 || (note.midi <= 57 && (note.midi - 45) % 2 === 0) || note.midi % 12 === 9) {
+      const labelX = x + 4;
+      let labelRow = labelRowEnds.findIndex(end => labelX >= end + 5);
+      if (labelRow === -1) labelRow = labelRowEnds.length;
+      labelRowEnds[labelRow] = labelX + note.name.length * 7;
+      const labelY = 80 + labelRow * 18;
+      labelLayer.append(svgElement('rect', {x:labelX-2, y:labelY-12,
+        width:note.name.length*7+4, height:16, fill:'#101716', rx:2}));
+      labelLayer.append(svgElement('text', {x:labelX, y:labelY, 'data-midi':note.midi,
+        class:`note-label${selected ? ' played-note' : ''}`, style:`fill:${color}`}, note.name));
+    }
+    markerLayer.append(marker);
+    const row = document.createElement('tr');
+    for (const value of [note.name, note.frequency.toFixed(2), note.mass.toFixed(2)]) {
+      const cell = document.createElement('td'); cell.textContent = value; row.append(cell);
+    }
+    noteTable.append(row);
+  }
+  svg.append(svgElement('text', {x:980, y:329, 'text-anchor':'middle'}, axis.edges.at(-1)));
+  svg.append(labelLayer);
+  svg.append(svgElement('text', {x:520,y:360,'text-anchor':'middle'}, 'Component mass / M☉ (linear scale; 2 M☉ bins)'));
+  const activity = [playedNotes ? `${playedNotes} notes` : '', playedEvents ? `${playedEvents} catalog events` : ''].filter(Boolean).join(' + ') || '0 notes';
+  document.querySelector('#chart-status').textContent = `${observed.length} catalog components · ${activity} played / ${played.length} played components`;
 }
-document.querySelector('#reset').onclick = () => { played.length = 0; drawHistogram(); };
-fetch('catalog.json').then(response => { if (!response.ok) throw new Error('Catalog download failed'); return response.json(); }).then(async data => {
+document.querySelector('#reset').onclick = () => { stopAll(); played.length = 0; playedNotes = 0; playedEvents = 0; latestNote = null; drawHistogram(); };
+Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(async responses => {
+  if (responses.some(response => !response.ok)) throw new Error('Catalog or full piano manifest download failed');
+  const [data, pack] = await Promise.all(responses.map(response => response.json()));
   catalog = data;
+  fullNotes = pack.notes;
+  eventsButton.disabled = false;
   document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved}. ${data.events.length} events. ${data.selection}`;
-  // The instrument manifest supplies the histogram range, including every playable mass.
-  if (!manifest) { const response = await fetch('manifest.json'); manifest = await response.json(); }
   drawHistogram();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
+
+async function playCatalog() {
+  if (catalogBusy || ensembleSource) { stopAll(); return; }
+  if (!catalog || !fullNotes.length) return;
+  stopAll();
+  const ticket = generation;
+  catalogBusy = true;
+  eventsButton.textContent = 'Cancel preparing events';
+  eventsButton.dataset.state = 'preparing';
+  const musical = document.querySelector('#musical-mode').checked;
+  const mode = musical ? 'musical' : 'scientific';
+  const chronological = document.querySelector('#event-order').checked;
+  const cacheKey = `${mode}-${chronological}`;
+  try {
+    createAudio();
+    if (context.state !== 'running') await context.resume();
+    const plan = catalogPlan(catalog.events, fullNotes, chronological ? 0.1 : 0);
+    status.textContent = `Preparing ${catalog.events.length} events / ${plan.length} component sounds…`;
+    const cached = catalogMixes.get(cacheKey);
+    let mixed = cached?.buffer;
+    if (cached) plan.forEach((part, index) => { part.duration = cached.durations[index]; });
+    if (!mixed) {
+      const queue = [...new Map(plan.map(part => [part.note.midi, part.note])).values()];
+      await Promise.all(Array.from({length:4}, async () => {
+        while (queue.length && ticket === generation) await referenceBuffer(queue.shift());
+      }));
+      if (ticket !== generation) return;
+      const samples = await mixCatalog(plan, note => {
+        const buffer = buffers.get(note.midi);
+        return {samples:buffer.getChannelData(0), sampleRate:buffer.sampleRate};
+      }, context.sampleRate, musical, async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+        if (ticket !== generation) throw new Error('Catalog playback cancelled');
+      });
+      mixed = context.createBuffer(1, samples.length, context.sampleRate);
+      mixed.copyToChannel(samples, 0);
+      catalogMixes.set(cacheKey, {buffer:mixed, durations:plan.map(part => part.duration)});
+    }
+    if (ticket !== generation) return;
+    const source = context.createBufferSource(), gain = context.createGain();
+    source.buffer = mixed;
+    const start = context.currentTime + 0.02;
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(1, start + 0.005);
+    source.connect(gain).connect(master);
+    ensembleSource = source;
+    voices.add(source);
+    source.onended = () => {
+      voices.delete(source); source.disconnect(); gain.disconnect();
+      if (ensembleSource === source) {
+        ensembleSource = null;
+        clearHighlights();
+        eventsButton.textContent = 'Play all found events at once';
+        eventsButton.dataset.state = 'idle';
+      }
+    };
+    source.start(start);
+    played.splice(0, played.length, ...plan.map(part => part.mass));
+    playedNotes = 0;
+    playedEvents = catalog.events.length;
+    latestNote = null;
+    drawHistogram();
+    highlightTimeline(plan, start, ticket);
+    eventsButton.textContent = 'Stop all events';
+    eventsButton.dataset.state = 'playing';
+    eventsButton.dataset.components = String(plan.length);
+    eventsButton.dataset.events = String(catalog.events.length);
+    current.textContent = `${catalog.events.length} catalog events ${chronological ? "in time order" : "together"}`;
+    status.textContent = `Playing all ${plan.length} catalog component sounds ${chronological ? "in time order (100 ms apart)" : "together"} · ${mode} mode`;
+    document.querySelector('#chart-status').textContent += ' · matches catalog';
+  } catch (error) {
+    if (ticket === generation) {
+      eventsButton.textContent = 'Play all found events at once';
+      eventsButton.dataset.state = 'idle';
+      status.textContent = `Could not play catalog: ${error.message}. Try again.`;
+    }
+  } finally { if (ticket === generation) catalogBusy = false; }
+}
+eventsButton.addEventListener('click', playCatalog);
 
 const instrument = document.querySelector('#instrument');
 const fullscreenButton = document.querySelector('#fullscreen');
