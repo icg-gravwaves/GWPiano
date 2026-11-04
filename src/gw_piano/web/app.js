@@ -347,7 +347,7 @@ async function playCatalog() {
   eventsButton.dataset.state = 'preparing';
   const musical = document.querySelector('#musical-mode').checked;
   const mode = musical ? 'musical' : 'scientific';
-  const condensed = document.querySelector('#condensed-timeline').checked;
+  const condensed = document.querySelector('input[name="detection-timing"]:checked').value === 'preserve';
   const cacheKey = `${mode}-${condensed}`;
   try {
     createAudio();
