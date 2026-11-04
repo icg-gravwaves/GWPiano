@@ -19,9 +19,12 @@ jobs:
         with:
           python-version: '3.11'
           cache: pip
-      - run: pip install .
+          cache-dependency-path: ci/requirements.txt
+      - run: pip install -c ci/requirements.txt .
       - run: python -m unittest discover -s tests -v
       - run: gw-piano --output dist
+      - name: Check sound pack before deploying
+        run: python scripts/check_pack.py dist
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

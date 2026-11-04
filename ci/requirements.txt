@@ -1,0 +1,26 @@
+# Exact versions for the Pages build, matching a known-good local build.
+# Upgrade deliberately: change a pin, rebuild locally, check the pack, then commit.
+astropy==6.0.1
+astropy_iers_data==0.2026.3.16.0.53.33
+contourpy==1.3.0
+cycler==0.12.1
+fonttools==4.60.2
+igwn_ligolw==2.1.1
+igwn_segments==2.1.1
+importlib_resources==6.5.2
+kiwisolver==1.4.7
+lalsuite==7.26.4
+lscsoft_glue==4.1.1
+matplotlib==3.9.4
+numpy==1.26.4
+packaging==26.3
+pillow==11.3.0
+pyerfa==2.0.1.5
+pyparsing==3.3.3
+python_dateutil==3.0.0
+pyyaml==6.0.3
+scipy==1.13.1
+six==1.17.0
+tqdm==4.70.1
+tzdata==2026.6
+zipp==3.23.1

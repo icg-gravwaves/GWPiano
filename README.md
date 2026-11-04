@@ -69,6 +69,10 @@ The workflow needs `pages: write` and `id-token: write` (already declared). For 
 
 The full 88-key sampler pack (`gw-piano-sound-pack.zip`) is built by `gw-piano --output dist` and is not committed. The Pages workflow rebuilds it on every deploy, and the site's **Download sound pack** button links to that copy.
 
+Before deploying, the workflow runs `python scripts/check_pack.py dist`. It fails the build, leaving the live site unchanged, if the ZIP is corrupt, any note is missing, the SFZ points to a missing file, or any WAV is not 44.1 kHz mono 16-bit or is silent. Run the same command locally after `gw-piano --output dist`.
+
+The workflow installs exact dependency versions from `ci/requirements.txt`, so a new LALSuite or NumPy release cannot change the deployed waveforms by itself. To upgrade, change a pin, rebuild and check the pack locally, then commit.
+
 ## Licensing and branding
 
 Project code: **GPL-3.0-or-later**, see LICENSE. LALSuite is GPL-2.0-or-later and is installed as a dependency, not bundled into the website. Generated waveform audio is offered under **CC0-1.0**, separately from code. GWOSC data retains its source attribution and applicable source terms; no project license is asserted over third-party data.
