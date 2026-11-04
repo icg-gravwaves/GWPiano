@@ -1,7 +1,7 @@
 import {eventTimeline, observingRuns} from './timeline.mjs';
 import {musicalSample} from './musical.mjs';
 import {massBins} from './histogram.mjs';
-import {catalogPlan, mixCatalog, activeNotes} from './catalog-audio.mjs';
+import {catalogPlan, scheduleCatalog, activeNotes} from './catalog-audio.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
@@ -13,7 +13,8 @@ let loadingAudio = false;
 const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
 const eventsButton = document.querySelector('#play-events');
-const pendingBuffers = new Map(), catalogMixes = new Map();
+const pendingBuffers = new Map();
+let catalogLoading = null;
 let catalogBusy = false, ensembleSource = null;
 let markerFrame = 0;
 const soundingManual = new Map();
@@ -75,6 +76,7 @@ function describeMode() {
 document.querySelector('#musical-mode').addEventListener('change', () => {
   stopAll();
   describeMode();
+  warmCatalog();
   status.textContent = document.querySelector('#musical-mode').checked
     ? 'Musical mode selected · short chirp + synthetic note tone'
     : 'Scientific mode selected · full waveform with quiet lead-in';
@@ -105,6 +107,16 @@ async function referenceBuffer(note) {
   }
   return pendingBuffers.get(note.midi);
 }
+async function noteBuffer(note) {
+  const buffer = await referenceBuffer(note);
+  if (!musicalBuffers.has(note.midi)) {
+    const samples = musicalSample(buffer.getChannelData(0), buffer.sampleRate, note.frequency);
+    const musical = context.createBuffer(1, samples.length, buffer.sampleRate);
+    musical.copyToChannel(samples, 0);
+    musicalBuffers.set(note.midi, musical);
+  }
+  return buffer;
+}
 async function preloadAudio() {
   if (loadingAudio) return;
   loadingAudio = true;
@@ -113,26 +125,22 @@ async function preloadAudio() {
   status.textContent = 'Preparing keyboard audio… Keys become available as sounds load.';
   try {
     createAudio();
-    const queue = manifest.notes.filter(note => !buffers.has(note.midi));
+    const queue = manifest.notes.filter(note => !musicalBuffers.has(note.midi));
     // Limit concurrent decoding to keep tablet memory and startup work bounded.
     await Promise.all(Array.from({length: 4}, async () => {
       while (queue.length) {
         const note = queue.shift();
         try {
-          const buffer = await referenceBuffer(note);
-          const samples = musicalSample(buffer.getChannelData(0), buffer.sampleRate, note.frequency);
-          const musical = context.createBuffer(1, samples.length, buffer.sampleRate);
-          musical.copyToChannel(samples, 0);
-          musicalBuffers.set(note.midi, musical);
-          buffers.set(note.midi, buffer);
+          await noteBuffer(note);
           buttons.get(note.midi).disabled = false;
         } catch (error) { console.debug('GW Piano sample unavailable', note.name, error); }
       }
     }));
-    const missing = manifest.notes.length - buffers.size;
+    for (const note of manifest.notes) buttons.get(note.midi).disabled = !musicalBuffers.has(note.midi);
+    const missing = manifest.notes.filter(note => !musicalBuffers.has(note.midi)).length;
     retry.hidden = missing === 0;
     status.textContent = missing
-      ? `${buffers.size} sounds ready; ${missing} unavailable. Use Retry audio to try again.`
+      ? `${manifest.notes.length - missing} sounds ready; ${missing} unavailable. Use Retry audio to try again.`
       : 'Ready · sounds preloaded for immediate playback';
   } catch (error) {
     retry.hidden = false;
@@ -148,7 +156,8 @@ async function play(note) {
     if (!context || !buffers.has(note.midi)) return;
     if (context.state !== 'running') await context.resume();
     if (ticket !== generation) return;
-    if (voices.size >= 24) { const oldest = voices.values().next().value; oldest.stop(); voices.delete(oldest); }
+    const manualVoices = [...voices].filter(voice => voice !== ensembleSource);
+    if (manualVoices.length >= 24) { const oldest = manualVoices[0]; oldest.stop(); voices.delete(oldest); }
     const source = context.createBufferSource();
     const gain = context.createGain();
     const startAt = context.currentTime;
@@ -335,55 +344,92 @@ Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(asy
   eventsButton.disabled = false;
   document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved}. ${data.events.length} events. ${data.selection}`;
   drawHistogram();
+  warmCatalog();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
 
+function catalogSelection() {
+  return {
+    musical:document.querySelector('#musical-mode').checked,
+    condensed:document.querySelector('#preserve-timeline').getAttribute('aria-checked') === 'true'
+  };
+}
+function catalogReferences() {
+  return [...new Map(catalogPlan(catalog.events, fullNotes).map(part => [part.note.midi, part.note])).values()];
+}
+function catalogReady() {
+  return catalog && fullNotes.length && catalogReferences().every(note => musicalBuffers.has(note.midi));
+}
+function loadCatalogSamples() {
+  if (!catalogLoading) {
+    catalogLoading = (async () => {
+      createAudio();
+      const queue = catalogReferences().filter(note => !musicalBuffers.has(note.midi));
+      await Promise.all(Array.from({length:4}, async () => {
+        while (queue.length) await noteBuffer(queue.shift());
+      }));
+    })().finally(() => { catalogLoading = null; });
+  }
+  return catalogLoading;
+}
+async function warmCatalog() {
+  if (!catalog || !fullNotes.length) return;
+  const message = document.querySelector('#catalog-audio-status');
+  message.textContent = catalogReady() ? 'Detection sounds ready — press Play to start.' : 'Loading note samples…';
+  try {
+    await loadCatalogSamples();
+    message.textContent = 'Detection sounds ready — press Play to start.';
+  } catch (error) {
+    console.debug('GW Piano detection sample loading', error);
+    message.textContent = 'Some note samples could not load. Press Play to retry.';
+  }
+}
+const timingButtons = [...document.querySelectorAll('.timeline-toggle [role="radio"]')];
+function selectTiming(button) {
+  for (const option of timingButtons) {
+    const selected = option === button;
+    option.setAttribute('aria-checked', String(selected));
+    option.tabIndex = selected ? 0 : -1;
+  }
+  warmCatalog();
+}
+for (const button of timingButtons) {
+  button.addEventListener('click', () => selectTiming(button));
+  button.addEventListener('keydown', event => {
+    const index = timingButtons.indexOf(button);
+    let next;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % timingButtons.length;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + timingButtons.length - 1) % timingButtons.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = timingButtons.length - 1;
+    else return;
+    event.preventDefault();
+    selectTiming(timingButtons[next]);
+    timingButtons[next].focus();
+  });
+}
+
 async function playCatalog() {
+  const pressedAt = performance.now();
   if (catalogBusy || ensembleSource) { stopAll(); return; }
   if (!catalog || !fullNotes.length) return;
   stopAll();
   const ticket = generation;
   catalogBusy = true;
-  eventsButton.textContent = 'Cancel preparing events';
-  eventsButton.dataset.state = 'preparing';
-  const musical = document.querySelector('#musical-mode').checked;
+  const {musical, condensed} = catalogSelection();
   const mode = musical ? 'musical' : 'scientific';
-  const condensed = document.querySelector('input[name="detection-timing"]:checked').value === 'preserve';
-  const cacheKey = `${mode}-${condensed}`;
   try {
     createAudio();
     if (context.state !== 'running') await context.resume();
+    if (!catalogReady()) {
+      eventsButton.textContent = 'Cancel loading sounds';
+      eventsButton.dataset.state = 'preparing';
+      status.textContent = 'Loading detection sounds…';
+    }
+    if (!catalogReady()) await loadCatalogSamples();
     const plan = catalogPlan(eventTimeline(catalog.events, condensed, 30), fullNotes, 0.1);
     eventsButton.dataset.timelineSeconds = String(plan.at(-1).offset);
-    status.textContent = `Preparing ${catalog.events.length} events / ${plan.length} component sounds…`;
-    const cached = catalogMixes.get(cacheKey);
-    let mixed = cached?.buffer;
-    if (cached) plan.forEach((part, index) => { part.duration = cached.durations[index]; });
-    if (!mixed) {
-      const queue = [...new Map(plan.map(part => [part.note.midi, part.note])).values()];
-      await Promise.all(Array.from({length:4}, async () => {
-        while (queue.length && ticket === generation) await referenceBuffer(queue.shift());
-      }));
-      if (ticket !== generation) return;
-      const samples = await mixCatalog(plan, note => {
-        const buffer = buffers.get(note.midi);
-        return {samples:buffer.getChannelData(0), sampleRate:buffer.sampleRate};
-      }, context.sampleRate, musical, async () => {
-        await new Promise(resolve => setTimeout(resolve, 0));
-        if (ticket !== generation) throw new Error('Catalog playback cancelled');
-      });
-      mixed = context.createBuffer(1, samples.length, context.sampleRate);
-      mixed.copyToChannel(samples, 0);
-      catalogMixes.set(cacheKey, {buffer:mixed, durations:plan.map(part => part.duration)});
-    }
     if (ticket !== generation) return;
-    const source = context.createBufferSource(), gain = context.createGain();
-    source.buffer = mixed;
     const start = context.currentTime + 0.02;
-    gain.gain.setValueAtTime(0, start);
-    gain.gain.linearRampToValueAtTime(1, start + 0.005);
-    source.connect(gain).connect(master);
-    ensembleSource = source;
-    voices.add(source);
     let nextComponent = 0;
     const startedEvents = new Set();
     const firstGPS = Math.min(...catalog.events.map(event => event.gps));
@@ -420,17 +466,21 @@ async function playCatalog() {
         if (nextComponent === plan.length) document.querySelector('#chart-status').textContent += ' · matches catalog';
       }
     };
-    source.onended = () => {
-      voices.delete(source); source.disconnect(); gain.disconnect();
+    const source = scheduleCatalog(context, plan, note => (musical ? musicalBuffers : buffers).get(note.midi), master, start, () => {
+      voices.delete(source);
       if (ensembleSource === source) {
         progress(context.currentTime - start);
         ensembleSource = null;
         clearHighlights();
         eventsButton.textContent = 'Play detections in order';
         eventsButton.dataset.state = 'idle';
+        status.textContent = 'Detection playback finished.';
       }
-    };
-    source.start(start);
+    });
+    ensembleSource = source;
+    voices.add(source);
+    eventsButton.dataset.playbackLatencyMs = (performance.now() - pressedAt + 20).toFixed(1);
+    console.debug('GW Piano lookup playback', {latencyMs:Number(eventsButton.dataset.playbackLatencyMs), components:plan.length});
     played.length = 0;
     playedNotes = 0;
     playedEvents = 0;
