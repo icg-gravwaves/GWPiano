@@ -452,7 +452,7 @@ async function playCatalog() {
       const gps = condensed ? firstGPS + fraction*(lastGPS-firstGPS) : lastStarted ? catalog.events.find(event=>event.name===lastStarted.event).gps : firstGPS;
       const run = observingRuns.find(run=>gps>=run.start && gps<=run.end);
       document.querySelector('#timeline-cursor').style.left = `${(gps-firstGPS)/(lastGPS-firstGPS)*100}%`;
-      document.querySelector('#timeline-date').textContent = `${new Date(Date.parse(catalog.events.find(event=>event.gps===firstGPS).utc)+(gps-firstGPS)*1000).toISOString().slice(0,10)} · ${run?.name || 'Between observing runs'}${lastStarted ? ` · Latest: ${lastStarted.event}` : ''}`;
+      document.querySelector('#timeline-date').textContent = `${new Date(Date.parse(catalog.events.find(event=>event.gps===firstGPS).utc)+(gps-firstGPS)*1000).toISOString().slice(0,10).split('-').reverse().join('-')} · ${run?.name || 'Between observing runs'}${lastStarted ? ` · Latest: ${lastStarted.event}` : ''}`;
 
       const before = nextComponent;
       while (nextComponent < plan.length && plan[nextComponent].offset <= elapsed) {
