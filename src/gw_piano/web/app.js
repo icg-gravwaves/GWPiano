@@ -5,7 +5,6 @@ import {catalogPlan, scheduleCatalog, activeNotes} from './catalog-audio.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
-const current = document.querySelector('#current');
 const keyboard = document.querySelector('#keyboard');
 const shortcuts = 'awsedftgyhujk';
 let context, master, manifest;
@@ -84,7 +83,7 @@ function describeMode() {
   const musical = document.querySelector('#musical-mode').checked;
   document.querySelector('#mode-description').textContent = musical
     ? 'Musical: short model chirp + 350 ms decaying tone at the note frequency. The tone is synthetic.'
-    : 'Scientific: full IMRPhenomD waveform, including its quiet lead-in; no added tone.';
+    : 'Scientific: the full model waveform, with no added tone.';
 }
 document.querySelector('#musical-mode').addEventListener('change', () => {
   stopAll();
@@ -202,8 +201,6 @@ async function play(note) {
     latestNote = note;
     drawHistogram();
     updateSoundingBars();
-    current.textContent = `${note.name} / ${note.frequency.toFixed(2)} Hz / ${note.mass.toFixed(1)} + ${note.mass.toFixed(1)} M☉`;
-    status.textContent = musical ? 'Musical · short chirp + synthetic note tone' : 'Scientific · full IMRPhenomD waveform';
   } catch (error) { status.textContent = `Could not play audio. ${error.message}. Try again.`; }
 }
 async function setup() {
@@ -296,7 +293,6 @@ function drawHistogram() {
     svg.append(svgElement('text', {x: 48, y:y+4, 'text-anchor':'end'}, `${ymax*i/4}`));
   }
   svg.append(svgElement('text', {x:60,y:48}, 'Component count'));
-  const table = document.querySelector('#bin-table'); table.replaceChildren();
   for (let i = 0; i < bins; i++) {
     const x = 60 + i * 920 / bins, width = 920 / bins;
     for (const [values, color, isPlayed] of [[a,'#b077cf',false],[b,'#c6f078',true]]) {
@@ -305,17 +301,8 @@ function drawHistogram() {
       bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i]} components`)); svg.append(bar);
     }
     if (i % tickStride === 0) svg.append(svgElement('text', {x, y:329, 'text-anchor':'middle'}, axis.edges[i]));
-    const row = document.createElement('tr');
-    for (const value of [`${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])}`,a[i],b[i]]) { const cell = document.createElement('td'); cell.textContent=value; row.append(cell); }
-    table.append(row);
   }
   const overflow = played.filter(mass=>mass>150).length;
-  if (overflow) {
-    const row = document.createElement('tr');
-    for (const value of ['>150 (off chart)',0,overflow]) { const cell=document.createElement('td');cell.textContent=value;row.append(cell); }
-    table.append(row);
-  }
-  const noteTable = document.querySelector('#note-mass-table'); noteTable.replaceChildren();
   const labelRowEnds = [];
   const labelLayer = svgElement('g', {class:'note-labels'});
   for (const note of [...fullNotes].sort((a, b) => a.mass - b.mass)) {
@@ -324,7 +311,6 @@ function drawHistogram() {
     const selected = latestNote?.midi === note.midi;
     const color = noteColor(note.midi);
     const marker = svgElement('g', {class:'note-marker', 'data-midi':note.midi});
-    marker.append(svgElement('title', {}, `${note.name}: ${note.mass.toFixed(2)} M☉ per black hole; ${note.frequency.toFixed(2)} Hz`));
     marker.append(svgElement('line', {x1:x, x2:x, y1:60, y2:305,
       stroke:color, 'stroke-opacity':selected ? 0.85 : 0.45, 'stroke-width':selected ? 2.5 : 1}));
     if (note.mass <= 150 && (note.midi <= 45 || (note.midi <= 57 && (note.midi - 45) % 2 === 0) || note.midi % 12 === 9)) {
@@ -335,17 +321,19 @@ function drawHistogram() {
       const labelY = 80 + labelRow * 18;
       labelLayer.append(svgElement('rect', {x:labelX-2, y:labelY-12,
         width:note.name.length*7+4, height:16, fill:'#101716', rx:2}));
-      labelLayer.append(svgElement('text', {x:labelX, y:labelY, 'data-midi':note.midi,
-        class:`note-label${selected ? ' played-note' : ''}`, style:`fill:${color}`}, note.name));
+      const label = svgElement('text', {x:labelX, y:labelY, 'data-midi':note.midi,
+        class:`note-label${selected ? ' played-note' : ''}`, style:`fill:${color}`}, note.name);
+      labelLayer.append(label);
     }
     if (note.mass <= 150) markerLayer.append(marker);
-    const row = document.createElement('tr');
-    for (const value of [note.name, note.frequency.toFixed(2), note.mass.toFixed(2)]) {
-      const cell = document.createElement('td'); cell.textContent = value; row.append(cell);
-    }
-    noteTable.append(row);
   }
   svg.append(svgElement('text', {x:980, y:329, 'text-anchor':'middle'}, axis.edges.at(-1)));
+  const examples = document.querySelector('#note-examples');
+  if (examples && !examples.textContent) {
+    const describe = name => { const n = fullNotes.find(note => note.name === name);
+      return n ? `${n.name} (${n.frequency.toFixed(0)} Hz) is two ${n.mass.toFixed(0)} M☉ black holes` : ''; };
+    examples.textContent = `For example, ${describe('A4')}, and ${describe('A2')}.`;
+  }
   svg.append(labelLayer);
   svg.append(svgElement('text', {x:520,y:360,'text-anchor':'middle'}, 'Component mass / M☉'));
   const activity = [playedNotes ? `${playedNotes} notes` : '', playedEvents ? `${playedEvents} catalog events` : ''].filter(Boolean).join(' + ') || '0 notes';
@@ -358,7 +346,7 @@ Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(asy
   catalog = data;
   fullNotes = pack.notes;
   eventsButton.disabled = false;
-  document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved}. ${data.events.length} events. ${data.selection}`;
+  document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved} · ${data.events.length} events`;
   drawHistogram();
   warmCatalog();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
@@ -509,7 +497,6 @@ async function playCatalog() {
     eventsButton.dataset.state = 'playing';
     eventsButton.dataset.components = String(plan.length);
     eventsButton.dataset.events = String(catalog.events.length);
-    current.textContent = `${catalog.events.length} catalog events in time order`;
     status.textContent = `Playing all ${plan.length} catalog component sounds ${condensed ? "on a 30-second calendar timeline" : "in time order (100 ms apart)"} · ${mode} mode`;
   } catch (error) {
     if (ticket === generation) {

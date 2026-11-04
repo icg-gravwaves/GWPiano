@@ -1,3 +1,8 @@
+// Tone level relative to the chirp's peak, and its decay time in seconds.
+// Kept low so the chirp stays the main sound and the tone only adds pitch.
+const TONE_LEVEL = 0.3;
+const TONE_DECAY = 0.12;
+
 /** Combine a short, model chirp at its original pitch with a synthetic note tail. */
 export function musicalSample(samples, sampleRate, frequency) {
   if (!samples.length || !Number.isFinite(frequency) || frequency <= 0 ||
@@ -11,6 +16,7 @@ export function musicalSample(samples, sampleRate, frequency) {
   const start = Math.max(0, peakIndex - Math.round(0.12 * sampleRate));
   const end = Math.min(samples.length, peakIndex + Math.round(0.02 * sampleRate));
   const chirpLength = end - start;
+  const chirpPeak = Math.abs(samples[peakIndex]);
   const overlap = Math.min(chirpLength, Math.round(0.02 * sampleRate));
   const toneStart = chirpLength - overlap;
   const toneLength = Math.round(0.35 * sampleRate);
@@ -22,8 +28,8 @@ export function musicalSample(samples, sampleRate, frequency) {
     const crossfade = Math.max(0, Math.min(1, (i - toneStart) / Math.max(1, overlap - 1)));
     const chirp = i < chirpLength ? samples[start + i] * Math.cos(crossfade * Math.PI / 2) : 0;
     const t = (i - toneStart) / sampleRate;
-    const tone = t >= 0 ? 0.65 * Math.sin(2 * Math.PI * frequency * t) *
-      Math.exp(-t / 0.18) * Math.sin(crossfade * Math.PI / 2) : 0;
+    const tone = t >= 0 ? TONE_LEVEL * chirpPeak * Math.sin(2 * Math.PI * frequency * t) *
+      Math.exp(-t / TONE_DECAY) * Math.sin(crossfade * Math.PI / 2) : 0;
     const envelope = Math.min(1, i / attack, (output.length - 1 - i) / release);
     output[i] = (chirp + tone) * envelope;
     peak = Math.max(peak, Math.abs(output[i]));
