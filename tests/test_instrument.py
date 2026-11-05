@@ -29,6 +29,11 @@ class InstrumentTests(unittest.TestCase):
             self.assertEqual(samples[-1], 0)
             self.assertGreater(len(samples), 1000)
 
+    def test_low_notes_are_capped(self):
+        # A0 was ~6.8 s; trimming keeps 0.35 s before the peak plus the ringdown.
+        self.assertLess(len(synthesize(21)) / 44100, 1.5)
+        self.assertEqual(len(synthesize(69)), len(synthesize(69, max_seconds=10)))
+
     def test_distribution(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)

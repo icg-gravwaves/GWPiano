@@ -32,7 +32,14 @@ def component_mass(midi: int) -> float:
     return 30 * reference / note_frequency(midi)
 
 
-def synthesize(midi: int, ratio: float = 0.12, rate: int = SAMPLE_RATE) -> np.ndarray:
+# Longest inspiral kept before the merger peak, in seconds. Low notes are trimmed
+# to start later in the inspiral; higher notes are shorter than this and unchanged.
+MAX_SECONDS = 0.35
+LEAD_IN_FADE = 0.05
+
+
+def synthesize(midi: int, ratio: float = 0.12, rate: int = SAMPLE_RATE,
+               max_seconds: float = MAX_SECONDS) -> np.ndarray:
     """Return normalized plus polarization with physical inspiral/merger/ringdown."""
     target = note_frequency(midi)
     if not 0.08 <= ratio <= 0.4:
@@ -49,7 +56,14 @@ def synthesize(midi: int, ratio: float = 0.12, rate: int = SAMPLE_RATE) -> np.nd
     active = np.flatnonzero(np.abs(samples) > peak * 1e-5)
     samples = samples[max(0, active[0] - 256):min(len(samples), active[-1] + 257)]
     fade = min(round(0.005 * rate), len(samples) // 2)
-    samples[:fade] *= np.linspace(0, 1, fade)
+    keep = round(max_seconds * rate)
+    peak_index = int(np.argmax(np.abs(samples)))
+    if peak_index > keep:
+        samples = samples[peak_index - keep:]
+        fade_in = round(LEAD_IN_FADE * rate)
+    else:
+        fade_in = fade
+    samples[:fade_in] *= np.linspace(0, 1, fade_in)
     samples[-fade:] *= np.linspace(1, 0, fade)
     return samples * (0.9 / np.max(np.abs(samples)))
 

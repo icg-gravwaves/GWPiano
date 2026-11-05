@@ -2,6 +2,7 @@ import {eventTimeline, observingRuns} from './timeline.mjs';
 import {musicalSample} from './musical.mjs';
 import {massBins} from './histogram.mjs';
 import {catalogPlan, scheduleCatalog, activeNotes} from './catalog-audio.mjs';
+import {tunes, tuneSchedule} from './tunes.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
@@ -12,7 +13,21 @@ let loadingAudio = false;
 const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
 let generation = 0;
 const eventsButton = document.querySelector('#play-events');
+const timelineButton = document.querySelector('#play-timeline');
+const tuneButtons = [...document.querySelectorAll('[data-tune]')];
 const pauseButton = document.querySelector('#pause-events');
+const CATALOG_LABELS = new Map([[eventsButton, 'Play detections in order'], [timelineButton, 'Detection timeline']]);
+let tuneTimers = [];
+function resetPlaybackButtons() {
+  for (const [button, label] of CATALOG_LABELS) { button.textContent = label; button.dataset.state = 'idle'; }
+  for (const timer of tuneTimers) clearTimeout(timer);
+  tuneTimers = [];
+  for (const button of tuneButtons) {
+    button.textContent = Number(button.dataset.tune) + 1;
+    button.setAttribute('aria-label', `Play ${tunes[button.dataset.tune].label.toLowerCase()}`);
+    button.dataset.state = 'idle';
+  }
+}
 let catalogPaused = false;
 function setPaused(paused) {
   catalogPaused = paused;
@@ -75,8 +90,7 @@ function stopAll() {
   catalogBusy = false;
   if (catalogPaused && context && context.state === 'suspended') context.resume();
   showPause(false);
-  eventsButton.textContent = 'Play detections in order';
-  eventsButton.dataset.state = 'idle';
+  resetPlaybackButtons();
 }
 document.querySelector('#stop').onclick = stopAll;
 function describeMode() {
@@ -95,15 +109,12 @@ document.querySelector('#musical-mode').addEventListener('change', () => {
 });
 describeMode();
 window.addEventListener('blur', stopAll);
-document.querySelector('#volume').oninput = event => {
-  if (master) master.gain.setTargetAtTime(Number(event.target.value), context.currentTime, 0.015);
-};
 function createAudio() {
   if (context) return;
   context = new AudioContext({latencyHint: 'interactive'});
   master = context.createGain();
   const compressor = context.createDynamicsCompressor();
-  master.gain.value = Number(document.querySelector('#volume').value);
+  master.gain.value = 0.3;  // Fixed level; use the computer's volume control.
   master.connect(compressor).connect(context.destination);
 }
 async function referenceBuffer(note) {
@@ -248,7 +259,27 @@ async function setup() {
   document.querySelector('#range').textContent = `${manifest.notes[0].name} — ${manifest.notes.at(-1).name} / ${manifest.notes.length} SAMPLES`;
   document.querySelector('#pack-info').textContent = `${manifest.pack.count}-key sound pack · ${manifest.pack.first}–${manifest.pack.last} · WAV + SFZ · 44.1 kHz`;
   await preloadAudio();
+  for (const button of tuneButtons) {
+    const tune = tunes[button.dataset.tune];
+    button.disabled = !tune.notes.length || !tuneSchedule(tune, manifest.notes);
+    if (button.disabled) button.title = tune.notes.length
+      ? 'This tune needs notes outside the keyboard range.' : 'No notes added for this example yet.';
+  }
 }
+// Tunes reuse play(), so they light keys and fill the histogram like real presses.
+for (const tuneButton of tuneButtons) tuneButton.addEventListener('click', () => {
+  if (tuneButton.dataset.state === 'playing') { stopAll(); return; }
+  const schedule = manifest && tuneSchedule(tunes[tuneButton.dataset.tune], manifest.notes);
+  if (!schedule) return;
+  stopAll();
+  const ticket = generation;
+  tuneButton.textContent = '■';
+  tuneButton.setAttribute('aria-label', 'Stop example');
+  tuneButton.dataset.state = 'playing';
+  tuneTimers = schedule.map(({note, time}) => setTimeout(() => { if (ticket === generation) play(note); }, time * 1000));
+  const end = schedule.at(-1).time + 1.5;
+  tuneTimers.push(setTimeout(() => { if (ticket === generation) resetPlaybackButtons(); }, end * 1000));
+});
 setup().catch(error => { status.textContent = `${error.message}. Serve this folder over HTTP.`; });
 
 let catalog = null;
@@ -346,17 +377,12 @@ Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(asy
   catalog = data;
   fullNotes = pack.notes;
   eventsButton.disabled = false;
+  timelineButton.disabled = false;
   document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved} · ${data.events.length} events`;
   drawHistogram();
   warmCatalog();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
 
-function catalogSelection() {
-  return {
-    musical:document.querySelector('#musical-mode').checked,
-    condensed:document.querySelector('#preserve-timeline').getAttribute('aria-checked') === 'true'
-  };
-}
 function catalogReferences() {
   return [...new Map(catalogPlan(catalog.events, fullNotes).map(part => [part.note.midi, part.note])).values()];
 }
@@ -387,46 +413,22 @@ async function warmCatalog() {
     message.textContent = 'Some note samples could not load. Press Play to retry.';
   }
 }
-const timingButtons = [...document.querySelectorAll('.timeline-toggle [role="radio"]')];
-function selectTiming(button) {
-  for (const option of timingButtons) {
-    const selected = option === button;
-    option.setAttribute('aria-checked', String(selected));
-    option.tabIndex = selected ? 0 : -1;
-  }
-  warmCatalog();
-}
-for (const button of timingButtons) {
-  button.addEventListener('click', () => selectTiming(button));
-  button.addEventListener('keydown', event => {
-    const index = timingButtons.indexOf(button);
-    let next;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % timingButtons.length;
-    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + timingButtons.length - 1) % timingButtons.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = timingButtons.length - 1;
-    else return;
-    event.preventDefault();
-    selectTiming(timingButtons[next]);
-    timingButtons[next].focus();
-  });
-}
-
-async function playCatalog() {
+async function playCatalog(condensed) {
+  const button = condensed ? timelineButton : eventsButton;
   const pressedAt = performance.now();
   if (catalogBusy || ensembleSource) { stopAll(); return; }
   if (!catalog || !fullNotes.length) return;
   stopAll();
   const ticket = generation;
   catalogBusy = true;
-  const {musical, condensed} = catalogSelection();
+  const musical = document.querySelector('#musical-mode').checked;
   const mode = musical ? 'musical' : 'scientific';
   try {
     createAudio();
     if (context.state !== 'running') await context.resume();
     if (!catalogReady()) {
-      eventsButton.textContent = 'Cancel loading sounds';
-      eventsButton.dataset.state = 'preparing';
+      button.textContent = 'Cancel loading sounds';
+      button.dataset.state = 'preparing';
       status.textContent = 'Loading detection sounds…';
     }
     if (!catalogReady()) await loadCatalogSamples();
@@ -477,8 +479,7 @@ async function playCatalog() {
         ensembleSource = null;
         showPause(false);
         clearHighlights();
-        eventsButton.textContent = 'Play detections in order';
-        eventsButton.dataset.state = 'idle';
+        resetPlaybackButtons();
         status.textContent = 'Detection playback finished.';
       }
     });
@@ -492,21 +493,21 @@ async function playCatalog() {
     latestNote = null;
     drawHistogram();
     highlightTimeline(plan, start, ticket, progress);
-    eventsButton.textContent = 'Stop all events';
+    button.textContent = 'Stop detections';
     showPause(true);
-    eventsButton.dataset.state = 'playing';
+    button.dataset.state = 'playing';
     eventsButton.dataset.components = String(plan.length);
     eventsButton.dataset.events = String(catalog.events.length);
     status.textContent = `Playing all ${plan.length} catalog component sounds ${condensed ? "on a 30-second calendar timeline" : "in time order (100 ms apart)"} · ${mode} mode`;
   } catch (error) {
     if (ticket === generation) {
-      eventsButton.textContent = 'Play detections in order';
-      eventsButton.dataset.state = 'idle';
+      resetPlaybackButtons();
       status.textContent = `Could not play catalog: ${error.message}. Try again.`;
     }
   } finally { if (ticket === generation) catalogBusy = false; }
 }
-eventsButton.addEventListener('click', playCatalog);
+eventsButton.addEventListener('click', () => playCatalog(false));
+timelineButton.addEventListener('click', () => playCatalog(true));
 // Pausing suspends the shared audio clock, so scheduled sounds, highlights and the
 // timeline cursor all freeze and resume from the same point.
 pauseButton.addEventListener('click', async () => {
