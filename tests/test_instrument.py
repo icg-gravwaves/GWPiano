@@ -32,7 +32,8 @@ class InstrumentTests(unittest.TestCase):
     def test_low_notes_are_capped(self):
         # A0 was ~6.8 s; trimming keeps 0.35 s before the peak plus the ringdown.
         self.assertLess(len(synthesize(21)) / 44100, 1.5)
-        self.assertEqual(len(synthesize(69)), len(synthesize(69, max_seconds=10)))
+        # Short high notes peak before the cap and are left untouched.
+        self.assertEqual(len(synthesize(84)), len(synthesize(84, max_seconds=10)))
 
     def test_distribution(self):
         with tempfile.TemporaryDirectory() as folder:
