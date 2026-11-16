@@ -79,7 +79,7 @@ Project code: **GPL-3.0-or-later**, see LICENSE. LALSuite is GPL-2.0-or-later an
 
 The University of Portsmouth logo uses the original vector artwork from `https://www.port.ac.uk/themes/custom/portsmouth/logo.svg`, with its standard colors preserved and a thin white outline around the artwork for the dark background and linked to the University website. The original color asset is retained as `portsmouth.svg`; the dark-background adaptation is `portsmouth-dark.svg`. It is third-party branding, excluded from the project code and audio licenses. Its presence does not grant trademark rights or assert University endorsement.
 
-GW Piano uses a transparent SVG adaptation of concept A: an accelerating chirp flowing into piano keys, with purple strokes, blue piano-key accents, purple “GW”, and white “PIANO” for the dark theme. The asset is `src/gw_piano/web/gw-piano-dark.svg`.
+GW Piano uses a transparent SVG adaptation of concept A: an accelerating chirp flowing into piano keys, with Portsmouth-blue strokes, light-blue piano-key accents, Portsmouth-blue “GW”, and white “PIANO” for the dark theme. The asset is `src/gw_piano/web/gw-piano-dark.svg`.
 
 The header links to Chirp Lab using its original rising-signal/open-orbit SVG logo from `https://icg-gravwaves.github.io/chirp-lab/assets/chirp-lab.svg`.
 

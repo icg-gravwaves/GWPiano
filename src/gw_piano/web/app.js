@@ -326,7 +326,7 @@ function drawHistogram() {
   svg.append(svgElement('text', {x:60,y:48}, 'Component count'));
   for (let i = 0; i < bins; i++) {
     const x = 60 + i * 920 / bins, width = 920 / bins;
-    for (const [values, color, isPlayed] of [[a,'var(--accent)',false],[b,'var(--signal)',true]]) {
+    for (const [values, color, isPlayed] of [[a,'var(--catalog)',false],[b,'var(--signal)',true]]) {
       const height = values[i] / ymax * 240;
       const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? 'var(--white)' : 'none', 'stroke-width':isPlayed ? 1 : 0});
       bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i]} components`)); svg.append(bar);
