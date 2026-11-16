@@ -40,15 +40,17 @@ function drunkenSailor(beat = 0.22) {
   return out.sort((x, y) => x[1] - y[1]);
 }
 
-/** Two-voice steps: [treble, bass, beats] played as chords, one after another. */
-function steps(beat, list) {
-  let t = 0;
-  return list.flatMap(([top, bottom, beats]) => {
-    const notes = chord([bottom, top], t * beat);
-    t += beats;
-    return notes;
-  });
+/** Notes placed in 4/4 bars: [MIDI, bar, beat in bar] with beats in crotchets; time ordered. */
+function bars(crotchet, list) {
+  return list.map(([midi, bar, beat]) => [midi, Math.round((bar * 4 + beat) * crotchet * 100) / 100])
+    .sort((x, y) => x[1] - y[1]);
 }
+
+/** One bar of the Just Can't Get Enough riff: G | G G-G | (rest) G G | A B. */
+const riff = bar => [
+  [67, bar, 0], [67, bar, 1], [67, bar, 1.5], [67, bar, 1.75],
+  [67, bar, 2.25], [67, bar, 2.5], [69, bar, 3], [71, bar, 3.5]
+];
 
 // MIDI: C3=48, G3=55, C4=60, G4=67, C5=72. The keyboard covers C3–C6.
 export const tunes = [
@@ -95,16 +97,14 @@ export const tunes = [
     notes: drunkenSailor()
   },
   {
-    id: 'example-4',
+    id: 'just-cant-get-enough',
     label: 'Example 4',
-    title: 'Example 4',
-    // G major, 4/4: four bars, treble over a parallel bass. Each step is
-    // [treble MIDI, bass MIDI, length in beats]; 0.4 s per beat.
-    notes: steps(0.5, [
-      [79, 64, 2], [78, 62, 1], [83, 67, 1],   // G5 F#5 B5 / E4 D4 G4
-      [76, 60, 2], [74, 59, 1], [79, 64, 1],   // E5 D5 G5 / C4 B3 E4
-      [72, 57, 2], [71, 55, 1], [76, 60, 1],   // C5 B4 E5 / A3 G3 C4
-      [69, 54, 2], [74, 59, 2]                 // A4 D5   / F#3 B3
+    title: "Just Can't Get Enough",
+    // Piano arrangement in G major, 4/4, four bars: the riff three times, then a
+    // C B A B turnaround. 0.6 s per crotchet (100 bpm).
+    notes: bars(0.6, [
+      ...riff(0), ...riff(1), ...riff(2),
+      [72, 3, 0], [71, 3, 1], [69, 3, 2], [71, 3, 3]                 // C B A B
     ])
   }
 ];
