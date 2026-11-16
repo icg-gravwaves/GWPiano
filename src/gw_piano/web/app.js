@@ -314,21 +314,21 @@ function drawHistogram() {
   const svg = document.querySelector('#histogram'); svg.replaceChildren();
   const defs = svgElement('defs', {});
   const stripes = svgElement('pattern', {id:'played-stripes', patternUnits:'userSpaceOnUse', width:8, height:8});
-  stripes.append(svgElement('path', {d:'M-2 2 L2 -2 M0 8 L8 0 M6 10 L10 6', stroke:'#c6f078', 'stroke-width':3}));
+  stripes.append(svgElement('path', {d:'M-2 2 L2 -2 M0 8 L8 0 M6 10 L10 6', stroke:'var(--signal)', 'stroke-width':3}));
   defs.append(stripes); svg.append(defs);
   const markerLayer = svgElement('g', {class:'note-markers'});
   svg.append(markerLayer);
   for (let i = 0; i <= 4; i++) {
     const y = 305 - i * 60;
-    svg.append(svgElement('line', {x1: 60, x2: 980, y1:y, y2:y, stroke:'#34413b'}));
+    svg.append(svgElement('line', {x1: 60, x2: 980, y1:y, y2:y, stroke:'var(--line)'}));
     svg.append(svgElement('text', {x: 48, y:y+4, 'text-anchor':'end'}, `${ymax*i/4}`));
   }
   svg.append(svgElement('text', {x:60,y:48}, 'Component count'));
   for (let i = 0; i < bins; i++) {
     const x = 60 + i * 920 / bins, width = 920 / bins;
-    for (const [values, color, isPlayed] of [[a,'#b077cf',false],[b,'#c6f078',true]]) {
+    for (const [values, color, isPlayed] of [[a,'var(--accent)',false],[b,'var(--signal)',true]]) {
       const height = values[i] / ymax * 240;
-      const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? '#ffffff' : 'none', 'stroke-width':isPlayed ? 1 : 0});
+      const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? 'var(--white)' : 'none', 'stroke-width':isPlayed ? 1 : 0});
       bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i]} components`)); svg.append(bar);
     }
     if (i % tickStride === 0) svg.append(svgElement('text', {x, y:329, 'text-anchor':'middle'}, axis.edges[i]));
@@ -351,7 +351,7 @@ function drawHistogram() {
       labelRowEnds[labelRow] = labelX + note.name.length * 7;
       const labelY = 80 + labelRow * 18;
       labelLayer.append(svgElement('rect', {x:labelX-2, y:labelY-12,
-        width:note.name.length*7+4, height:16, fill:'#101716', rx:2}));
+        width:note.name.length*7+4, height:16, fill:'var(--bg)', rx:2}));
       const label = svgElement('text', {x:labelX, y:labelY, 'data-midi':note.midi,
         class:`note-label${selected ? ' played-note' : ''}`, style:`fill:${color}`}, note.name);
       labelLayer.append(label);
