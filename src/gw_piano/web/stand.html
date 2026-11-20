@@ -85,7 +85,7 @@ a{color:var(--accent)}
   <div class="scroll">
   <svg viewBox="0 0 820 300" width="820" role="img" aria-label="Wiring: keyboard USB to Pi 5; Pi DSI to mode screen; Pi HDMI to waveform screen; DAC HAT line out to powered speakers">
     <rect class="box" x="20" y="120" width="170" height="64" rx="8"/>
-    <text x="36" y="148">Launchkey 49 MK4</text><text class="sub" x="36" y="168">keys + CC20 toggle pad</text>
+    <text x="36" y="148">49-key MIDI keyboard</text><text class="sub" x="36" y="168">keys + CC20 toggle pad</text>
     <rect class="box" x="300" y="100" width="200" height="104" rx="8"/>
     <text x="316" y="128">Raspberry Pi 5</text><text class="sub" x="316" y="148">Chromium kiosk: sound + visuals</text><text class="sub" x="316" y="166">2 pages: live + controls</text><text class="sub" x="316" y="184">DAC HAT on GPIO</text>
     <rect class="box" x="610" y="20" width="190" height="64" rx="8"/>
@@ -110,21 +110,21 @@ a{color:var(--accent)}
   <table>
     <thead><tr><th>Item</th><th>Role</th></tr></thead>
     <tbody>
-      <tr><td>Novation Launchkey 49 MK4</td><td>Keys, velocity, pads for the mode toggle; USB-powered</td></tr>
+      <tr><td>49-key USB MIDI keyboard</td><td>Velocity-sensitive keys; USB class-compliant (works without drivers on Linux); powered over USB; at least one pad or button that can be set to send a MIDI CC toggle (0/127) for the mode switch</td></tr>
       <tr><td>Raspberry Pi 5, 4&nbsp;GB</td><td>Runs the sampler and both screens</td></tr>
       <tr><td>Pi 5 27&nbsp;W PSU, active cooler, 32&nbsp;GB microSD, case</td><td>Essentials</td></tr>
       <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td></tr>
       <tr><td>10.1" 1280×800 HDMI display</td><td>Live timeseries, spectrogram and histogram screen, above the keys</td></tr>
       <tr><td>Tablet/music-stand clamp or keyboard-stand top tier</td><td>Holds the screens where sheet music would go</td></tr>
       <tr><td>Micro-HDMI to HDMI cable</td><td>Pi to monitor</td></tr>
-      <tr><td>HiFiBerry DAC2 Pro</td><td>Clean line-level audio out</td></tr>
+      <tr><td>DAC HAT for the Pi (or a USB audio interface)</td><td>Clean line-level stereo output; the Pi 5 has no analogue audio jack</td></tr>
       <tr><td>Compact powered desktop speakers (2 × 10–20 W)</td><td>Aimed at the player and onlookers; clear over a busy room at a capped level</td></tr>
       <tr><td>Headphone amp/splitter + 2 pairs of closed-back headphones</td><td>Silent option for busy or quiet halls</td></tr>
     </tbody>
   </table>
   </div>
   <h3>Mounting above the keys</h3>
-  <p>The Launchkey 49 has no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" mode screen beside it on the side of the toggle pad. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
+  <p>Compact MIDI keyboards usually have no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" mode screen beside it on the side of the toggle pad. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
 </section>
 
 <section>
@@ -143,9 +143,10 @@ a{color:var(--accent)}
       <tr><td>Raspberry Pi 5 (sampler, two displays, DAC)</td><td class="num">8 W</td><td class="num">12 W</td></tr>
       <tr><td>7" Touch Display 2 (powered by the Pi)</td><td class="num">2 W</td><td class="num">3 W</td></tr>
       <tr><td>10.1" display</td><td class="num">6 W</td><td class="num">10 W</td></tr>
-      <tr><td>Launchkey 49 (USB bus-powered by the Pi)</td><td class="num">1 W</td><td class="num">2.5 W</td></tr>
+      <tr><td>MIDI keyboard (USB bus-powered by the Pi)</td><td class="num">1 W</td><td class="num">2.5 W</td></tr>
       <tr><td>Compact desktop speakers</td><td class="num">5 W</td><td class="num">20 W</td></tr>
     </tbody>
+    <tfoot><tr><td>Total</td><td class="num">≈ 22 W</td><td class="num">≈ 50 W</td></tr></tfoot>
   </table>
   </div>
   <p>These figures are estimates from typical device ratings; measure with a plug-in power meter before relying on them. Use the official 27&nbsp;W Pi 5 supply, because it lets the Pi power the keyboard over USB. Where there is no socket, a portable power station of about 250&nbsp;Wh runs the stand for a full day (about 8 hours at the typical draw).</p>
@@ -167,7 +168,7 @@ a{color:var(--accent)}
   <ol>
     <li>Flash <b>Raspberry Pi OS (64-bit, desktop)</b> with Raspberry Pi Imager. Set the hostname <code>gwpiano</code> and enable SSH.</li>
     <li>Fit the active cooler, then the DAC HAT. Connect the Touch Display 2 ribbon to a DSI port and the 10.1" display to HDMI0.</li>
-    <li>Enable the DAC by adding <code>dtoverlay=hifiberry-dacplus-std</code> to <code>/boot/firmware/config.txt</code>, then reboot.</li>
+    <li>Enable the DAC by adding the overlay its maker specifies (a <code>dtoverlay=</code> line) to <code>/boot/firmware/config.txt</code>, then reboot.</li>
     <li>In <b>Screen Configuration</b>, rotate the touch screen to landscape and place it to the left of the 10.1" display.</li>
   </ol>
 <pre><code>sudo apt update &amp;&amp; sudo apt install -y chromium-browser
@@ -177,8 +178,8 @@ gw-piano --output dist</code></pre>
 
   <h3>2. Set the mode pad</h3>
   <ol>
-    <li>In <b>Novation Components</b> (run once from any computer), make a Custom Mode in which one pad sends <b>CC20</b> with <b>toggle</b> behaviour, values 0 and 127.</li>
-    <li>Save it to the keyboard and give it a bright colour so visitors can find it.</li>
+    <li>In the keyboard's editor software (run once from any computer), set one pad or button to send <b>CC20</b> with <b>toggle</b> behaviour, values 0 and 127, and save it to the keyboard.</li>
+    <li>If the pad is lit, give it a bright colour so visitors can find it.</li>
   </ol>
 
   <h3>3. Start the kiosk</h3>
@@ -205,7 +206,7 @@ chromium-browser --app=http://localhost:8000/kiosk-controls.html --window-positi
   <h2>What still needs building</h2>
   <ul class="status">
     <li><b>Done:</b> the sound pack has both modes, with <code>GW-Piano.sfz</code> switching on CC20.</li>
-    <li><b>Done:</b> the kiosk pages <code>kiosk-live.html</code> and <code>kiosk-controls.html</code>, tested in a desktop browser with computer keys. They have not yet been run on a Pi with the Launchkey.</li>
+    <li><b>Done:</b> the kiosk pages <code>kiosk-live.html</code> and <code>kiosk-controls.html</code>, tested in a desktop browser with computer keys. They have not yet been run on a Pi with a MIDI keyboard.</li>
     <li><b>To do:</b> an autostart script and Pi image, so the stand can be rebuilt from scratch, and a check of audio latency and frame rate on the Pi 5.</li>
   </ul>
 </section>

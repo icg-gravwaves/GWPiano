@@ -63,6 +63,6 @@
     <path d="M1090 685 L790 590" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="318" y="500" text-anchor="end" fill="#5a6078">small desktop</text><text x="318" y="526" text-anchor="end" fill="#5a6078">speakers</text>
     <text x="1250" y="866" text-anchor="middle" fill="#5a6078">headphones</text>
-    <text x="710" y="950" text-anchor="middle" fill="#5a6078">Launchkey 49 MK4 on an X-stand · one mains lead</text>
+    <text x="710" y="950" text-anchor="middle" fill="#5a6078">49-key MIDI keyboard on an X-stand · one extension lead</text>
   </g>
 </svg>
