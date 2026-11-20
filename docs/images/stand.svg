@@ -59,7 +59,7 @@
     <path d="M440 366 L500 412" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="300" y="720" text-anchor="middle" fill="#5a6078">mode pad</text>
     <path d="M320 702 L398 646" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="1080" y="705" fill="#5a6078">Pi 5 + DAC behind screen</text>
+    <text x="1080" y="705" fill="#5a6078">Pi 5 behind screen</text>
     <path d="M1090 685 L790 590" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="318" y="500" text-anchor="end" fill="#5a6078">small desktop</text><text x="318" y="526" text-anchor="end" fill="#5a6078">speakers</text>
     <text x="1250" y="866" text-anchor="middle" fill="#5a6078">headphones</text>
