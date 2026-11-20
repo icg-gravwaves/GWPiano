@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {eventTimeline,observingRuns} from '../src/gw_piano/web/timeline.mjs';
 import {catalogPlan} from '../src/gw_piano/web/catalog-audio.mjs';
-test('calendar condensation preserves relative time gaps and both event components',()=>{
+test('calendar condensation preserves relative time gaps with one sound per event',()=>{
  const events=[{name:'GW200103',gps:130,masses:[10,20]},{name:'GW200101',gps:100,masses:[10]},{name:'GW200102',gps:110,masses:[10]}];
  const timed=eventTimeline(events,true,60);
  assert.deepEqual(timed.map(e=>e.offset),[0,20,60]);
  const plan=catalogPlan(timed,[{midi:60,mass:10,frequency:100}]);
- assert.deepEqual(plan.map(p=>p.offset),[0,20,60,60]);
+ assert.deepEqual(plan.map(p=>p.offset),[0,20,60]);
+ assert.deepEqual(plan.at(-1).components,[10,20]);
  assert.deepEqual(eventTimeline(events).map(e=>e.offset),[0,0.1,0.2]);
 });
 test('snapshot events have GPS dates and include every observing run represented',()=>{

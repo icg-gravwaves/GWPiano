@@ -1,7 +1,7 @@
 {
   "source": "https://gwosc.org/eventapi/jsonfull/GWTC/",
-  "retrieved": "2026-11-04",
-  "selection": "Latest event version; FAR <= 1/year, or confident-catalog classification when FAR is unavailable; available source-frame component median masses >= 3 solar masses. Mass cut is a BH proxy, not a definitive classification. Missing masses omitted.",
+  "retrieved": "2026-11-20",
+  "selection": "Latest event version; FAR <= 1/year, or confident-catalog classification when FAR is unavailable; all available source-frame component median masses, including neutron stars. Missing masses omitted.",
   "events": [
     {
       "name": "GW150914",
@@ -100,6 +100,18 @@
       "utc": "2017-08-14T10:30:43+00:00"
     },
     {
+      "name": "GW170817",
+      "version": 3,
+      "masses": [
+        1.46,
+        1.27
+      ],
+      "catalog": "GWTC-1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-1-confident/GW170817/v3",
+      "gps": 1187008882.4,
+      "utc": "2017-08-17T12:41:04+00:00"
+    },
+    {
       "name": "GW170818",
       "version": 2,
       "masses": [
@@ -182,6 +194,18 @@
       "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190421_213856/v2",
       "gps": 1239917954.2,
       "utc": "2019-04-21T21:38:56+00:00"
+    },
+    {
+      "name": "GW190425",
+      "version": 3,
+      "masses": [
+        2.1,
+        1.3
+      ],
+      "catalog": "GWTC-2.1-confident",
+      "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190425/v3",
+      "gps": 1240215503.0,
+      "utc": "2019-04-25T08:18:05+00:00"
     },
     {
       "name": "GW190503_185404",
@@ -463,7 +487,8 @@
       "name": "GW190814",
       "version": 3,
       "masses": [
-        23.3
+        23.3,
+        2.6
       ],
       "catalog": "GWTC-2.1-confident",
       "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190814/v3",
@@ -522,7 +547,8 @@
       "name": "GW190917_114630",
       "version": 1,
       "masses": [
-        9.7
+        9.7,
+        2.1
       ],
       "catalog": "GWTC-2.1-confident",
       "url": "https://gwosc.org/eventapi/json/GWTC-2.1-confident/GW190917_114630/v1",
@@ -713,7 +739,8 @@
       "name": "GW200115_042309",
       "version": 2,
       "masses": [
-        5.9
+        5.9,
+        1.44
       ],
       "catalog": "GWTC-3-confident",
       "url": "https://gwosc.org/eventapi/json/GWTC-3-confident/GW200115_042309/v2",
@@ -868,7 +895,8 @@
       "name": "GW230518_125908",
       "version": 2,
       "masses": [
-        8.17
+        8.17,
+        1.45
       ],
       "catalog": "GWTC-4.1",
       "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230518_125908/v2",
@@ -879,7 +907,8 @@
       "name": "GW230529_181500",
       "version": 3,
       "masses": [
-        3.66
+        3.66,
+        1.42
       ],
       "catalog": "GWTC-4.1",
       "url": "https://gwosc.org/eventapi/json/GWTC-4.1/GW230529_181500/v3",

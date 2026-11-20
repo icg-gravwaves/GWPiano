@@ -3,6 +3,7 @@ import {musicalSample} from './musical.mjs';
 import {massBins} from './histogram.mjs';
 import {catalogPlan, scheduleCatalog, activeNotes} from './catalog-audio.mjs';
 import {tunes, tuneSchedule} from './tunes.mjs';
+import {landmarkNotes} from './landmarks.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
@@ -64,7 +65,7 @@ function highlightTimeline(plan, start, ticket, progress = () => {}) {
     const elapsed = context.currentTime - start;
     progress(elapsed);
     const active = activeNotes(plan, elapsed);
-    const masses = plan.filter(part => elapsed >= part.offset && elapsed < part.offset + part.duration).map(part => part.mass);
+    const masses = plan.filter(part => elapsed >= part.offset && elapsed < part.offset + part.duration).flatMap(part => part.components);
     soundingCatalog = masses;
     updateSoundingBars();
     document.querySelectorAll('.note-marker, .note-label').forEach(element => {
@@ -380,6 +381,7 @@ Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(asy
   timelineButton.disabled = false;
   document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved} · ${data.events.length} events`;
   drawHistogram();
+  renderLandmarks();
   warmCatalog();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
 
@@ -463,7 +465,7 @@ async function playCatalog(condensed) {
       const before = nextComponent;
       while (nextComponent < plan.length && plan[nextComponent].offset <= elapsed) {
         const part = plan[nextComponent++];
-        played.push(part.mass);
+        played.push(...part.components);
         startedEvents.add(part.event);
       }
       if (nextComponent !== before) {
@@ -496,15 +498,63 @@ async function playCatalog(condensed) {
     button.textContent = 'Stop detections';
     showPause(true);
     button.dataset.state = 'playing';
-    eventsButton.dataset.components = String(plan.length);
+    eventsButton.dataset.components = String(plan.reduce((total, part) => total + part.components.length, 0));
     eventsButton.dataset.events = String(catalog.events.length);
-    status.textContent = `Playing all ${plan.length} catalog component sounds ${condensed ? "on a 30-second calendar timeline" : "in time order (100 ms apart)"} · ${mode} mode`;
+    status.textContent = `Playing all ${plan.length} mergers ${condensed ? "on a 30-second calendar timeline" : "in time order (100 ms apart)"} · ${mode} mode`;
   } catch (error) {
     if (ticket === generation) {
       resetPlaybackButtons();
       status.textContent = `Could not play catalog: ${error.message}. Try again.`;
     }
   } finally { if (ticket === generation) catalogBusy = false; }
+}
+/** List landmark detections with their chirp-mass-equivalent binary and nearest piano note. */
+function renderLandmarks() {
+  const list = document.querySelector('#landmark-list');
+  if (!list) return;
+  const top = fullNotes.reduce((a, b) => (a.frequency > b.frequency ? a : b));
+  list.replaceChildren(...landmarkNotes(catalog.events, fullNotes).map(landmark => {
+    const card = document.createElement('article');
+    card.className = 'landmark';
+    const eyebrow = document.createElement('p'); eyebrow.className = 'eyebrow'; eyebrow.textContent = landmark.name;
+    const h3 = document.createElement('h3'); h3.textContent = landmark.title;
+    const text = document.createElement('p'); text.textContent = landmark.text;
+    const pair = document.createElement('p'); pair.className = 'pair';
+    pair.textContent = `${landmark.event.masses.join(' + ')} M☉ · chirp mass ${landmark.chirp.toPrecision(3)} M☉ → like ${landmark.mass.toPrecision(3)} + ${landmark.mass.toPrecision(3)} M☉`;
+    const note = document.createElement('p'); note.className = 'landmark-note';
+    note.textContent = landmark.note === top && landmark.cents > 50
+      ? `Above ${top.name} · ${Math.round(landmark.part.frequency)} Hz`
+      : `${landmark.note.name} · ${Math.round(landmark.part.frequency)} Hz`;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = `Play ${landmark.name}`;
+    button.onclick = () => playLandmark(landmark);
+    card.append(eyebrow, h3, text, pair, note, button);
+    return card;
+  }));
+}
+/** Play one landmark as its chirp-mass-equivalent equal-mass chirp, resampled from the nearest note. */
+async function playLandmark(landmark) {
+  stopAll();
+  const ticket = generation;
+  const musical = document.querySelector('#musical-mode').checked;
+  try {
+    createAudio();
+    if (context.state !== 'running') await context.resume();
+    await noteBuffer(landmark.note);
+    if (ticket !== generation) return;
+    const parts = [{...landmark.part}];
+    const source = scheduleCatalog(context, parts, note => (musical ? musicalBuffers : buffers).get(note.midi), master, context.currentTime + 0.02, () => {
+      voices.delete(source);
+      if (ensembleSource === source) ensembleSource = null;
+    });
+    ensembleSource = source;
+    voices.add(source);
+    console.debug('GW Piano landmark playback', landmark.name, landmark.part.frequency);
+    status.textContent = `Playing ${landmark.name}: two ${landmark.mass.toPrecision(3)} M☉ black holes, peak ${Math.round(landmark.part.frequency)} Hz`;
+  } catch (error) {
+    status.textContent = `Could not play ${landmark.name}: ${error.message}`;
+  }
 }
 eventsButton.addEventListener('click', () => playCatalog(false));
 timelineButton.addEventListener('click', () => playCatalog(true));

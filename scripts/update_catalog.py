@@ -21,13 +21,13 @@ def extract(raw):
         if (far is None and not confident) or (far is not None and far > 1):
             continue
         masses = [event.get("mass_1_source"), event.get("mass_2_source")]
-        selected = [m for m in masses if isinstance(m, (int, float)) and m >= 3]
+        selected = [m for m in masses if isinstance(m, (int, float)) and m > 0]
         if selected:
             events.append(dict(name=name, version=event["version"], masses=selected,
                                catalog=event["catalog.shortName"], url=event["jsonurl"],
                                gps=event["GPS"], utc=datetime.datetime(*lal.GPSToUTC(int(event["GPS"]))[:6], tzinfo=datetime.timezone.utc).isoformat()))
     return dict(source=URL, retrieved=datetime.date.today().isoformat(),
-                selection="Latest event version; FAR <= 1/year, or confident-catalog classification when FAR is unavailable; available source-frame component median masses >= 3 solar masses. Mass cut is a BH proxy, not a definitive classification. Missing masses omitted.", events=events)
+                selection="Latest event version; FAR <= 1/year, or confident-catalog classification when FAR is unavailable; all available source-frame component median masses, including neutron stars. Missing masses omitted.", events=events)
 
 
 if __name__ == "__main__":

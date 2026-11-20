@@ -1,16 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {catalogPlan, activeNotes, scheduleCatalog} from '../src/gw_piano/web/catalog-audio.mjs';
+import {catalogPlan, activeNotes, scheduleCatalog, chirpMass} from '../src/gw_piano/web/catalog-audio.mjs';
 import {massBins} from '../src/gw_piano/web/histogram.mjs';
 
 const notes = [{midi:60,mass:10,frequency:100},{midi:48,mass:20,frequency:50}];
 const events = [{name:'one',masses:[10,20]},{name:'two',masses:[15]}];
-test('every catalog component is retained without rounding or duplication', () => {
+test('each merger plays once as its chirp-mass-equivalent binary', () => {
   const plan = catalogPlan(events,notes);
-  assert.deepEqual(plan.map(part=>part.mass),[10,20,15]);
-  assert.ok(Math.abs(plan[2].frequency-1000/15)<1e-10);
-  assert.ok(Math.abs(plan[2].frequency*plan[2].mass-1000)<1e-10);
+  assert.deepEqual(plan.map(part=>part.event),['one','two']);
+  assert.ok(Math.abs(chirpMass([plan[0].mass,plan[0].mass])-chirpMass([10,20]))<1e-9);
+  assert.equal(plan[1].mass,15);
+  for (const part of plan) assert.ok(Math.abs(part.frequency*part.mass-1000)<1e-10);
 });
 test('played and detected bin counts match for the actual bundled catalog', () => {
   const catalog = JSON.parse(readFileSync(new URL('../src/gw_piano/data/catalog.json',import.meta.url)));
@@ -18,13 +19,12 @@ test('played and detected bin counts match for the actual bundled catalog', () =
   const plan = catalogPlan(catalog.events,notes);
   const axis = massBins(masses);
   const count = values => {const counts=Array(axis.edges.length-1).fill(0);for(const value of values)counts[axis.index(value)]++;return counts;};
-  assert.equal(plan.length,masses.length);
-  assert.deepEqual(count(plan.map(part=>part.mass)),count(masses));
+  assert.equal(plan.length,catalog.events.length);
+  assert.deepEqual(count(plan.flatMap(part=>part.components)),count(masses));
 });
-test('chronological events keep components together at distinct offsets', async () => {
+test('chronological events are ordered at distinct offsets', () => {
   const plan=catalogPlan([{name:'GW200101',masses:[10,20]},{name:'GW150914',masses:[10]}],notes,0.1);
-  assert.deepEqual(plan.map(part=>[part.event,part.offset]),[['GW150914',0],['GW200101',0.1],['GW200101',0.1]]);
-
+  assert.deepEqual(plan.map(part=>[part.event,part.offset]),[['GW150914',0],['GW200101',0.1]]);
 });
 
 test('highlights expire at sound end while overlapping notes remain lit', () => {

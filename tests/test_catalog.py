@@ -29,3 +29,9 @@ class CatalogTests(unittest.TestCase):
     def test_reported_far_cut_applies_to_confident_catalog(self):
         result = CATALOG.extract({"events": {"event": self.event(far=2)}})
         self.assertEqual(result["events"], [])
+
+    def test_neutron_star_components_are_kept(self):
+        event = self.event()
+        event.update({"commonName": "GW170817", "mass_1_source": 1.46, "mass_2_source": 1.27})
+        result = CATALOG.extract({"events": {"event": event}})
+        self.assertEqual(result["events"][0]["masses"], [1.46, 1.27])

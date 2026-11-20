@@ -62,7 +62,7 @@ class InstrumentTests(unittest.TestCase):
             catalog = json.loads((output / 'catalog.json').read_text())
             names = [event['name'] for event in catalog['events']]
             self.assertEqual(len(names), len(set(names)))
-            self.assertTrue(all(m >= 3 for event in catalog['events'] for m in event['masses']))
+            self.assertTrue(all(m > 0 for event in catalog['events'] for m in event['masses']))
             self.assertTrue((output / 'portsmouth.svg').is_file())
             for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html'):
                 self.assertTrue((output / page).is_file(), page)
