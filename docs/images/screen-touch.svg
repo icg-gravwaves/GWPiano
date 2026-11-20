@@ -26,7 +26,7 @@
 <text x="795.0" y="587.0" font-size="20" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Preserve timeline</text>
 <rect x="950" y="480" width="290" height="130" rx="18" fill="#ff8eac"/>
 <text x="1095.0" y="554.8" font-size="28" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">■  Stop all</text>
-<text x="40" y="680" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Mode pad on the keyboard also switches mode · Reset played notes</text>
+<text x="40" y="680" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">A mode pad on the keyboard (optional) also switches mode</text>
 <rect x="1080" y="656" width="160" height="40" rx="12" fill="#2e253d" stroke="#5d6879"/>
 <text x="1160" y="682" font-size="18" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Reset</text>
 </svg>

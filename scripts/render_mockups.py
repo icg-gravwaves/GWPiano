@@ -126,7 +126,7 @@ t += button(40, 480, 590, 130, "▶  Play detections in order", P["brand-purple"
 t += button(650, 480, 290, 60, "In order", P["signal"], P["on-signal"], 20)
 t += button(650, 550, 290, 60, "Preserve timeline", P["surface"], P["muted"], 20, stroke=P["line"])
 t += button(950, 480, 290, 130, "■  Stop all", P["danger"], P["on-signal"], 28)
-t += [text(40, 680, "Mode pad on the keyboard also switches mode · Reset played notes", 18, P["muted"]),
+t += [text(40, 680, "A mode pad on the keyboard (optional) also switches mode", 18, P["muted"]),
       f'<rect x="1080" y="656" width="160" height="40" rx="12" fill="{P["surface"]}" stroke="{P["line"]}"/>',
       text(1160, 682, "Reset", 18, P["muted"], 700, "middle"), "</svg>"]
 (out / "screen-touch.svg").write_text("\n".join(t))

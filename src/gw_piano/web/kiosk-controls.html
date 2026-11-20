@@ -73,7 +73,7 @@ channel.onmessage = ({data}) => {
     if (button.dataset.busyKey) button.dataset.busy = String(data.busy === button.dataset.busyKey);
   }
   document.querySelector('#status').textContent = data.ready
-    ? `Mode: ${data.mode}${data.busy ? ' · playing' : ''} · the pad on the keyboard also switches mode`
+    ? `Mode: ${data.mode}${data.busy ? ' · playing' : ''}`
     : 'Live display is loading sounds…';
 };
 send({type: 'hello'});

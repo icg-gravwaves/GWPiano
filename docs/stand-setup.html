@@ -65,7 +65,7 @@ a{color:var(--accent)}
   <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
   <h3>7" touch screen: controls</h3>
   <img src="images/screen-touch.png" alt="Touch screen mock-up: Scientific and Musical mode buttons, four example tune buttons, Play detections in order with timing toggle, Stop all and Reset" style="width:100%;border-radius:10px">
-  <p>The touch screen has large targets for small hands. It has the sound mode switch, the four example tunes, <b>Play detections in order</b> with its In order / Preserve timeline toggle, <b>Stop all</b> and <b>Reset</b>. The pad on the keyboard switches mode too, and both stay in sync.</p>
+  <p>The touch screen has large targets for small hands. It has the sound mode switch, the four example tunes, <b>Play detections in order</b> with its In order / Preserve timeline toggle, <b>Stop all</b> and <b>Reset</b>. If the keyboard has a pad set up as a mode switch (optional, see setup), it switches mode too, and both stay in sync.</p>
 </section>
 
 <section>
@@ -82,7 +82,7 @@ a{color:var(--accent)}
   <div class="scroll">
   <svg viewBox="0 0 820 300" width="820" role="img" aria-label="Wiring: keyboard USB to Pi 5; Pi DSI to mode screen; Pi HDMI to waveform screen; USB audio interface line out to powered speakers">
     <rect class="box" x="20" y="120" width="170" height="64" rx="8"/>
-    <text x="36" y="148">49-key MIDI keyboard</text><text class="sub" x="36" y="168">keys + CC20 toggle pad</text>
+    <text x="36" y="148">49-key MIDI keyboard</text><text class="sub" x="36" y="168">keys (+ optional mode pad)</text>
     <rect class="box" x="300" y="100" width="200" height="104" rx="8"/>
     <text x="316" y="128">Raspberry Pi 5</text><text class="sub" x="316" y="148">Chromium kiosk: sound + visuals</text><text class="sub" x="316" y="166">2 pages: live + controls</text><text class="sub" x="316" y="184">USB audio interface</text>
     <rect class="box" x="610" y="20" width="190" height="64" rx="8"/>
@@ -107,7 +107,7 @@ a{color:var(--accent)}
   <table>
     <thead><tr><th>Item</th><th>Role</th></tr></thead>
     <tbody>
-      <tr><td>49-key USB MIDI keyboard</td><td>Velocity-sensitive keys; USB class-compliant (works without drivers on Linux); powered over USB; at least one pad or button that can be set to send a MIDI CC toggle (0/127) for the mode switch</td></tr>
+      <tr><td>49-key USB MIDI keyboard</td><td>Velocity-sensitive keys; USB class-compliant (works without drivers on Linux); powered over USB. Optional: a pad or button that can be set to send a MIDI CC toggle (0/127), as a second mode switch</td></tr>
       <tr><td>Raspberry Pi 5, 4&nbsp;GB</td><td>Runs the sampler and both screens</td></tr>
       <tr><td>Pi 5 27&nbsp;W PSU, active cooler, 32&nbsp;GB microSD, case</td><td>Essentials</td></tr>
       <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td></tr>
@@ -121,7 +121,7 @@ a{color:var(--accent)}
   </table>
   </div>
   <h3>Mounting above the keys</h3>
-  <p>Compact MIDI keyboards usually have no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" mode screen beside it on the side of the toggle pad. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
+  <p>Compact MIDI keyboards usually have no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" touch screen beside it, within easy reach of the player. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
 </section>
 
 <section>
@@ -160,7 +160,7 @@ a{color:var(--accent)}
 
 <section>
   <h2>Setup</h2>
-  <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (10.1" screen) plays the sound-pack samples for each key, follows the mode pad, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
+  <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (10.1" screen) plays the sound-pack samples for each key, follows the mode switch, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
   <h3>1. Prepare the Pi</h3>
   <ol>
     <li>Flash <b>Raspberry Pi OS (64-bit, desktop)</b> with Raspberry Pi Imager. Set the hostname <code>gwpiano</code> and enable SSH.</li>
@@ -173,7 +173,8 @@ git clone &lt;your GW piano repo&gt; ~/gw-piano &amp;&amp; cd ~/gw-piano
 python3 -m venv .venv &amp;&amp; . .venv/bin/activate &amp;&amp; pip install .
 gw-piano --output dist</code></pre>
 
-  <h3>2. Set the mode pad</h3>
+  <h3>2. Optional: set a mode pad</h3>
+  <p>The touch screen switches mode on its own. A pad on the keyboard lets a player switch mode without taking a hand off the keys, and keeps a way to switch if the touch screen fails. Skip this step if the keyboard has no programmable pads.</p>
   <ol>
     <li>In the keyboard's editor software (run once from any computer), set one pad or button to send <b>CC20</b> with <b>toggle</b> behaviour, values 0 and 127, and save it to the keyboard.</li>
     <li>If the pad is lit, give it a bright colour so visitors can find it.</li>
