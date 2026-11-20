@@ -1,0 +1,222 @@
+<title>GW Piano Stand</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: single reading column; wiring diagram and costing table scroll inside their own containers */
+:root{
+  --bg:#f5f6fa; --surface:#ffffff; --fg:#161a2b; --muted:#5a6078; --line:#d9dce8;
+  --sci:#3b5bdb; --mus:#c2410c; --accent:#6741d9;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
+  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
+  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+main{max-width:860px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:2.4rem}h2{font-size:1.5rem}h3{font-size:1.1rem}
+section{display:grid;gap:14px;min-width:0}
+p,li{max-width:68ch;margin:0}
+ul,ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.lede{color:var(--muted);font-size:1.1rem}
+.eyebrow{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+code,pre{font-family:var(--mono);font-size:.85rem}
+code{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;margin:0;line-height:1.5}
+pre code{border:0;padding:0;background:none}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.mode{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);display:grid;gap:6px}
+.mode b{font-family:var(--display);font-size:1.1rem}
+.mode.sci{border-top:4px solid var(--sci)}.mode.mus{border-top:4px solid var(--mus)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:600;border-bottom:0}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.status{display:grid;gap:8px}
+.status li::marker{color:var(--accent)}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted)}
+svg text{fill:var(--fg);font:13px var(--body)}
+svg .sub{fill:var(--muted);font-size:11px}
+svg .box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+svg .wire{stroke:var(--muted);stroke-width:1.5;fill:none}
+svg .audio{stroke:var(--accent)}
+a{color:var(--accent)}
+</style>
+
+<main>
+<header style="display:grid;gap:10px">
+  <span class="eyebrow">Outreach stand build guide</span>
+  <h1>GW Piano Stand</h1>
+  <p class="lede">A standalone keyboard instrument. Each key plays an IMRPhenomD chirp from an equal-mass black-hole binary, and one button switches between scientific and musical sounds. A Raspberry Pi 5 runs everything and needs no laptop. It drives a small screen showing the current mode and a 10-inch screen above the keys showing a live timeseries, spectrogram and mass histogram as keys are pressed.</p>
+</header>
+
+<section>
+  <h2>The stand</h2>
+  <img src="images/stand.png" alt="Outreach stand: keyboard on an X-stand with a 7-inch touch screen and 10.1-inch screen above the keys and small desktop speakers on the keyboard ends" style="width:100%;border-radius:10px;border:1px solid var(--line)">
+  <p>The keyboard sits at standing height on an X-stand, with the screens clamped just behind the controls. Two small desktop speakers sit on the ends of the keyboard, angled up at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
+  <h3>10.1" screen: timeseries, spectrogram and histogram</h3>
+  <img src="images/screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram" style="width:100%;border-radius:10px">
+  <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
+  <h3>7" touch screen: controls</h3>
+  <img src="images/screen-touch.png" alt="Touch screen mock-up: Scientific and Musical mode buttons, four example tune buttons, Play detections in order with timing toggle, Stop all and Reset" style="width:100%;border-radius:10px">
+  <p>The touch screen has large targets for small hands. It has the sound mode switch, the four example tunes, <b>Play detections in order</b> with its In order / Preserve timeline toggle, <b>Stop all</b> and <b>Reset</b>. The pad on the keyboard switches mode too, and both stay in sync.</p>
+</section>
+
+<section>
+  <h2>The two modes</h2>
+  <div class="modes">
+    <div class="mode sci"><b>Scientific</b><span>The full generated waveform, including its quiet inspiral lead-in. It matches the downloadable WAVs, with no added tone. This is the default.</span></div>
+    <div class="mode mus"><b>Musical</b><span>A short segment around the waveform peak that crossfades into a 350&nbsp;ms decaying sine at the note frequency. It matches the website's musical mode. The tail is synthetic, not a physical ringdown.</span></div>
+  </div>
+  <p>Both modes cover all 88 keys (A0–C8). Each key corresponds to a mass of <code>m = 30 M☉ × f_peak(30,30) / f_note</code> per black hole, so lower keys mean heavier systems.</p>
+</section>
+
+<section>
+  <h2>How it connects</h2>
+  <div class="scroll">
+  <svg viewBox="0 0 820 300" width="820" role="img" aria-label="Wiring: keyboard USB to Pi 5; Pi DSI to mode screen; Pi HDMI to waveform screen; DAC HAT line out to powered speakers">
+    <rect class="box" x="20" y="120" width="170" height="64" rx="8"/>
+    <text x="36" y="148">Launchkey 49 MK4</text><text class="sub" x="36" y="168">keys + CC20 toggle pad</text>
+    <rect class="box" x="300" y="100" width="200" height="104" rx="8"/>
+    <text x="316" y="128">Raspberry Pi 5</text><text class="sub" x="316" y="148">Chromium kiosk: sound + visuals</text><text class="sub" x="316" y="166">2 pages: live + controls</text><text class="sub" x="316" y="184">DAC HAT on GPIO</text>
+    <rect class="box" x="610" y="20" width="190" height="64" rx="8"/>
+    <text x="626" y="48">7" Touch Display 2</text><text class="sub" x="626" y="68">mode screen</text>
+    <rect class="box" x="610" y="120" width="190" height="64" rx="8"/>
+    <text x="626" y="148">10.1" display</text><text class="sub" x="626" y="168">waveform + histogram</text>
+    <rect class="box" x="610" y="220" width="190" height="64" rx="8"/>
+    <text x="626" y="248">Powered speakers</text><text class="sub" x="626" y="268">line in (RCA/3.5 mm)</text>
+    <path class="wire" d="M190 152 H300"/><text class="sub" x="214" y="144">USB (MIDI + power)</text>
+    <path class="wire" d="M500 120 C560 120 560 52 610 52"/><text class="sub" x="520" y="78">DSI ribbon</text>
+    <path class="wire" d="M500 152 H610"/><text class="sub" x="520" y="144">micro-HDMI</text>
+    <path class="wire audio" d="M500 186 C560 186 560 252 610 252"/><text class="sub" x="516" y="236">line out</text>
+  </svg>
+  </div>
+  <p class="note">The Pi 5 has no headphone jack, so audio comes from a DAC HAT (or a USB audio interface). The 7-inch screen uses the DSI ribbon, which leaves both micro-HDMI ports free.</p>
+</section>
+
+<section>
+  <h2>Shopping list and costs</h2>
+  <p>These are UK prices including VAT, checked November 2026. Raspberry Pi prices have changed a lot recently, so check before you order.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Item</th><th>Role</th><th>Price</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Novation Launchkey 49 MK4</td><td>Keys, velocity, pads for the mode toggle; USB-powered</td><td class="num">£189–229</td><td><a href="https://www.thomann.co.uk/novation_launchkey_49_mk4.htm">Thomann</a>, <a href="https://www.scan.co.uk/products/novation-launchkey-49-mk4">Scan</a></td></tr>
+      <tr><td>Raspberry Pi 5, 4&nbsp;GB</td><td>Runs the sampler and both screens</td><td class="num">~£60–121</td><td><a href="https://uk.rs-online.com/web/p/raspberry-pi/0219253">RS</a>, <a href="https://thepihut.com/products/raspberry-pi-5">Pi Hut</a></td></tr>
+      <tr><td>Pi 5 27&nbsp;W PSU, active cooler, 32&nbsp;GB microSD, case</td><td>Essentials</td><td class="num">~£35 <span class="tag">estimate</span></td><td>Pi Hut</td></tr>
+      <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td><td class="num">£53–58</td><td><a href="https://thepihut.com/products/raspberry-pi-touch-display-2">Pi Hut</a></td></tr>
+      <tr><td>10.1" 1280×800 HDMI display</td><td>Live timeseries, spectrogram and histogram screen, above the keys</td><td class="num">~£60–90 <span class="tag">estimate</span></td><td>Pi Hut, Amazon</td></tr>
+      <tr><td>Tablet/music-stand clamp or keyboard-stand top tier</td><td>Holds the screens where sheet music would go</td><td class="num">~£20–35 <span class="tag">estimate</span></td><td>Music retailers</td></tr>
+      <tr><td>Micro-HDMI to HDMI cable</td><td>Pi to monitor</td><td class="num">~£6 <span class="tag">estimate</span></td><td>Pi Hut</td></tr>
+      <tr><td>HiFiBerry DAC2 Pro</td><td>Clean line-level audio out</td><td class="num">£54</td><td><a href="https://thepihut.com/products/hifiberry-dac2-pro">Pi Hut</a></td></tr>
+      <tr><td>Compact powered desktop speakers (2 × 10–20 W)</td><td>Aimed at the player and onlookers; clear over a busy room at a capped level</td><td class="num">~£30–60 <span class="tag">estimate</span></td><td>Any retailer</td></tr>
+      <tr><td>Headphone amp/splitter + 2 pairs of closed-back headphones</td><td>Silent option for busy or quiet halls</td><td class="num">~£40–60 <span class="tag">estimate</span></td><td>Any retailer</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="2">Total</td><td class="num">≈ £550–750</td><td></td></tr></tfoot>
+  </table>
+  </div>
+  <h3>Mounting above the keys</h3>
+  <p>The Launchkey 49 has no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" mode screen beside it on the side of the toggle pad. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
+  <p>To cut costs, skip the DAC and use a £10 USB audio dongle, use a cheaper monitor, and use headphones only. That brings the total to about £400.</p>
+</section>
+
+<section>
+  <h2>Power and volume</h2>
+  <p><b>Sockets:</b> a standard 4-way extension lead is enough, and a 6-way gives room to spare. Only three devices need a mains plug:</p>
+  <ol>
+    <li>Raspberry Pi 5 power supply. This also powers the touch screen, the DAC and the keyboard.</li>
+    <li>10.1" display power adapter. Some models take USB-C power instead and need no socket.</li>
+    <li>Desktop speakers. Many compact models run from USB and need no socket.</li>
+  </ol>
+  <p>The headphone amp usually runs on USB or batteries. Use a 6-way lead if the power adapters are bulky, because they can block the socket next to them, and you'll have spare sockets for a phone charger or a lamp. Choose a lead with a surge protector, and tape it down out of the way of visitors' feet.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Device</th><th>Typical</th><th>Peak</th></tr></thead>
+    <tbody>
+      <tr><td>Raspberry Pi 5 (sampler, two displays, DAC)</td><td class="num">8 W</td><td class="num">12 W</td></tr>
+      <tr><td>7" Touch Display 2 (powered by the Pi)</td><td class="num">2 W</td><td class="num">3 W</td></tr>
+      <tr><td>10.1" display</td><td class="num">6 W</td><td class="num">10 W</td></tr>
+      <tr><td>Launchkey 49 (USB bus-powered by the Pi)</td><td class="num">1 W</td><td class="num">2.5 W</td></tr>
+      <tr><td>Compact desktop speakers</td><td class="num">5 W</td><td class="num">20 W</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total</td><td class="num">≈ 22 W</td><td class="num">≈ 50 W</td></tr></tfoot>
+  </table>
+  </div>
+  <p>These figures are estimates from typical device ratings; measure with a plug-in power meter before relying on them. Use the official 27&nbsp;W Pi 5 supply, because it lets the Pi power the keyboard over USB. Where there is no socket, a portable power station of about 250&nbsp;Wh runs the stand for a full day (about 8 hours at the typical draw).</p>
+  <h3>Audible, but not overpowering</h3>
+  <p>The goal is for the stand to be heard clearly by the people at it in a busy room, without drowning out neighbouring stands.</p>
+  <ul>
+    <li><b>Point the sound at the audience.</b> Two compact speakers on the keyboard ends, angled up towards the player and the people gathered in front, reach the group directly. Speakers aimed outwards, or raised on poles, spread the sound across the room instead. Speakers with some headroom (10–20 W per side) stay clear at this level instead of distorting.</li>
+    <li><b>Hard volume cap.</b> Set the maximum level once in software (the ALSA mixer level; the kiosk page also caps its own output level), so turning the speaker knob cannot push it past that level. Busy halls run at about 65–75 dB(A), so aim for about 75–80 dB(A) at the player's position. Set it with a phone sound-meter app at the event, then check the level at the next stand along: there it should sit below the room's own background noise.</li>
+    <li><b>Headphones for busy or quiet rooms.</b> A small headphone amp drives two pairs of closed-back headphones, so the stand can go completely silent. Wipe the headphones between visitors.</li>
+    <li><b>Mind the low notes.</b> Bass carries furthest. The sound is already one-shot and short, but if neighbours complain, use the low-cut on the speakers or keep visitors to the middle octaves.</li>
+    <li><b>Example tunes and Play detections in order</b> are the loudest moments, because many notes overlap. Lower the cap for those, or run them on headphones.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Setup</h2>
+  <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (10.1" screen) plays the sound-pack samples for each key, follows the mode pad, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
+  <h3>1. Prepare the Pi</h3>
+  <ol>
+    <li>Flash <b>Raspberry Pi OS (64-bit, desktop)</b> with Raspberry Pi Imager. Set the hostname <code>gwpiano</code> and enable SSH.</li>
+    <li>Fit the active cooler, then the DAC HAT. Connect the Touch Display 2 ribbon to a DSI port and the 10.1" display to HDMI0.</li>
+    <li>Enable the DAC by adding <code>dtoverlay=hifiberry-dacplus-std</code> to <code>/boot/firmware/config.txt</code>, then reboot.</li>
+    <li>In <b>Screen Configuration</b>, rotate the touch screen to landscape and place it to the left of the 10.1" display.</li>
+  </ol>
+<pre><code>sudo apt update &amp;&amp; sudo apt install -y chromium-browser
+git clone &lt;your GW piano repo&gt; ~/gw-piano &amp;&amp; cd ~/gw-piano
+python3 -m venv .venv &amp;&amp; . .venv/bin/activate &amp;&amp; pip install .
+gw-piano --output dist</code></pre>
+
+  <h3>2. Set the mode pad</h3>
+  <ol>
+    <li>In <b>Novation Components</b> (run once from any computer), make a Custom Mode in which one pad sends <b>CC20</b> with <b>toggle</b> behaviour, values 0 and 127.</li>
+    <li>Save it to the keyboard and give it a bright colour so visitors can find it.</li>
+  </ol>
+
+  <h3>3. Start the kiosk</h3>
+  <p>Serve the built site locally and open both pages in one Chromium profile. One profile is needed so the pages can talk to each other.</p>
+<pre><code>python3 -m http.server 8000 --directory ~/gw-piano/dist &amp;
+chromium-browser --autoplay-policy=no-user-gesture-required --noerrdialogs --disable-infobars \
+  --app=http://localhost:8000/kiosk-live.html --window-position=720,0 --start-fullscreen &amp;
+sleep 5
+chromium-browser --app=http://localhost:8000/kiosk-controls.html --window-position=0,0 --start-fullscreen &amp;</code></pre>
+  <ul>
+    <li>The first time, Chromium asks to allow MIDI devices on the live page. Allow it once; the choice is saved in the profile.</li>
+    <li>For testing without a keyboard, the live page also responds to the computer keys A W S E D F T G Y H U J K (C4–C5), and M switches mode.</li>
+  </ul>
+
+  <h3>4. Autostart and lock down</h3>
+  <ul>
+    <li>Put the commands above in a systemd user service or the desktop autostart file, so the stand is playable about 30 seconds after you plug it in.</li>
+    <li>Use the read-only overlay filesystem (<code>raspi-config</code> → Performance), so the SD card survives power being pulled at the end of the day.</li>
+    <li>Turn off screen blanking.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What still needs building</h2>
+  <ul class="status">
+    <li><b>Done:</b> the sound pack has both modes, with <code>GW-Piano.sfz</code> switching on CC20.</li>
+    <li><b>Done:</b> the kiosk pages <code>kiosk-live.html</code> and <code>kiosk-controls.html</code>, tested in a desktop browser with computer keys. They have not yet been run on a Pi with the Launchkey.</li>
+    <li><b>To do:</b> an autostart script and Pi image, so the stand can be rebuilt from scratch, and a check of audio latency and frame rate on the Pi 5.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>On the day</h2>
+  <ul>
+    <li>Power on the speakers last and switch them off first, to avoid pops.</li>
+    <li>Before the doors open, check the volume from the neighbouring stands, and ask them to tell you if it bothers them.</li>
+    <li>Start with musical mode for melodies. Switch to scientific mode to show that heavier binaries chirp lower and for longer.</li>
+    <li>A single key in scientific mode is the "what LIGO hears" moment. The waveform screen shows the matching strain.</li>
+  </ul>
+</section>
+</main>

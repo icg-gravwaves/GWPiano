@@ -9,7 +9,7 @@ import zipfile
 import lalsimulation as lalsim
 import numpy as np
 from gw_piano.cli import build
-from gw_piano.synthesis import component_mass, note_frequency, synthesize
+from gw_piano.synthesis import component_mass, musical_sample, note_frequency, synthesize
 
 
 class InstrumentTests(unittest.TestCase):
@@ -47,11 +47,16 @@ class InstrumentTests(unittest.TestCase):
                 self.assertIn('GW-Piano.sfz', pack.namelist())
                 pack_manifest = json.loads(pack.read('sound-pack-manifest.json'))
                 self.assertEqual([note['midi'] for note in pack_manifest['notes']], list(range(21, 109)))
-                self.assertEqual(len([name for name in pack.namelist() if name.endswith('.wav')]), 88)
+                self.assertEqual(len([name for name in pack.namelist() if name.endswith('.wav')]), 176)
                 regions = pack.read('GW-Piano.sfz').decode()
-                self.assertEqual(regions.count('<region>'), 88)
+                self.assertEqual(regions.count('<region>'), 176)
+                self.assertIn('locc20=0 hicc20=63', regions)
+                self.assertIn('locc20=64 hicc20=127', regions)
+                for single in ('GW-Piano-Scientific.sfz', 'GW-Piano-Musical.sfz'):
+                    self.assertEqual(pack.read(single).decode().count('<region>'), 88)
                 for note in pack_manifest['notes']:
                     self.assertIn(note['file'], pack.namelist())
+                    self.assertIn(note['musical_file'], pack.namelist())
                     with wave.open(str(output / note['file'])) as wav:
                         self.assertEqual((wav.getnchannels(), wav.getsampwidth(), wav.getframerate()), (1, 2, 44100))
             catalog = json.loads((output / 'catalog.json').read_text())
@@ -59,6 +64,20 @@ class InstrumentTests(unittest.TestCase):
             self.assertEqual(len(names), len(set(names)))
             self.assertTrue(all(m >= 3 for event in catalog['events'] for m in event['masses']))
             self.assertTrue((output / 'portsmouth.svg').is_file())
+            for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html'):
+                self.assertTrue((output / page).is_file(), page)
+            self.assertNotIn('£', (output / 'stand.html').read_text())
+
+    def test_musical_sample(self):
+        samples = synthesize(69)
+        result = musical_sample(samples, note_frequency(69))
+        self.assertAlmostEqual(float(np.max(np.abs(result))), 0.9)
+        self.assertEqual(result[0], 0)
+        self.assertEqual(result[-1], 0)
+        # Chirp segment (up to 140 ms) less the 20 ms crossfade, then the 350 ms tail.
+        self.assertLessEqual(len(result), round(0.47 * 44100))
+        self.assertGreater(len(result), round(0.35 * 44100))
+        with self.assertRaises(ValueError): musical_sample(samples, 30000)
 
     def test_invalid_inputs(self):
         for midi in (-1, 128):

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GW Piano · live</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* 10.1" stand display (1280×800): timeseries, spectrogram and histogram stacked full-screen. */
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 16px/1.4 Inter, system-ui, sans-serif; cursor: none;
+         display: grid; grid-template-rows: auto 1fr 1.3fr 1.2fr; gap: 12px; padding: 14px 24px; box-sizing: border-box; }
+  header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  h1 { font-size: 26px; margin: 0; }
+  #last-note { color: var(--muted); }
+  #mode-chip { text-transform: uppercase; font-weight: 700; letter-spacing: .06em; padding: 2px 12px; border-radius: 99px;
+               background: var(--signal); color: var(--on-signal); }
+  #mode-chip[data-mode="musical"] { background: var(--warning); }
+  .panel { background: var(--panel); border-radius: 14px; padding: 10px 16px; display: grid; grid-template-rows: auto 1fr; min-height: 0; position: relative; }
+  .panel h2 { font-size: 14px; font-weight: 400; color: var(--muted); margin: 0 0 6px; display: flex; justify-content: space-between; }
+  canvas { width: 100%; height: 100%; display: block; min-height: 0; }
+  #markers { position: absolute; inset: 34px 16px 10px; pointer-events: none; }
+  #markers span { position: absolute; bottom: 0; transform: translateX(-1px); border-left: 1px solid; padding-left: 5px;
+                  font-size: 13px; height: 100%; display: flex; align-items: flex-end; white-space: nowrap; opacity: .9; }
+  .scale { position: absolute; left: 22px; top: 34px; bottom: 10px; display: flex; flex-direction: column; justify-content: space-between;
+           font-size: 12px; color: var(--muted); pointer-events: none; }
+  svg { width: 100%; height: 100%; overflow: visible; }
+  svg text { fill: var(--muted); font-size: 13px; }
+  #status { position: fixed; inset: auto 0 40% 0; text-align: center; font-size: 22px; color: var(--muted); }
+</style>
+</head>
+<body>
+  <header><h1>GW Piano · live</h1><span id="last-note">Play a key</span><span id="mode-chip" data-mode="scientific">scientific</span></header>
+  <section class="panel"><h2><span>Timeseries · strain (auto-scaled)</span><span>◀ last 4.5 s</span></h2>
+    <canvas id="timeseries"></canvas><div id="markers"></div></section>
+  <section class="panel"><h2><span>Spectrogram · frequency vs time</span><span>20 Hz – 2 kHz, log scale</span></h2>
+    <canvas id="spectrogram"></canvas>
+    <div class="scale" aria-hidden="true"><span>2 kHz</span><span>630 Hz</span><span>200 Hz</span><span>63 Hz</span><span>20 Hz</span></div></section>
+  <section class="panel"><h2><span>Black-hole masses: LVK catalogue (purple) vs notes played (striped)</span><span id="played-count"></span></h2>
+    <svg id="histogram" viewBox="0 -4 1000 190" preserveAspectRatio="none"></svg></section>
+  <p id="status">Loading sounds…</p>
+  <script type="module" src="kiosk.mjs"></script>
+</body>
+</html>

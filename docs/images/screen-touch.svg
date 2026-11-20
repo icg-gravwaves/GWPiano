@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect width="1280" height="720" fill="#0f1218"/>
+<text x="40" y="56" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Sound mode</text>
+<rect x="40" y="76" width="590" height="150" rx="18" fill="#2e253d" stroke="#5d6879" stroke-width="3"/>
+<text x="335.0" y="149.0" font-size="40" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">SCIENTIFIC</text>
+<text x="335.0" y="179.0" font-size="17" font-weight="400" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">full model waveform</text>
+<rect x="650" y="76" width="590" height="150" rx="18" fill="#ffc56e"/>
+<text x="945.0" y="149.0" font-size="40" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">MUSICAL</text>
+<text x="945.0" y="179.0" font-size="17" font-weight="400" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">chirp + note tone  ✓</text>
+<text x="40" y="280" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Examples</text>
+<rect x="40" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
+<text x="185.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 1</text>
+<rect x="342" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
+<text x="487.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 2</text>
+<rect x="644" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
+<text x="789.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 3</text>
+<rect x="946" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
+<text x="1091.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 4</text>
+<text x="40" y="462" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">LVK detections</text>
+<rect x="40" y="480" width="590" height="130" rx="18" fill="#621360"/>
+<text x="335.0" y="543.0" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">▶  Play detections in order</text>
+<text x="335.0" y="573.0" font-size="17" font-weight="400" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW150914 → latest catalogued</text>
+<rect x="650" y="480" width="290" height="60" rx="18" fill="#70ceff"/>
+<text x="795.0" y="517.0" font-size="20" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">In order</text>
+<rect x="650" y="550" width="290" height="60" rx="18" fill="#2e253d" stroke="#5d6879" stroke-width="3"/>
+<text x="795.0" y="587.0" font-size="20" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Preserve timeline</text>
+<rect x="950" y="480" width="290" height="130" rx="18" fill="#ff8eac"/>
+<text x="1095.0" y="554.8" font-size="28" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">■  Stop all</text>
+<text x="40" y="680" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Mode pad on the keyboard also switches mode · Reset played notes</text>
+<rect x="1080" y="656" width="160" height="40" rx="12" fill="#2e253d" stroke="#5d6879"/>
+<text x="1160" y="682" font-size="18" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Reset</text>
+</svg>

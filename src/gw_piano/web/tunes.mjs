@@ -18,15 +18,15 @@ function cells(start, motifs) {
   });
 }
 
-/** Drunken Sailor: [MIDI, length in beats] melody with a two-note bass on beats 1 and 3. */
-function drunkenSailor(beat = 0.22) {
+/** Example 3: [MIDI, length in beats] melody with a two-note bass on beats 1 and 3. */
+function example3Notes(beat = 0.22) {
   const A = 69, B = 71, C5 = 72, D5 = 74, D = 62, E = 64, F = 65, G = 67, C = 60;
   const run = n => [[n, 1], [n, 0.5], [n, 0.5], [n, 1], [n, 0.5], [n, 0.5]];
   const bars = [
-    run(A), [[A, 1], [D, 1], [F, 1], [A, 1]],        // What shall we do with the drunken sailor
-    run(G), [[G, 1], [C, 1], [E, 1], [G, 1]],        // (repeat)
-    run(A), [[A, 1], [B, 1], [C5, 1], [D5, 1]],      // (repeat)
-    [[C5, 1], [A, 1], [G, 1], [E, 1]], [[D, 2], [D, 2]]  // Early in the morning
+    run(A), [[A, 1], [D, 1], [F, 1], [A, 1]],        // phrase 1
+    run(G), [[G, 1], [C, 1], [E, 1], [G, 1]],        // phrase 1, a tone lower
+    run(A), [[A, 1], [B, 1], [C5, 1], [D5, 1]],      // phrase 1, rising ending
+    [[C5, 1], [A, 1], [G, 1], [E, 1]], [[D, 2], [D, 2]]  // closing phrase
   ];
   const Dm = [50, 57], Cmaj = [48, 55];
   const bass = [Dm, Dm, Cmaj, Cmaj, Dm, Dm, Cmaj, Dm];
@@ -46,7 +46,7 @@ function bars(crotchet, list) {
     .sort((x, y) => x[1] - y[1]);
 }
 
-/** One bar of the Just Can't Get Enough riff: G | G G-G | (rest) G G | A B. */
+/** One bar of the Example 4 riff: G | G G-G | (rest) G G | A B. */
 const riff = bar => [
   [67, bar, 0], [67, bar, 1], [67, bar, 1.5], [67, bar, 1.75],
   [67, bar, 2.25], [67, bar, 2.5], [69, bar, 3], [71, bar, 3.5]
@@ -55,10 +55,9 @@ const riff = bar => [
 // MIDI: C3=48, G3=55, C4=60, G4=67, C5=72. The keyboard covers C3–C6.
 export const tunes = [
   {
-    id: 'beethoven-5',
+    id: 'example-1',
     label: 'Example 1',
-    title: "Beethoven's 5th",
-    // Symphony No. 5 in C minor (1808), a simplified keyboard reduction.
+    // A simplified keyboard reduction in C minor.
     // Bars 1–5: the motif in octaves, G G G E♭ … F F F D.
     // Bars 6–13: G G G E♭ | A♭ A♭ A♭ G | E♭ E♭ E♭ C, then G G G D | A♭ A♭ A♭ G | F F F D.
     notes: [
@@ -71,7 +70,6 @@ export const tunes = [
   {
     id: 'example-2',
     label: 'Example 2',
-    title: 'Example 2',
     // Add notes here as [MIDI number, start time in seconds], in time order.
     // Bass tab to MIDI: open E=28, A=33, D=38, G=43, then add the fret number.
     // The keyboard spans C3–C6 (48–84), so add 24 (two octaves) to bass notes.
@@ -90,16 +88,14 @@ export const tunes = [
     ]
   },
   {
-    id: 'drunken-sailor',
+    id: 'example-3',
     label: 'Example 3',
-    title: 'Drunken Sailor',
-    // Traditional sea shanty, first verse, in D Dorian; melody over a D minor / C bass.
-    notes: drunkenSailor()
+    // D Dorian melody over a D minor / C bass.
+    notes: example3Notes()
   },
   {
-    id: 'just-cant-get-enough',
+    id: 'example-4',
     label: 'Example 4',
-    title: "Just Can't Get Enough",
     // Piano arrangement in G major, 4/4, four bars: the riff three times, then a
     // C B A B turnaround. 0.6 s per crotchet (100 bpm).
     notes: bars(0.6, [

@@ -68,6 +68,43 @@ def synthesize(midi: int, ratio: float = 0.12, rate: int = SAMPLE_RATE,
     return samples * (0.9 / np.max(np.abs(samples)))
 
 
+# Tone level relative to the chirp's peak, and its decay time in seconds; these
+# match the website's musical mode (web/musical.mjs) so both sound the same.
+TONE_LEVEL = 0.3
+TONE_DECAY = 0.12
+
+
+def musical_sample(samples: np.ndarray, frequency: float, rate: int = SAMPLE_RATE) -> np.ndarray:
+    """Return the musical-mode sound: the chirp around its peak crossfaded into a decaying sine.
+
+    The 350 ms sine tail at the note frequency is a synthetic musical addition,
+    not a physical ringdown.
+    """
+    if len(samples) == 0 or not 0 < frequency < rate / 2:
+        raise ValueError("Require audio samples and a frequency below Nyquist")
+    peak_index = int(np.argmax(np.abs(samples)))
+    start = max(0, peak_index - round(0.12 * rate))
+    end = min(len(samples), peak_index + round(0.02 * rate))
+    chirp_length = end - start
+    chirp_peak = abs(float(samples[peak_index]))
+    overlap = min(chirp_length, round(0.02 * rate))
+    tone_start = chirp_length - overlap
+    total = tone_start + round(0.35 * rate)
+    i = np.arange(total)
+    crossfade = np.clip((i - tone_start) / max(1, overlap - 1), 0, 1)
+    chirp = np.zeros(total)
+    chirp[:chirp_length] = samples[start:end]
+    chirp *= np.cos(crossfade * np.pi / 2)
+    t = (i - tone_start) / rate
+    tone = np.where(t >= 0, TONE_LEVEL * chirp_peak * np.sin(2 * np.pi * frequency * t)
+                    * np.exp(-t / TONE_DECAY) * np.sin(crossfade * np.pi / 2), 0)
+    attack = max(1, round(0.005 * rate))
+    release = max(1, round(0.01 * rate))
+    envelope = np.minimum(1, np.minimum(i / attack, (total - 1 - i) / release))
+    output = (chirp + tone) * envelope
+    return output * (0.9 / np.max(np.abs(output)))
+
+
 def write_wav(path: Path, samples: np.ndarray, rate: int = SAMPLE_RATE) -> None:
     """Write portable 16-bit PCM mono audio."""
     with wave.open(str(path), "wb") as output:

@@ -11,6 +11,7 @@ import wave
 import zipfile
 
 EXPECTED_RATE = 44100
+SFZ_FILES = ["GW-Piano.sfz", "GW-Piano-Scientific.sfz", "GW-Piano-Musical.sfz"]
 MIN_PEAK = 1000  # 16-bit samples; a normalised note peaks near 29 000.
 
 
@@ -29,22 +30,26 @@ def check(site: Path) -> list:
         if bad:
             return errors + [f"corrupt ZIP member: {bad}"]
         names = set(pack.namelist())
-        for required in ["GW-Piano.sfz", "sound-pack-manifest.json", "PACK-README.txt"]:
+        for required in [*SFZ_FILES, "sound-pack-manifest.json", "PACK-README.txt"]:
             if required not in names:
                 errors.append(f"ZIP is missing {required}")
         wavs = sorted(name for name in names if name.endswith(".wav"))
-        if len(wavs) != expected:
-            errors.append(f"ZIP has {len(wavs)} WAVs, expected {expected}")
+        # One scientific and one musical WAV per note.
+        if len(wavs) != 2 * expected:
+            errors.append(f"ZIP has {len(wavs)} WAVs, expected {2 * expected}")
         for note in manifest["notes"]:
-            if note["file"] not in names:
-                errors.append(f"ZIP is missing {note['file']} ({note['name']})")
-        if "GW-Piano.sfz" in names:
-            sfz = pack.read("GW-Piano.sfz").decode()
+            for key in ("file", "musical_file"):
+                if note.get(key) not in names:
+                    errors.append(f"ZIP is missing {note.get(key)} ({note['name']})")
+        for sfz_name in [name for name in SFZ_FILES if name in names]:
+            sfz = pack.read(sfz_name).decode()
+            if sfz.count("<region>") != (2 if sfz_name == "GW-Piano.sfz" else 1) * expected:
+                errors.append(f"{sfz_name} has {sfz.count('<region>')} regions")
             for line in sfz.splitlines():
                 if "sample=" in line:
                     sample = line.split("sample=")[1].split()[0]
                     if sample not in names:
-                        errors.append(f"SFZ refers to {sample}, which is not in the ZIP")
+                        errors.append(f"{sfz_name} refers to {sample}, which is not in the ZIP")
         for name in wavs:
             with wave.open(io.BytesIO(pack.read(name))) as audio:
                 if (audio.getframerate(), audio.getnchannels(), audio.getsampwidth()) != (EXPECTED_RATE, 1, 2):
