@@ -62,7 +62,7 @@ a{color:var(--accent)}
 <section>
   <h2>The stand</h2>
   <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand with a 7-inch touch screen and 10.1-inch screen above the keys and small desktop speakers on the keyboard ends" style="width:100%;border-radius:10px;border:1px solid var(--line)">
-  <p>The keyboard sits at standing height on an X-stand, with the screens clamped just behind the controls. Two small desktop speakers sit on the ends of the keyboard, angled up at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
+  <p>The keyboard sits at standing height on an X-stand. The picture shows the screens just behind the controls; the simplest build instead stands the touch screen, with the Pi on its back, and a monitor on a table beside the keyboard (see <a href="#parts">Placing the screens</a>). Two small speakers sit on the keyboard ends or the table, angled up at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
   <h3>10.1" screen: timeseries, spectrogram and histogram</h3>
   <img src="stand-screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram" style="width:100%;border-radius:10px">
   <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
@@ -104,7 +104,7 @@ a{color:var(--accent)}
 </section>
 
 <section>
-  <h2>Parts list</h2>
+  <h2 id="parts">Parts list</h2>
   <p>These are UK prices including VAT, checked November 2026. Raspberry Pi prices have changed a lot recently, so check before you order.</p>
   <div class="scroll">
   <table>
@@ -112,19 +112,23 @@ a{color:var(--accent)}
     <tbody>
       <tr><td>49-key USB MIDI keyboard</td><td>Velocity-sensitive keys; USB class-compliant (works without drivers on Linux); powered over USB. Optional: a pad or button that can be set to send a MIDI CC toggle (0/127), as a second mode switch</td></tr>
       <tr><td>Raspberry Pi 5, 4&nbsp;GB</td><td>Runs the sampler and both screens</td></tr>
-      <tr><td>Pi 5 27&nbsp;W PSU, active cooler, 32&nbsp;GB microSD, case</td><td>Essentials</td></tr>
+      <tr><td>Raspberry Pi 27&nbsp;W USB-C power supply</td><td>The official supply provides 5&nbsp;A, so the Pi can power the touch screen, keyboard and audio interface</td></tr>
+      <tr><td>Raspberry Pi Active Cooler</td><td>Keeps the Pi cool over hours of running</td></tr>
+      <tr><td>microSD card, 16–64&nbsp;GB</td><td>From a known brand and rated A1 or A2, for reliable operating-system use. Raspberry Pi OS with desktop takes about 6&nbsp;GB and the GW Piano site under 100&nbsp;MB, so 16&nbsp;GB leaves room for updates. Pi OS is installed on it for free with Raspberry Pi Imager, so a card with Pi OS pre-installed is not needed.</td></tr>
       <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td></tr>
-      <tr><td>10.1" 1280×800 HDMI display</td><td>Live timeseries, spectrogram and histogram screen, above the keys</td></tr>
-      <tr><td>Tablet/music-stand clamp or keyboard-stand top tier</td><td>Holds the screens where sheet music would go</td></tr>
-      <tr><td>Micro-HDMI to HDMI cable</td><td>Pi to monitor</td></tr>
+      <tr><td>Desktop case and stand for Pi 5 + Touch Display 2</td><td>Metal case that holds the Pi on the back of the touch screen and stands on the table with an adjustable tilt; deep enough (HAT-height) to fit the active cooler, with ventilation slots</td></tr>
+      <tr><td>HDMI monitor or TV (borrowed), or a 10.1" 1280×800 HDMI display</td><td>Live timeseries, spectrogram and histogram screen</td></tr>
+      <tr><td>Raspberry Pi micro-HDMI to HDMI cable, 2&nbsp;m</td><td>Pi to monitor, with reach to a screen beside the keyboard</td></tr>
+      <tr><td>Keyboard X-stand</td><td>Holds the keyboard at standing height</td></tr>
+      <tr><td>Table</td><td>Holds the touch screen, Pi, monitor and speakers, beside the keyboard</td></tr>
       <tr><td>USB audio interface</td><td>Class-compliant (works without drivers); powered over USB; stereo line or RCA output to the speakers; a branded unit rather than an unbranded dongle, which can hiss or pick up buzz from the Pi's power</td></tr>
-      <tr><td>Compact powered desktop speakers (2 × 10–20 W)</td><td>Aimed at the player and onlookers; clear over a busy room at a capped level</td></tr>
+      <tr><td>Compact powered monitor speakers (pair, 2 × 10–20 W)</td><td>About 21 × 14 × 18&nbsp;cm each; front volume knob; aimed at the player and onlookers; clear over a busy room at a capped level</td></tr>
       <tr><td>Headphone amp/splitter + 2 pairs of closed-back headphones</td><td>Silent option for busy or quiet halls</td></tr>
     </tbody>
   </table>
   </div>
-  <h3>Mounting above the keys</h3>
-  <p>Compact MIDI keyboards usually have no music rest, so the screens sit just behind the controls on a clamp or a second tier of the keyboard stand. Mount the 10.1" display at the centre, angled back towards the player, with the 7" touch screen beside it, within easy reach of the player. Both screens are light enough for a VESA or tablet clamp, and the Pi can be cable-tied behind the 10.1" display, so only one power lead and the speaker cable come off the stand.</p>
+  <h3>Placing the screens</h3>
+  <p>The keyboard stands on its X-stand with a table beside it. The touch screen sits on the table in its case and stand, with the Pi mounted on its back, within easy reach of the player. The main display, a borrowed monitor or TV or a 10.1" HDMI display, stands on the same table where the player and onlookers can see it, connected by the 2&nbsp;m micro-HDMI cable. Only the Pi power lead, the monitor and the speakers need sockets.</p>
 </section>
 
 <section>
@@ -164,28 +168,34 @@ a{color:var(--accent)}
 <section>
   <h2>Setup</h2>
   <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (10.1" screen) plays the sound-pack samples for each key, follows the mode switch, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
-  <h3>1. Prepare the Pi</h3>
-  <ol>
-    <li>Flash <b>Raspberry Pi OS (64-bit, desktop)</b> with Raspberry Pi Imager. Set the hostname <code>gwpiano</code> and enable SSH.</li>
-    <li>Fit the active cooler and close the case. Connect the Touch Display 2 ribbon to a DSI port, the 10.1" display to HDMI0, and the keyboard and USB audio interface to the USB ports.</li>
-    <li>Select the USB audio interface as the audio output (right-click the volume icon on the desktop taskbar). Chromium plays through the default output.</li>
-    <li>In <b>Screen Configuration</b>, rotate the touch screen to landscape and place it to the left of the 10.1" display.</li>
-  </ol>
-<pre><code>sudo apt update &amp;&amp; sudo apt install -y chromium-browser
-git clone &lt;your GW piano repo&gt; ~/gw-piano &amp;&amp; cd ~/gw-piano
+  <h3>1. Build the site on a laptop</h3>
+  <p>Build the GW Piano site on a laptop rather than on the Pi. The build generates the waveforms with LALSimulation, which is slow on a Pi and may not install there; the Pi only needs the finished site.</p>
+<pre><code>git clone https://github.com/icg-gravwaves/GWPiano.git &amp;&amp; cd GWPiano
 python3 -m venv .venv &amp;&amp; . .venv/bin/activate &amp;&amp; pip install .
 gw-piano --output dist</code></pre>
 
-  <h3>2. Optional: set a mode pad</h3>
+  <h3>2. Prepare the Pi</h3>
+  <ol>
+    <li>On the laptop, write <b>Raspberry Pi OS (64-bit, with desktop)</b> to the microSD card with Raspberry Pi Imager. In its settings, set the hostname <code>gwpiano</code>, a user account and your Wi-Fi, and enable SSH.</li>
+    <li>Fit the active cooler, mount the Pi on the back of the touch screen inside the display case, and connect the display ribbon to a DSI port and its power lead to the GPIO pins. Connect the 10.1" display (or any HDMI monitor or TV) to HDMI0, and the keyboard and USB audio interface to the USB ports.</li>
+    <li>Select the USB audio interface as the audio output (right-click the volume icon on the desktop taskbar). Chromium plays through the default output.</li>
+    <li>In <b>Screen Configuration</b>, rotate the touch screen to landscape and place it to the left of the main display.</li>
+    <li>Update the Pi once while it is online: <code>sudo apt update &amp;&amp; sudo apt full-upgrade -y</code>. Chromium comes with Raspberry Pi OS.</li>
+  </ol>
+  <p>Then copy the built site from the laptop to the Pi over the network:</p>
+<pre><code>scp -r dist gwpiano.local:~/gw-piano-site</code></pre>
+  <p>To update the stand later, rebuild on the laptop and copy <code>dist</code> across again. The stand needs no internet connection at the event.
+
+  <h3>3. Optional: set a mode pad</h3>
   <p>The touch screen switches mode on its own. A pad on the keyboard lets a player switch mode without taking a hand off the keys, and keeps a way to switch if the touch screen fails. Skip this step if the keyboard has no programmable pads.</p>
   <ol>
     <li>In the keyboard's editor software (run once from any computer), set one pad or button to send <b>CC20</b> with <b>toggle</b> behaviour, values 0 and 127, and save it to the keyboard.</li>
     <li>If the pad is lit, give it a bright colour so visitors can find it.</li>
   </ol>
 
-  <h3>3. Start the kiosk</h3>
+  <h3>4. Start the kiosk</h3>
   <p>Serve the built site locally and open both pages in one Chromium profile. One profile is needed so the pages can talk to each other.</p>
-<pre><code>python3 -m http.server 8000 --directory ~/gw-piano/dist &amp;
+<pre><code>python3 -m http.server 8000 --directory ~/gw-piano-site &amp;
 chromium-browser --autoplay-policy=no-user-gesture-required --noerrdialogs --disable-infobars \
   --app=http://localhost:8000/kiosk-live.html --window-position=720,0 --start-fullscreen &amp;
 sleep 5
@@ -195,15 +205,15 @@ chromium-browser --app=http://localhost:8000/kiosk-controls.html --window-positi
     <li>For testing without a keyboard, the live page also responds to the computer keys A W S E D F T G Y H U J K (C4–C5), and M switches mode.</li>
   </ul>
 
-  <h3>4. Autostart and lock down</h3>
+  <h3>5. Autostart and lock down</h3>
   <ul>
     <li>Put the commands above in a systemd user service or the desktop autostart file, so the stand is playable about 30 seconds after you plug it in.</li>
     <li>Use the read-only overlay filesystem (<code>raspi-config</code> → Performance), so the SD card survives power being pulled at the end of the day.</li>
     <li>Turn off screen blanking.</li>
   </ul>
 
-  <h3>5. Check it stays cool</h3>
-  <p>The Pi does the most work on the stand, running the sound, two screens and the spectrogram. With the active cooler it should sit at about 50–65&nbsp;°C, well below the 80–85&nbsp;°C where it slows itself down. Mount it where air can reach the fan: behind the screen is fine, but not sealed in a box or bag, and keep the stand out of direct sun. Before the first event, run the stand for a couple of hours and check over SSH:</p>
+  <h3>6. Check it stays cool</h3>
+  <p>The Pi does the most work on the stand, running the sound, two screens and the spectrogram. With the active cooler it should sit at about 50–65&nbsp;°C, well below the 80–85&nbsp;°C where it slows itself down. Keep the vents on the back of the display case clear of walls, cloths and leaflets, and keep the stand out of direct sun. Before the first event, run the stand for a couple of hours and check over SSH:</p>
 <pre><code>vcgencmd measure_temp     # should stay under about 70 °C
 vcgencmd get_throttled    # should report throttled=0x0</code></pre>
 </section>

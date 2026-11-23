@@ -12,8 +12,8 @@ import shutil
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
-# External links allowed on the page: web fonts and the local kiosk server.
-ALLOWED_HOSTS = ("fonts.googleapis.com", "localhost")
+# External links allowed on the page: web fonts, the local kiosk server and the project repository.
+ALLOWED_HOSTS = ("fonts.googleapis.com", "localhost", "github.com/icg-gravwaves/")
 
 guide = (ROOT / "docs" / "stand-setup.html").read_text()
 web = ROOT / "src" / "gw_piano" / "web"
