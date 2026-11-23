@@ -1,0 +1,153 @@
+<title>GW Piano Stand: on the day</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: single reading column; wiring diagram and parts table scroll inside their own containers */
+:root{
+  --bg:#f5f6fa; --surface:#ffffff; --fg:#161a2b; --muted:#5a6078; --line:#d9dce8;
+  --sci:#3b5bdb; --mus:#c2410c; --accent:#6741d9;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
+  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
+  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+main{max-width:860px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:2.4rem}h2{font-size:1.5rem}h3{font-size:1.1rem}
+section{display:grid;gap:14px;min-width:0}
+p,li{max-width:68ch;margin:0}
+ul,ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.lede{color:var(--muted);font-size:1.1rem}
+.eyebrow{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+code,pre{font-family:var(--mono);font-size:.85rem}
+code{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;margin:0;line-height:1.5}
+pre code{border:0;padding:0;background:none}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.mode{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);display:grid;gap:6px}
+.mode b{font-family:var(--display);font-size:1.1rem}
+.mode.sci{border-top:4px solid var(--sci)}.mode.mus{border-top:4px solid var(--mus)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:600;border-bottom:0}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted)}
+svg text{fill:var(--fg);font:13px var(--body)}
+svg .sub{fill:var(--muted);font-size:11px}
+svg .box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+svg .wire{stroke:var(--muted);stroke-width:1.5;fill:none}
+svg .audio{stroke:var(--accent)}
+a{color:var(--accent)}
+</style>
+
+<main>
+<header style="display:grid;gap:10px">
+  <span class="eyebrow">Outreach stand · on the day</span>
+  <h1>GW Piano Stand: on the day</h1>
+  <p class="lede">How to set out and run the GW Piano stand at an event, and what to tell visitors. No piano skills are needed. The one-off build is on the <a href="stand.html">setup page</a>.</p>
+</header>
+
+<section>
+  <h2>The screens</h2>
+  <h3>Larger screen: timeseries, spectrogram and histogram</h3>
+  <img src="images/screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram with a coloured line for each key" style="width:100%;border-radius:10px">
+  <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website, with a coloured line for each key at its mass. Played notes stack up as striped bars, and the key currently sounding is highlighted.</p>
+  <h3>Touch screen: controls</h3>
+  <img src="images/screen-touch.png" alt="Touch screen mock-up: Scientific and Musical mode buttons, four example buttons, six notable detection buttons, Play detections in order, Detection timeline, Stop all and Reset played notes" style="width:100%;border-radius:10px">
+  <p>The touch screen has large targets for small hands:</p>
+  <ul>
+    <li><b>Scientific / Musical</b> switches the sound mode. If the keyboard has a pad set up as a mode switch, it switches mode too, and both stay in sync.</li>
+    <li><b>Example 1–4</b> play a tune by themselves.</li>
+    <li><b>Notable detections</b> play six landmark events, such as the first detection and the two neutron stars.</li>
+    <li><b>Play detections in order</b> plays every LVK detection, oldest first; <b>Detection timeline</b> plays them with their real spacing, squeezed into 30 seconds.</li>
+    <li><b>Stop all</b> stops everything, and <b>Reset played notes</b> clears the histogram between groups.</li>
+  </ul>
+
+</section>
+
+<section>
+  <h2>The two modes</h2>
+  <div class="modes">
+    <div class="mode sci"><b>Scientific</b><span>The full generated waveform, including its quiet inspiral lead-in. It matches the downloadable WAVs, with no added tone. This is the default.</span></div>
+    <div class="mode mus"><b>Musical</b><span>A short segment around the waveform peak that crossfades into a 350&nbsp;ms decaying sine at the note frequency. It matches the website's musical mode. The tail is synthetic, not a physical ringdown.</span></div>
+  </div>
+  <p>Both modes cover all 88 keys (A0–C8). Each key corresponds to a mass of <code>m = 30 M☉ × f_peak(30,30) / f_note</code> per black hole, so lower keys mean heavier systems.</p>
+</section>
+
+<section>
+  <h2>Volume</h2>
+  <h3>Audible, but not overpowering</h3>
+  <p>The goal is for the stand to be heard clearly by the people at it in a busy room, without drowning out neighbouring stands.</p>
+  <ul>
+    <li><b>Point the sound at the audience.</b> Two compact speakers on the table either side of the monitor, angled towards the player and the people gathered in front, reach the group directly. Speakers aimed outwards, or raised on poles, spread the sound across the room instead. Speakers with some headroom (10–20 W per side) stay clear at this level instead of distorting.</li>
+    <li><b>Hard volume cap.</b> Set the maximum level once in software (the ALSA mixer level; the kiosk page also caps its own output level), so turning the speaker knob cannot push it past that level. Busy halls run at about 65–75 dB(A), so aim for about 75–80 dB(A) at the player's position. Set it with a phone sound-meter app at the event, then check the level at the next stand along: there it should sit below the room's own background noise.</li>
+    <li><b>Headphones for busy or quiet rooms.</b> A small headphone amp drives two pairs of closed-back headphones, so the stand can go completely silent. Wipe the headphones between visitors.</li>
+    <li><b>Mind the low notes.</b> Bass carries furthest. The sound is already one-shot and short, but if neighbours complain, use the low-cut on the speakers or keep visitors to the middle octaves.</li>
+    <li><b>Example tunes and Play detections in order</b> are the loudest moments, because many notes overlap. Lower the cap for those, or run them on headphones.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Before the doors open</h2>
+  <ul>
+    <li>Put the keyboard on its X-stand, the touch screen (with the Pi) and monitor on the table beside it, and a speaker either side of the monitor. Plug the Pi, monitor and speakers into one extension lead.</li>
+    <li>Plug the Pi in last but one and the speakers last. The stand starts by itself and is playable in about 30 seconds.</li>
+    <li>Switch the speakers on last and off first, to avoid pops.</li>
+    <li>Before the doors open, check the volume from the neighbouring stands, and ask them to tell you if it bothers them.</li>
+    <li>Start with musical mode for melodies. Switch to scientific mode to show that heavier binaries chirp lower and for longer.</li>
+    <li>A single key in scientific mode is the "what LIGO hears" moment. The waveform screen shows the matching strain.</li>
+  </ul>
+
+</section>
+
+<section>
+  <h2>Volunteer briefing</h2>
+  <p>Volunteers do not need to play the piano. Single key presses are the science, and the touch screen plays the musical parts.</p>
+  <p><b>The idea in one line:</b> each key is the sound of two black holes merging. Low notes are heavy black holes; high notes are light ones.</p>
+  <p><b>Getting a visitor started</b></p>
+  <ol>
+    <li>"Press any key." Start in scientific mode: one key gives the chirp that LIGO hears.</li>
+    <li>"Now try one at the far left, then one at the far right." Heavy black holes chirp lower and for longer; light ones chirp short and high.</li>
+    <li>Point at the monitor. The <b>timeseries</b> is the wave they just made. The <b>spectrogram</b> shows the frequency sweeping up as the black holes spiral together. On the <b>histogram</b>, the coloured line marks their key's mass, and the purple bars are the real black holes found by LIGO, Virgo and KAGRA.</li>
+    <li>"Which key matches the most common real black holes?" Visitors hunt along the keyboard for the tallest purple bars.</li>
+  </ol>
+  <p><b>For visitors who want music:</b> tap <b>MUSICAL</b> on the touch screen, then <b>Example 1–4</b>. The tune plays by itself, and visitors can join in on the keys.</p>
+  <p><b>The showpiece</b></p>
+  <ul>
+    <li><b>▶ Play detections in order</b> plays every real detection, oldest first: "That's every black-hole merger we've heard."</li>
+    <li><b>Detection timeline</b> plays them with their real spacing, squeezed into 30 seconds.</li>
+    <li><b>■ Stop all</b> stops everything.</li>
+  </ul>
+  <p><b>Housekeeping</b></p>
+  <ul>
+    <li><b>Reset played notes</b> clears the histogram between groups.</li>
+    <li>If it is too loud or the room goes quiet, switch to headphones rather than turning the speakers up.</li>
+    <li>If something freezes, unplug the Pi's power and plug it back in. The stand restarts by itself in about 30 seconds.</li>
+  </ul>
+  <p><b>Useful lines</b></p>
+  <ul>
+    <li>"You don't need to play piano. Every key is an experiment."</li>
+    <li>"Real gravitational waves from these black holes are in the audio band, so we can turn them straight into sound."</li>
+    <li>"You'd have to be a few times farther out than Pluto from the collision to hear it with your own ears. LIGO hears it from over a billion light-years away." For a merger like GW150914, your eardrum needs a stretch of about 10<sup>−9</sup> across the ear, which the wave reaches a few hundred times the Earth–Sun distance from the merger.</li>
+    <li>"To play what the LISA space mission will hear, you'd need a piano about 2 metres longer, and you'd wait several minutes for each wave to go by." Each key's pitch is the merger frequency of two equal-mass black holes, so each octave down doubles the mass; LISA's most sensitive band, around 3&nbsp;mHz, is about 13 octaves below the lowest A, or black holes of a few million solar masses each.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>If something goes wrong</h2>
+  <ul>
+    <li><b>No sound:</b> check the speakers are on and plugged into the USB audio interface, and that the volume knob is up.</li>
+    <li><b>Keys do nothing:</b> check the keyboard's USB cable is plugged into the Pi, then tap Stop all.</li>
+    <li><b>The touch screen buttons stay grey:</b> the live display is still loading; wait 30 seconds.</li>
+    <li><b>Anything else freezes:</b> unplug the Pi's power and plug it back in. The stand restarts by itself in about 30 seconds.</li>
+    <li><b>The Pi is too hot or slow:</b> clear anything blocking the vents on the back of the touch screen case.</li>
+  </ul>
+</section>
+</main>

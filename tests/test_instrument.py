@@ -64,9 +64,10 @@ class InstrumentTests(unittest.TestCase):
             self.assertEqual(len(names), len(set(names)))
             self.assertTrue(all(m > 0 for event in catalog['events'] for m in event['masses']))
             self.assertTrue((output / 'portsmouth.svg').is_file())
-            for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html'):
+            for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html', 'stand-day.html'):
                 self.assertTrue((output / page).is_file(), page)
             self.assertNotIn('£', (output / 'stand.html').read_text())
+            self.assertNotIn('£', (output / 'stand-day.html').read_text())
 
     def test_musical_sample(self):
         samples = synthesize(69)

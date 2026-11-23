@@ -21,10 +21,16 @@ def trace(samples, x0, y0, w, h, n=600):
     pts = " ".join(f"{x0 + w * i / (n - 1):.1f},{y0 - h * samples[j]:.1f}" for i, j in enumerate(idx))
     return pts
 
+LOGO = "data:image/svg+xml;base64," + __import__("base64").b64encode((root / "src" / "gw_piano" / "web" / "gw-piano-dark.svg").read_bytes()).decode()
+
+def note_color(midi):
+    """Rainbow by pitch class, A red to G# violet, as on the website."""
+    return f"hsl({((midi - 21) % 12) * 25}, 85%, 70%)"
+
 def text(x, y, s, size=20, fill=P["text"], weight=400, anchor="start"):
     return f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{fill}" text-anchor="{anchor}" style="{FONT}">{s}</text>'
 
-# ---------- 10.1" live display: timeseries, spectrogram, histogram (1280x800) ----------
+# ---------- Larger screen: timeseries, spectrogram, histogram (1280x800) ----------
 RATE = 44100
 WINDOW = 4.5  # seconds of audio shown, newest on the right
 # Example played sequence: (sample file, note name, mode, start time in seconds)
@@ -57,13 +63,13 @@ spec_uri = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 s = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">',
      f'<rect width="1280" height="800" fill="{P["bg"]}"/>',
-     text(40, 48, "GW Piano · live", 28, weight=700),
+     f'<image href="{LOGO}" x="30" y="8" width="96" height="54"/>',
      text(1240, 48, "Last note: E4 · 2 × 26.5 M☉ · musical", 20, P["muted"], anchor="end")]
 # Strain timeseries strip: newest audio enters on the right and scrolls left.
 x0, w = 50, 1180
 s += [f'<rect x="30" y="66" width="1220" height="200" rx="14" fill="{P["panel"]}"/>',
-      text(50, 94, "Timeseries · strain (normalised)", 16, P["muted"]),
-      text(1230, 94, "◀ 4.5 s, scrolling", 16, P["muted"], anchor="end"),
+      text(50, 94, "Timeseries · strain (auto-scaled)", 16, P["muted"]),
+      text(1230, 94, "◀ last 4.5 s", 16, P["muted"], anchor="end"),
       f'<line x1="{x0}" y1="176" x2="{x0 + w}" y2="176" stroke="{P["line"]}" stroke-dasharray="3 5"/>',
       f'<polyline points="{trace(mix / np.max(np.abs(mix)), x0, 176, w, 68, 2400)}" fill="none" stroke="{P["signal"]}" stroke-width="1.4"/>']
 for f, name, mode, t0 in played_seq:
@@ -88,11 +94,25 @@ played = np.zeros_like(counts)
 for name, n in [("A2", 4), ("E3", 3), ("A3", 6), ("E4", 2), ("C4", 3), ("G3", 2)]:
     played[min(int(mass_of[name] // 2), len(played) - 1)] += 2 * n
 s += [f'<rect x="30" y="552" width="1220" height="232" rx="14" fill="{P["panel"]}"/>',
-      text(50, 580, "Black-hole masses: LVK catalogue vs notes played", 16, P["muted"]),
+      text(50, 580, "Black-hole masses: LVK catalogue (purple) vs notes played (striped)", 16, P["muted"]),
       '<defs><pattern id="st" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
       f'<rect width="8" height="8" fill="{P["signal"]}" opacity=".35"/><rect width="3" height="8" fill="{P["signal"]}"/></pattern></defs>']
 hx, hy, W, H = 80, 742, 1140, 140
 top = max(counts.max(), played.max())
+# One rainbow line per key at its mass, labelled like the live page; the sounding key (E4) is bold.
+label_ends = []
+for n in sorted(masses, key=lambda n: n["mass"]):
+    if n["mass"] > 150: continue
+    x = hx + W * n["mass"] / 150; c = note_color(n["midi"]); on = n["name"] == "E4"
+    s.append(f'<line x1="{x:.1f}" y1="{hy - H - 14}" x2="{x:.1f}" y2="{hy}" stroke="{c}" stroke-opacity="{.9 if on else .45}" stroke-width="{3 if on else 1}"/>')
+    if n["midi"] <= 45 or (n["midi"] <= 57 and (n["midi"] - 45) % 2 == 0) or n["midi"] % 12 == 9:
+        lx = x + 4; width = len(n["name"]) * 8
+        row = next((r for r, end in enumerate(label_ends) if lx >= end + 5), len(label_ends))
+        if row == len(label_ends): label_ends.append(0)
+        label_ends[row] = lx + width
+        ly = hy - H - 4 + row * 16
+        s += [f'<rect x="{lx - 2:.1f}" y="{ly - 12}" width="{width + 4}" height="15" rx="2" fill="{P["panel"]}"/>',
+              text(f"{lx:.1f}", ly, n["name"], 13, c, 800 if on else 500)]
 for i in range(len(counts)):
     bw = W / len(counts); x = hx + i * bw
     s.append(f'<rect x="{x:.1f}" y="{hy - H * counts[i] / top:.1f}" width="{bw - 1:.1f}" height="{H * counts[i] / top:.1f}" fill="{P["catalog"]}" opacity=".8"/>')
@@ -102,32 +122,34 @@ for i in range(len(counts)):
 s.append(f'<line x1="{hx}" y1="{hy}" x2="{hx + W}" y2="{hy}" stroke="{P["line"]}"/>')
 for m in range(0, 151, 25):
     s.append(text(hx + W * m / 150, hy + 22, f"{m} M☉" if m == 150 else str(m), 13, P["muted"], anchor="middle"))
-s += [f'<rect x="900" y="568" width="14" height="14" fill="{P["catalog"]}"/>', text(920, 580, "Catalogue", 14, P["muted"]),
-      f'<rect x="1010" y="568" width="14" height="14" fill="url(#st)"/>', text(1030, 580, "Played", 14, P["muted"]),
-      f'<rect x="1095" y="568" width="14" height="14" fill="{P["white"]}"/>', text(1115, 580, "Sounding", 14, P["muted"])]
 s.append("</svg>")
 (out / "screen-waveform.svg").write_text("\n".join(s))
 
-# ---------- 7" touch screen (Touch Display 2, landscape 1280x720) ----------
-def button(x, y, w, h, label, fill, ink=P["text"], size=26, sub=None, stroke=None):
-    r = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="18" fill="{fill}"' + (f' stroke="{stroke}" stroke-width="3"' if stroke else "") + "/>",
-         text(x + w / 2, y + h / 2 + (size * 0.35 if not sub else -2), label, size, ink, 700, "middle")]
-    if sub: r.append(text(x + w / 2, y + h / 2 + 28, sub, 17, ink, 400, "middle"))
+# ---------- Touch screen (landscape 1280x720), laid out like kiosk-controls.html ----------
+def button(x, y, w, h, label, fill, ink=P["text"], size=26, sub=None, stroke=None, subsize=15):
+    r = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="16" fill="{fill}"' + (f' stroke="{stroke}" stroke-width="3"' if stroke else "") + "/>",
+         text(x + w / 2, y + h / 2 + (size * 0.35 if not sub else -4), label, size, ink, 700, "middle")]
+    if sub: r.append(text(x + w / 2, y + h / 2 + 20, sub, subsize, ink, 400, "middle"))
     return r
 t = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">',
-     f'<rect width="1280" height="720" fill="{P["bg"]}"/>', text(40, 56, "Sound mode", 20, P["muted"])]
-t += button(40, 76, 590, 150, "SCIENTIFIC", P["surface"], P["muted"], 40, "full model waveform", stroke=P["line"])
-t += button(650, 76, 590, 150, "MUSICAL", P["warning"], P["on-signal"], 40, "chirp + note tone  ✓")
-t.append(text(40, 280, "Examples", 20, P["muted"]))
-for i, title in enumerate(["Example 1", "Example 2", "Example 3", "Example 4"]):
-    t += button(40 + i * 302, 298, 290, 110, title, P["accent"], P["on-accent"], 22)
-t.append(text(40, 462, "LVK detections", 20, P["muted"]))
-t += button(40, 480, 590, 130, "▶  Play detections in order", P["brand-purple"], P["white"], 28, "GW150914 → latest catalogued")
-t += button(650, 480, 290, 60, "In order", P["signal"], P["on-signal"], 20)
-t += button(650, 550, 290, 60, "Preserve timeline", P["surface"], P["muted"], 20, stroke=P["line"])
-t += button(950, 480, 290, 130, "■  Stop all", P["danger"], P["on-signal"], 28)
-t += [text(40, 680, "A mode pad on the keyboard (optional) also switches mode", 18, P["muted"]),
-      f'<rect x="1080" y="656" width="160" height="40" rx="12" fill="{P["surface"]}" stroke="{P["line"]}"/>',
-      text(1160, 682, "Reset", 18, P["muted"], 700, "middle"), "</svg>"]
+     f'<rect width="1280" height="720" fill="{P["bg"]}"/>', text(32, 38, "Sound mode", 18, P["muted"])]
+t += button(32, 50, 600, 130, "SCIENTIFIC", P["surface"], P["muted"], 38, "full model waveform", stroke=P["line"])
+t += button(648, 50, 600, 130, "MUSICAL", P["warning"], P["on-signal"], 38, "chirp + note tone")
+t.append(text(32, 214, "Examples", 18, P["muted"]))
+for i in range(4):
+    t += button(32 + i * 306, 226, 294, 90, f"Example {i + 1}", P["accent"], P["on-accent"], 22)
+t.append(text(32, 350, "Notable detections", 18, P["muted"]))
+notable = [("The first detection", "GW150914"), ("Two neutron stars", "GW170817"), ("Three detectors", "GW170814"),
+           ("The heaviest pair", "GW190521"), ("A mystery object", "GW190814"), ("Black hole + neutron star", "GW200115_042309")]
+for i, (title, name) in enumerate(notable):
+    t += button(32 + i * 204, 362, 194, 90, title, P["surface"], P["text"], 16, name, subsize=13)
+t.append(text(32, 486, "All LVK detections", 18, P["muted"]))
+t += button(32, 498, 600, 130, "▶  Play detections in order", P["brand-purple"], P["white"], 28, "0.2 s apart, oldest first")
+t += button(648, 498, 292, 130, "Detection timeline", P["surface"], P["text"], 22, "30 s, real spacing")
+t += button(956, 498, 292, 130, "■  Stop all", P["danger"], P["on-signal"], 28)
+t += [f'<image href="{LOGO}" x="32" y="646" width="78" height="44"/>',
+      text(126, 676, "Mode: musical", 17, P["muted"]),
+      f'<rect x="1058" y="652" width="190" height="44" rx="14" fill="{P["surface"]}"/>',
+      text(1153, 680, "Reset played notes", 17, P["muted"], 700, "middle"), "</svg>"]
 (out / "screen-touch.svg").write_text("\n".join(t))
 print("ok")

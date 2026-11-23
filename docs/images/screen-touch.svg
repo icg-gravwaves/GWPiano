@@ -1,32 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
 <rect width="1280" height="720" fill="#0f1218"/>
-<text x="40" y="56" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Sound mode</text>
-<rect x="40" y="76" width="590" height="150" rx="18" fill="#2e253d" stroke="#5d6879" stroke-width="3"/>
-<text x="335.0" y="149.0" font-size="40" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">SCIENTIFIC</text>
-<text x="335.0" y="179.0" font-size="17" font-weight="400" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">full model waveform</text>
-<rect x="650" y="76" width="590" height="150" rx="18" fill="#ffc56e"/>
-<text x="945.0" y="149.0" font-size="40" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">MUSICAL</text>
-<text x="945.0" y="179.0" font-size="17" font-weight="400" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">chirp + note tone  ✓</text>
-<text x="40" y="280" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Examples</text>
-<rect x="40" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
-<text x="185.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 1</text>
-<rect x="342" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
-<text x="487.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 2</text>
-<rect x="644" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
-<text x="789.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 3</text>
-<rect x="946" y="298" width="290" height="110" rx="18" fill="#0078b4"/>
-<text x="1091.0" y="360.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 4</text>
-<text x="40" y="462" font-size="20" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">LVK detections</text>
-<rect x="40" y="480" width="590" height="130" rx="18" fill="#621360"/>
-<text x="335.0" y="543.0" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">▶  Play detections in order</text>
-<text x="335.0" y="573.0" font-size="17" font-weight="400" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW150914 → latest catalogued</text>
-<rect x="650" y="480" width="290" height="60" rx="18" fill="#70ceff"/>
-<text x="795.0" y="517.0" font-size="20" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">In order</text>
-<rect x="650" y="550" width="290" height="60" rx="18" fill="#2e253d" stroke="#5d6879" stroke-width="3"/>
-<text x="795.0" y="587.0" font-size="20" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Preserve timeline</text>
-<rect x="950" y="480" width="290" height="130" rx="18" fill="#ff8eac"/>
-<text x="1095.0" y="554.8" font-size="28" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">■  Stop all</text>
-<text x="40" y="680" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">A mode pad on the keyboard (optional) also switches mode</text>
-<rect x="1080" y="656" width="160" height="40" rx="12" fill="#2e253d" stroke="#5d6879"/>
-<text x="1160" y="682" font-size="18" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Reset</text>
+<text x="32" y="38" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Sound mode</text>
+<rect x="32" y="50" width="600" height="130" rx="16" fill="#2e253d" stroke="#5d6879" stroke-width="3"/>
+<text x="332.0" y="111.0" font-size="38" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">SCIENTIFIC</text>
+<text x="332.0" y="135.0" font-size="15" font-weight="400" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">full model waveform</text>
+<rect x="648" y="50" width="600" height="130" rx="16" fill="#ffc56e"/>
+<text x="948.0" y="111.0" font-size="38" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">MUSICAL</text>
+<text x="948.0" y="135.0" font-size="15" font-weight="400" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">chirp + note tone</text>
+<text x="32" y="214" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Examples</text>
+<rect x="32" y="226" width="294" height="90" rx="16" fill="#0078b4"/>
+<text x="179.0" y="278.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 1</text>
+<rect x="338" y="226" width="294" height="90" rx="16" fill="#0078b4"/>
+<text x="485.0" y="278.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 2</text>
+<rect x="644" y="226" width="294" height="90" rx="16" fill="#0078b4"/>
+<text x="791.0" y="278.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 3</text>
+<rect x="950" y="226" width="294" height="90" rx="16" fill="#0078b4"/>
+<text x="1097.0" y="278.7" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Example 4</text>
+<text x="32" y="350" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Notable detections</text>
+<rect x="32" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="129.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">The first detection</text>
+<text x="129.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW150914</text>
+<rect x="236" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="333.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Two neutron stars</text>
+<text x="333.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW170817</text>
+<rect x="440" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="537.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Three detectors</text>
+<text x="537.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW170814</text>
+<rect x="644" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="741.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">The heaviest pair</text>
+<text x="741.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW190521</text>
+<rect x="848" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="945.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">A mystery object</text>
+<text x="945.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW190814</text>
+<rect x="1052" y="362" width="194" height="90" rx="16" fill="#2e253d"/>
+<text x="1149.0" y="403.0" font-size="16" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Black hole + neutron star</text>
+<text x="1149.0" y="427.0" font-size="13" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">GW200115_042309</text>
+<text x="32" y="486" font-size="18" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">All LVK detections</text>
+<rect x="32" y="498" width="600" height="130" rx="16" fill="#621360"/>
+<text x="332.0" y="559.0" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">▶  Play detections in order</text>
+<text x="332.0" y="583.0" font-size="15" font-weight="400" fill="#ffffff" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">0.2 s apart, oldest first</text>
+<rect x="648" y="498" width="292" height="130" rx="16" fill="#2e253d"/>
+<text x="794.0" y="559.0" font-size="22" font-weight="700" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Detection timeline</text>
+<text x="794.0" y="583.0" font-size="15" font-weight="400" fill="#f4f6f9" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">30 s, real spacing</text>
+<rect x="956" y="498" width="292" height="130" rx="16" fill="#ff8eac"/>
+<text x="1102.0" y="572.8" font-size="28" font-weight="700" fill="#0f1218" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">■  Stop all</text>
+<image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MjAgMzUwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUiPgogIDx0aXRsZSBpZD0idGl0bGUiPkdXIFBpYW5vIOKAlCBhIGdyYXZpdGF0aW9uYWwtd2F2ZSBjaGlycCBiZWNvbWluZyBwaWFubyBrZXlzPC90aXRsZT4KICA8cGF0aCBkPSJNMjUgMTY1IEM1MyAxNjkgNjkgMTYyIDg4IDE1MyBTMTE1IDE0NSAxMjkgMTYxIFMxNTMgMTgwIDE2NyAxNTMgUzE5MCAxMjYgMjAzIDE2MCBTMjI1IDE5NyAyMzggMTUxIFMyNTggMTA0IDI3MSAxNTcgUzI5MCAyMTUgMzAzIDE0NyBTMzIwIDc4IDMzMyAxNTUgUzM1MCAyMzcgMzYzIDE0MiBTMzc4IDUxIDM4OSAxNTMgUzQwMyAyNTcgNDE1IDEzMyBTNDI5IDIzIDQzOCAxNDcgTDQ0NSAyMzEgUTQ0NyAyNTAgNDY0IDI0NSBMNDc2IDI0MiBRNDg3IDI0MCA0ODYgMjI0IEw0ODIgNTQgTTQ4NiAyMjQgUTQ4NiAyNDAgNTAyIDIzNiBMNTE2IDIzMiBRNTI4IDIyOSA1MjcgMjEzIEw1MjMgNDggTTUyNyAyMTMgUTUyOCAyMjkgNTQ1IDIyNCBMNTYwIDIyMCBRNTcyIDIxNyA1NzEgMjAxIEw1NjcgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwNzhiNCIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8ZyBmaWxsPSIjNzBjZWZmIj4KICAgIDxyZWN0IHg9IjQ2NyIgeT0iMjciIHdpZHRoPSIyOSIgaGVpZ2h0PSIxMDIiIHJ4PSIzIi8+CiAgICA8cmVjdCB4PSI1MDgiIHk9IjIzIiB3aWR0aD0iMjkiIGhlaWdodD0iMTAyIiByeD0iMyIvPgogICAgPHJlY3QgeD0iNTUyIiB5PSIxOSIgd2lkdGg9IjI5IiBoZWlnaHQ9IjEwMiIgcng9IjMiLz4KICA8L2c+CiAgPHRleHQgeD0iMzEwIiB5PSIzMjciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9Ijc3IiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMSI+PHRzcGFuIGZpbGw9IiMwMDc4YjQiPkdXPC90c3Bhbj48dHNwYW4gZmlsbD0iI2ZmZmZmZiI+IFBJQU5PPC90c3Bhbj48L3RleHQ+Cjwvc3ZnPgo=" x="32" y="646" width="78" height="44"/>
+<text x="126" y="676" font-size="17" font-weight="400" fill="#b6bfcc" text-anchor="start" style="font-family:Inter,Helvetica,Arial,sans-serif">Mode: musical</text>
+<rect x="1058" y="652" width="190" height="44" rx="14" fill="#2e253d"/>
+<text x="1153" y="680" font-size="17" font-weight="700" fill="#b6bfcc" text-anchor="middle" style="font-family:Inter,Helvetica,Arial,sans-serif">Reset played notes</text>
 </svg>

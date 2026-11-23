@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GW Piano Stand</title>
+<title>GW Piano Stand: setup</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
@@ -51,31 +51,18 @@ a{color:var(--accent)}
 
 <main>
 <header style="display:grid;gap:10px">
+  <a href="./" aria-label="Back to GW Piano" style="justify-self:start;background:#0e1120;border-radius:12px;padding:10px 16px;line-height:0"><img src="gw-piano-dark.svg" alt="GW Piano" height="64" style="height:64px;width:auto"></a>
   <a href="./" style="font-weight:600">← Back to GW Piano</a>
-  <span class="eyebrow">Outreach stand build guide</span>
-  <h1>GW Piano Stand</h1>
+  <span class="eyebrow">Outreach stand · one-off setup</span>
+  <h1>GW Piano Stand: setup</h1>
   <p class="lede">A standalone keyboard instrument. Each key plays an IMRPhenomD chirp from an equal-mass black-hole binary, and one button switches between scientific and musical sounds. A Raspberry Pi 5 runs everything and needs no laptop. It drives a small touch screen showing the current mode and a larger screen showing a live timeseries, spectrogram and mass histogram as keys are pressed.</p>
+  <p class="note">This page covers the parts and the one-off technical setup. For running the stand at an event, see <a href="stand-day.html">On the day</a>.</p>
 </header>
 
 <section>
   <h2>The stand</h2>
   <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand and a table beside it holding the small touch screen in its case and a monitor with a speaker either side" style="width:100%;border-radius:10px;border:1px solid var(--line)">
   <p>The keyboard sits at standing height on an X-stand. The touch screen, with the Pi on its back, and a monitor stand on a table beside it (see <a href="#parts">Placing the screens</a>). Two small speakers sit on the table either side of the monitor, angled at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
-  <h3>Larger screen: timeseries, spectrogram and histogram</h3>
-  <img src="stand-screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram" style="width:100%;border-radius:10px">
-  <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
-  <h3>Touch screen: controls</h3>
-  <img src="stand-screen-touch.png" alt="Touch screen mock-up: Scientific and Musical mode buttons, four example tune buttons, Play detections in order with timing toggle, Stop all and Reset" style="width:100%;border-radius:10px">
-  <p>The touch screen has large targets for small hands. It has the sound mode switch, the four example tunes, <b>Play detections in order</b> with its In order / Preserve timeline toggle, <b>Stop all</b> and <b>Reset</b>. If the keyboard has a pad set up as a mode switch (optional, see setup), it switches mode too, and both stay in sync.</p>
-</section>
-
-<section>
-  <h2>The two modes</h2>
-  <div class="modes">
-    <div class="mode sci"><b>Scientific</b><span>The full generated waveform, including its quiet inspiral lead-in. It matches the downloadable WAVs, with no added tone. This is the default.</span></div>
-    <div class="mode mus"><b>Musical</b><span>A short segment around the waveform peak that crossfades into a 350&nbsp;ms decaying sine at the note frequency. It matches the website's musical mode. The tail is synthetic, not a physical ringdown.</span></div>
-  </div>
-  <p>Both modes cover all 88 keys (A0–C8). Each key corresponds to a mass of <code>m = 30 M☉ × f_peak(30,30) / f_note</code> per black hole, so lower keys mean heavier systems.</p>
 </section>
 
 <section>
@@ -130,7 +117,7 @@ a{color:var(--accent)}
 </section>
 
 <section>
-  <h2>Power and volume</h2>
+  <h2>Power</h2>
   <p><b>Sockets:</b> a standard 4-way extension lead is enough, and a 6-way gives room to spare. Only three devices need a mains plug:</p>
   <ol>
     <li>Raspberry Pi 5 power supply. This also powers the touch screen, the USB audio interface and the keyboard.</li>
@@ -152,15 +139,6 @@ a{color:var(--accent)}
   </table>
   </div>
   <p>These figures are estimates from typical device ratings; measure with a plug-in power meter before relying on them. Use the official 27&nbsp;W Pi 5 supply, because it lets the Pi power the keyboard over USB. Where there is no socket, a portable power station of about 250&nbsp;Wh runs the stand for most of a day (about 7 hours at the typical draw).</p>
-  <h3>Audible, but not overpowering</h3>
-  <p>The goal is for the stand to be heard clearly by the people at it in a busy room, without drowning out neighbouring stands.</p>
-  <ul>
-    <li><b>Point the sound at the audience.</b> Two compact speakers on the table either side of the monitor, angled towards the player and the people gathered in front, reach the group directly. Speakers aimed outwards, or raised on poles, spread the sound across the room instead. Speakers with some headroom (10–20 W per side) stay clear at this level instead of distorting.</li>
-    <li><b>Hard volume cap.</b> Set the maximum level once in software (the ALSA mixer level; the kiosk page also caps its own output level), so turning the speaker knob cannot push it past that level. Busy halls run at about 65–75 dB(A), so aim for about 75–80 dB(A) at the player's position. Set it with a phone sound-meter app at the event, then check the level at the next stand along: there it should sit below the room's own background noise.</li>
-    <li><b>Headphones for busy or quiet rooms.</b> A small headphone amp drives two pairs of closed-back headphones, so the stand can go completely silent. Wipe the headphones between visitors.</li>
-    <li><b>Mind the low notes.</b> Bass carries furthest. The sound is already one-shot and short, but if neighbours complain, use the low-cut on the speakers or keep visitors to the middle octaves.</li>
-    <li><b>Example tunes and Play detections in order</b> are the loudest moments, because many notes overlap. Lower the cap for those, or run them on headphones.</li>
-  </ul>
 </section>
 
 <section>
@@ -251,46 +229,6 @@ vcgencmd get_throttled    # should report throttled=0x0</code></pre>
 </section>
 
 
-<section>
-  <h2>On the day</h2>
-  <ul>
-    <li>Power on the speakers last and switch them off first, to avoid pops.</li>
-    <li>Before the doors open, check the volume from the neighbouring stands, and ask them to tell you if it bothers them.</li>
-    <li>Start with musical mode for melodies. Switch to scientific mode to show that heavier binaries chirp lower and for longer.</li>
-    <li>A single key in scientific mode is the "what LIGO hears" moment. The waveform screen shows the matching strain.</li>
-  </ul>
-
-  <h3>Volunteer briefing</h3>
-  <p>Volunteers do not need to play the piano. Single key presses are the science, and the touch screen plays the musical parts.</p>
-  <p><b>The idea in one line:</b> each key is the sound of two black holes merging. Low notes are heavy black holes; high notes are light ones.</p>
-  <p><b>Getting a visitor started</b></p>
-  <ol>
-    <li>"Press any key." Start in scientific mode: one key gives the chirp that LIGO hears.</li>
-    <li>"Now try one at the far left, then one at the far right." Heavy black holes chirp lower and for longer; light ones chirp short and high.</li>
-    <li>Point at the monitor. The <b>timeseries</b> is the wave they just made. The <b>spectrogram</b> shows the frequency sweeping up as the black holes spiral together. On the <b>histogram</b>, the coloured line marks their key's mass, and the purple bars are the real black holes found by LIGO, Virgo and KAGRA.</li>
-    <li>"Which key matches the most common real black holes?" Visitors hunt along the keyboard for the tallest purple bars.</li>
-  </ol>
-  <p><b>For visitors who want music:</b> tap <b>MUSICAL</b> on the touch screen, then <b>Example 1–4</b>. The tune plays by itself, and visitors can join in on the keys.</p>
-  <p><b>The showpiece</b></p>
-  <ul>
-    <li><b>▶ Play detections in order</b> plays every real detection, oldest first: "That's every black-hole merger we've heard."</li>
-    <li><b>Detection timeline</b> plays them with their real spacing, squeezed into 30 seconds.</li>
-    <li><b>■ Stop all</b> stops everything.</li>
-  </ul>
-  <p><b>Housekeeping</b></p>
-  <ul>
-    <li><b>Reset played notes</b> clears the histogram between groups.</li>
-    <li>If it is too loud or the room goes quiet, switch to headphones rather than turning the speakers up.</li>
-    <li>If something freezes, unplug the Pi's power and plug it back in. The stand restarts by itself in about 30 seconds.</li>
-  </ul>
-  <p><b>Useful lines</b></p>
-  <ul>
-    <li>"You don't need to play piano. Every key is an experiment."</li>
-    <li>"Real gravitational waves from these black holes are in the audio band, so we can turn them straight into sound."</li>
-    <li>"You'd have to be a few times farther out than Pluto from the collision to hear it with your own ears. LIGO hears it from over a billion light-years away." For a merger like GW150914, your eardrum needs a stretch of about 10<sup>−9</sup> across the ear, which the wave reaches a few hundred times the Earth–Sun distance from the merger.</li>
-    <li>"To play what the LISA space mission will hear, you'd need a piano about 2 metres longer, and you'd wait several minutes for each wave to go by." Each key's pitch is the merger frequency of two equal-mass black holes, so each octave down doubles the mass; LISA's most sensitive band, around 3&nbsp;mHz, is about 13 octaves below the lowest A, or black holes of a few million solar masses each.</li>
-  </ul>
-</section>
 </main>
 
 </html>

@@ -60,9 +60,9 @@ The calendar timeline shows linked GWOSC observing-run intervals (O1, O2, O3a, O
 
 ## Outreach stand kiosk
 
-`kiosk-live.html` and `kiosk-controls.html` run a standalone stand: a MIDI keyboard and two screens driven by a Raspberry Pi. Build instructions are on `stand.html`. The live page plays the sound-pack samples (both modes) for incoming MIDI notes, switches mode on MIDI CC20, and draws a scrolling strain timeseries, a spectrogram and the catalog histogram. The controls page is for the touch screen. It sends mode, example, detection, stop and reset commands to the live page over a `BroadcastChannel`, so both pages must run in the same browser profile. For testing without a keyboard, the live page accepts A W S E D F T G Y H U J K for C4–C5 and M to switch mode.
+`kiosk-live.html` and `kiosk-controls.html` run a standalone stand: a MIDI keyboard and two screens driven by a Raspberry Pi. Parts and one-off setup are on `stand.html`; running the stand at an event, including a volunteer briefing, is on `stand-day.html`. The live page plays the sound-pack samples (both modes) for incoming MIDI notes, switches mode on MIDI CC20, and draws a scrolling strain timeseries, a spectrogram and the catalog histogram. The controls page is for the touch screen. It sends mode, example, detection, stop and reset commands to the live page over a `BroadcastChannel`, so both pages must run in the same browser profile. For testing without a keyboard, the live page accepts A W S E D F T G Y H U J K for C4–C5 and M to switch mode.
 
-`stand.html` is generated from the internal guide `docs/stand-setup.html` with `python scripts/sync_stand_page.py`, which refuses prices and shop links so neither enters the repository. `scripts/render_mockups.sh` regenerates the guide images.
+`stand.html` and `stand-day.html` are generated from `docs/stand-setup.html` and `docs/stand-day.html` with `python scripts/sync_stand_page.py`, which refuses prices and shop links so neither enters the repository. `scripts/render_mockups.sh` regenerates the guide images.
 
 ## Deploy on GitHub Pages
 
