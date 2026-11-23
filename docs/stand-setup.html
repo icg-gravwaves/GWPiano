@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
-/* Layout: single reading column; wiring diagram and costing table scroll inside their own containers */
+/* Layout: single reading column; wiring diagram and parts table scroll inside their own containers */
 :root{
   --bg:#f5f6fa; --surface:#ffffff; --fg:#161a2b; --muted:#5a6078; --line:#d9dce8;
   --sci:#3b5bdb; --mus:#c2410c; --accent:#6741d9;
@@ -102,7 +102,7 @@ a{color:var(--accent)}
 
 <section>
   <h2 id="parts">Parts list</h2>
-  <p>These are UK prices including VAT, checked November 2026. Raspberry Pi prices have changed a lot recently, so check before you order.</p>
+  <p>Each row lists the features the part needs; any product with those features will do.</p>
   <div class="scroll">
   <table>
     <thead><tr><th>Item</th><th>Role</th></tr></thead>
@@ -260,6 +260,7 @@ vcgencmd get_throttled    # should report throttled=0x0</code></pre>
   <ul>
     <li>"You don't need to play piano. Every key is an experiment."</li>
     <li>"Real gravitational waves from these black holes are in the audio band, so we can turn them straight into sound."</li>
+    <li>"You'd have to be a few times farther out than Pluto from the collision to hear it with your own ears. LIGO hears it from over a billion light-years away." For a merger like GW150914, your eardrum needs a stretch of about 10<sup>−9</sup> across the ear, which the wave reaches a few hundred times the Earth–Sun distance from the merger.</li>
     <li>"To play what the LISA space mission will hear, you'd need a piano about 2 metres longer, and you'd wait several minutes for each wave to go by." Each key's pitch is the merger frequency of two equal-mass black holes, so each octave down doubles the mass; LISA's most sensitive band, around 3&nbsp;mHz, is about 13 octaves below the lowest A, or black holes of a few million solar masses each.</li>
   </ul>
 </section>
