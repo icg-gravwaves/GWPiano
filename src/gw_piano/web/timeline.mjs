@@ -7,9 +7,9 @@ export const observingRuns = [
   {name:'O4a',start:1368975618,end:1389456018,url:'https://gwosc.org/O4/O4a/'},
   {name:'O4b',start:1396796418,end:1422118818,url:'https://gwosc.org/O4/O4b/'}
 ];
-export function eventTimeline(events, condensed = false, span = 30) {
+export function eventTimeline(events, condensed = false, span = 30, spacing = 0.1) {
   if (!events.length || events.some(event => !Number.isFinite(event.gps))) throw new RangeError('Event GPS times are required');
   const ordered=[...events].sort((a,b)=>a.gps-b.gps);
   const first=ordered[0].gps, last=ordered.at(-1).gps;
-  return ordered.map((event,index)=>({...event,offset:condensed && last>first ? (event.gps-first)/(last-first)*span : index*0.1}));
+  return ordered.map((event,index)=>({...event,offset:condensed && last>first ? (event.gps-first)/(last-first)*span : index*spacing}));
 }

@@ -7,7 +7,11 @@ import {massBins} from './histogram.mjs';
 import {catalogPlan, scheduleCatalog} from './catalog-audio.mjs';
 import {eventTimeline} from './timeline.mjs';
 import {tunes, tuneSchedule} from './tunes.mjs';
+import {landmarks, landmarkNotes} from './landmarks.mjs';
 
+// Seconds between detections in Play detections in order. Each sample lasts up to 0.35 s,
+// so neighbouring chirps overlap a little while staying distinct on the timeseries.
+const DETECTION_SPACING = 0.2;
 const MODE_CC = 20;            // CC20 0-63 scientific, 64-127 musical, as in GW-Piano.sfz
 const WINDOW_SECONDS = 4.5;    // span of the scrolling timeseries and spectrogram
 const MAX_LEVEL = 0.3;         // master gain cap; with the ALSA mixer, sets the stand's maximum volume
@@ -106,11 +110,13 @@ function voice(buffer, when, rate = 1, level = 0.25) {
   return source;
 }
 
-function addPlayed(mass, label, when) {
+function addPlayed(mass, label, when, note = null) {
   const colour = state.mode === 'musical' ? css('--warning') : css('--signal');
   markers.push({time: when, label, colour});
-  setTimeout(() => { state.played.push(mass); drawHistogram(); },
-             Math.max(0, (when - context.currentTime) * 1000));
+  // The sounding note's key marker is highlighted on the histogram when it plays.
+  // Timers join tuneTimers so Stop all also stops pending histogram updates.
+  tuneTimers.push(setTimeout(() => { state.played.push(mass); if (note) state.lastNote = note; drawHistogram(); },
+             Math.max(0, (when - context.currentTime) * 1000)));
 }
 
 function playNote(midi, velocity = 100, when = null) {
@@ -156,7 +162,7 @@ function playTune(index) {
 function playDetections(condensed) {
   stopAll();
   const ticket = generation;
-  const plan = catalogPlan(eventTimeline(catalog.events, condensed, 30), notes, 0.1);
+  const plan = catalogPlan(eventTimeline(catalog.events, condensed, 30, DETECTION_SPACING), notes, DETECTION_SPACING);
   const at = context.currentTime + 0.05;
   state.played = []; drawHistogram();
   state.busy = condensed ? 'timeline' : 'detections'; broadcast();
@@ -167,8 +173,26 @@ function playDetections(condensed) {
   for (const part of plan) {
     const label = part.event !== lastEvent ? part.event : null;
     lastEvent = part.event;
-    addPlayed(part.mass, label, at + part.offset);
+    addPlayed(part.mass, label, at + part.offset, part.note);
   }
+}
+
+/** Play one notable detection as its chirp-mass-equivalent equal-mass chirp. */
+function playLandmark(index) {
+  stopAll();
+  const landmark = landmarkNotes(catalog.events, notes).find(item => item.name === landmarks[index]?.name);
+  if (!landmark) { console.debug('GW Piano landmark not in catalogue', index); return; }
+  const ticket = generation;
+  const at = context.currentTime + 0.05;
+  state.busy = `landmark-${index}`; broadcast();
+  batch = scheduleCatalog(context, [{...landmark.part}], note => buffers[state.mode].get(note.midi), master, at, () => {
+    if (ticket === generation) { batch = null; state.busy = null; broadcast(); }
+  });
+  // Each component of the real binary goes on the histogram; the first carries the event label.
+  landmark.event.masses.forEach((mass, i) => addPlayed(mass, i === 0 ? landmark.name : null, at, landmark.note));
+  document.querySelector('#last-note').textContent =
+    `${landmark.name} · ${landmark.title} · ${landmark.event.masses.join(' + ')} M☉`;
+  console.debug('GW Piano kiosk landmark', landmark.name, landmark.part.frequency);
 }
 
 channel.onmessage = ({data}) => {
@@ -178,6 +202,7 @@ channel.onmessage = ({data}) => {
   else if (data.type === 'mode') { setMode(data.mode); midiOut(data.mode); }
   else if (data.type === 'tune') playTune(data.index);
   else if (data.type === 'detections') playDetections(data.condensed);
+  else if (data.type === 'landmark') playLandmark(data.index);
   else if (data.type === 'stop') stopAll();
   else if (data.type === 'reset') { stopAll(); state.played = []; markers.length = 0; drawHistogram(); }
 };
