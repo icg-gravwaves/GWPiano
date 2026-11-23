@@ -59,7 +59,7 @@
   <g font-size="22" fill="#2a2d38">
     <text x="1195" y="364" text-anchor="middle" font-weight="700">Monitor or TV</text>
     <text x="1195" y="390" text-anchor="middle" fill="#5a6078">timeseries · spectrogram · histogram</text>
-    <text x="790" y="380" text-anchor="middle" font-weight="700">7" touch screen</text>
+    <text x="790" y="380" text-anchor="middle" font-weight="700">Touch screen</text>
     <text x="790" y="406" text-anchor="middle" fill="#5a6078">mode · examples · detections</text>
     <path d="M820 416 L870 515" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="822" y="745" fill="#5a6078">Pi 5 in the case behind it</text>

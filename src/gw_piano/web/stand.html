@@ -56,17 +56,17 @@ a{color:var(--accent)}
   <a href="./" style="font-weight:600">← Back to GW Piano</a>
   <span class="eyebrow">Outreach stand build guide</span>
   <h1>GW Piano Stand</h1>
-  <p class="lede">A standalone keyboard instrument. Each key plays an IMRPhenomD chirp from an equal-mass black-hole binary, and one button switches between scientific and musical sounds. A Raspberry Pi 5 runs everything and needs no laptop. It drives a small screen showing the current mode and a 10-inch screen above the keys showing a live timeseries, spectrogram and mass histogram as keys are pressed.</p>
+  <p class="lede">A standalone keyboard instrument. Each key plays an IMRPhenomD chirp from an equal-mass black-hole binary, and one button switches between scientific and musical sounds. A Raspberry Pi 5 runs everything and needs no laptop. It drives a small touch screen showing the current mode and a larger screen showing a live timeseries, spectrogram and mass histogram as keys are pressed.</p>
 </header>
 
 <section>
   <h2>The stand</h2>
-  <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand and a table beside it holding the 7-inch touch screen in its case and a monitor with a speaker either side" style="width:100%;border-radius:10px;border:1px solid var(--line)">
+  <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand and a table beside it holding the small touch screen in its case and a monitor with a speaker either side" style="width:100%;border-radius:10px;border:1px solid var(--line)">
   <p>The keyboard sits at standing height on an X-stand. The touch screen, with the Pi on its back, and a monitor stand on a table beside it (see <a href="#parts">Placing the screens</a>). Two small speakers sit on the table either side of the monitor, angled at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
-  <h3>10.1" screen: timeseries, spectrogram and histogram</h3>
+  <h3>Larger screen: timeseries, spectrogram and histogram</h3>
   <img src="stand-screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram" style="width:100%;border-radius:10px">
   <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
-  <h3>7" touch screen: controls</h3>
+  <h3>Touch screen: controls</h3>
   <img src="stand-screen-touch.png" alt="Touch screen mock-up: Scientific and Musical mode buttons, four example tune buttons, Play detections in order with timing toggle, Stop all and Reset" style="width:100%;border-radius:10px">
   <p>The touch screen has large targets for small hands. It has the sound mode switch, the four example tunes, <b>Play detections in order</b> with its In order / Preserve timeline toggle, <b>Stop all</b> and <b>Reset</b>. If the keyboard has a pad set up as a mode switch (optional, see setup), it switches mode too, and both stay in sync.</p>
 </section>
@@ -89,9 +89,9 @@ a{color:var(--accent)}
     <rect class="box" x="300" y="100" width="200" height="104" rx="8"/>
     <text x="316" y="128">Raspberry Pi 5</text><text class="sub" x="316" y="148">Chromium kiosk: sound + visuals</text><text class="sub" x="316" y="166">2 pages: live + controls</text><text class="sub" x="316" y="184">USB audio interface</text>
     <rect class="box" x="610" y="20" width="190" height="64" rx="8"/>
-    <text x="626" y="48">7" Touch Display 2</text><text class="sub" x="626" y="68">mode screen</text>
+    <text x="626" y="48">Touch screen</text><text class="sub" x="626" y="68">mode screen</text>
     <rect class="box" x="610" y="120" width="190" height="64" rx="8"/>
-    <text x="626" y="148">10.1" display</text><text class="sub" x="626" y="168">waveform + histogram</text>
+    <text x="626" y="148">Larger screen</text><text class="sub" x="626" y="168">waveform + histogram</text>
     <rect class="box" x="610" y="220" width="190" height="64" rx="8"/>
     <text x="626" y="248">Powered speakers</text><text class="sub" x="626" y="268">line in (RCA/3.5 mm)</text>
     <path class="wire" d="M190 152 H300"/><text class="sub" x="214" y="144">USB (MIDI + power)</text>
@@ -100,7 +100,7 @@ a{color:var(--accent)}
     <path class="wire audio" d="M500 186 C560 186 560 252 610 252"/><text class="sub" x="516" y="236">line out</text>
   </svg>
   </div>
-  <p class="note">The Pi 5 has no headphone jack, so audio comes from a small USB audio interface. It keeps the top of the Pi clear for the cooler, needs no configuration, and can be tested on any laptop. The 7-inch screen uses the DSI ribbon, which leaves both micro-HDMI ports free.</p>
+  <p class="note">The Pi 5 has no headphone jack, so audio comes from a small USB audio interface. It keeps the top of the Pi clear for the cooler, needs no configuration, and can be tested on any laptop. The touch screen uses the DSI ribbon, which leaves both micro-HDMI ports free.</p>
 </section>
 
 <section>
@@ -115,8 +115,8 @@ a{color:var(--accent)}
       <tr><td>Raspberry Pi 27&nbsp;W USB-C power supply</td><td>The official supply provides 5&nbsp;A, so the Pi can power the touch screen, keyboard and audio interface</td></tr>
       <tr><td>Raspberry Pi Active Cooler</td><td>Keeps the Pi cool over hours of running</td></tr>
       <tr><td>microSD card, 16–64&nbsp;GB</td><td>From a known brand and rated A1 or A2, for reliable operating-system use. Raspberry Pi OS with desktop takes about 6&nbsp;GB and the GW Piano site under 100&nbsp;MB, so 16&nbsp;GB leaves room for updates. Pi OS is installed on it for free with Raspberry Pi Imager, so a card with Pi OS pre-installed is not needed.</td></tr>
-      <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td></tr>
-      <tr><td>Desktop case and stand for Pi 5 + Touch Display 2</td><td>Metal case that holds the Pi on the back of the touch screen and stands on the table with an adjustable tilt; deep enough (HAT-height) to fit the active cooler, with ventilation slots</td></tr>
+      <tr><td>Touch screen, about 7" (e.g. Raspberry Pi Touch Display 2)</td><td>Mode, example and detection controls; connects to the Pi by ribbon cable and is powered by the Pi</td></tr>
+      <tr><td>Desktop case and stand for the Pi 5 and touch screen</td><td>Metal case that holds the Pi on the back of the touch screen and stands on the table with an adjustable tilt; deep enough (HAT-height) to fit the active cooler, with ventilation slots</td></tr>
       <tr><td>HDMI monitor or TV</td><td>Live timeseries, spectrogram and histogram screen</td></tr>
       <tr><td>Raspberry Pi micro-HDMI to HDMI cable, 2&nbsp;m</td><td>Pi to monitor, with reach to a screen beside the keyboard</td></tr>
       <tr><td>Keyboard X-stand</td><td>Holds the keyboard at standing height</td></tr>
@@ -136,7 +136,7 @@ a{color:var(--accent)}
   <p><b>Sockets:</b> a standard 4-way extension lead is enough, and a 6-way gives room to spare. Only three devices need a mains plug:</p>
   <ol>
     <li>Raspberry Pi 5 power supply. This also powers the touch screen, the USB audio interface and the keyboard.</li>
-    <li>10.1" display power adapter. Some models take USB-C power instead and need no socket.</li>
+    <li>Larger screen (monitor or TV).</li>
     <li>Desktop speakers. Many compact models run from USB and need no socket.</li>
   </ol>
   <p>The headphone amp usually runs on USB or batteries. Use a 6-way lead if the power adapters are bulky, because they can block the socket next to them, and you'll have spare sockets for a phone charger or a lamp. Choose a lead with a surge protector, and tape it down out of the way of visitors' feet.</p>
@@ -145,15 +145,15 @@ a{color:var(--accent)}
     <thead><tr><th>Device</th><th>Typical</th><th>Peak</th></tr></thead>
     <tbody>
       <tr><td>Raspberry Pi 5 (sound, two displays, USB audio interface)</td><td class="num">8 W</td><td class="num">12 W</td></tr>
-      <tr><td>7" Touch Display 2 (powered by the Pi)</td><td class="num">2 W</td><td class="num">3 W</td></tr>
-      <tr><td>10.1" display</td><td class="num">6 W</td><td class="num">10 W</td></tr>
+      <tr><td>Touch screen (powered by the Pi)</td><td class="num">2 W</td><td class="num">3 W</td></tr>
+      <tr><td>Larger screen (monitor or TV)</td><td class="num">20 W</td><td class="num">40 W</td></tr>
       <tr><td>MIDI keyboard (USB bus-powered by the Pi)</td><td class="num">1 W</td><td class="num">2.5 W</td></tr>
       <tr><td>Compact desktop speakers</td><td class="num">5 W</td><td class="num">20 W</td></tr>
     </tbody>
-    <tfoot><tr><td>Total</td><td class="num">≈ 22 W</td><td class="num">≈ 50 W</td></tr></tfoot>
+    <tfoot><tr><td>Total</td><td class="num">≈ 36 W</td><td class="num">≈ 80 W</td></tr></tfoot>
   </table>
   </div>
-  <p>These figures are estimates from typical device ratings; measure with a plug-in power meter before relying on them. Use the official 27&nbsp;W Pi 5 supply, because it lets the Pi power the keyboard over USB. Where there is no socket, a portable power station of about 250&nbsp;Wh runs the stand for a full day (about 8 hours at the typical draw).</p>
+  <p>These figures are estimates from typical device ratings; measure with a plug-in power meter before relying on them. Use the official 27&nbsp;W Pi 5 supply, because it lets the Pi power the keyboard over USB. Where there is no socket, a portable power station of about 250&nbsp;Wh runs the stand for most of a day (about 7 hours at the typical draw).</p>
   <h3>Audible, but not overpowering</h3>
   <p>The goal is for the stand to be heard clearly by the people at it in a busy room, without drowning out neighbouring stands.</p>
   <ul>
@@ -167,7 +167,7 @@ a{color:var(--accent)}
 
 <section>
   <h2>Setup</h2>
-  <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (10.1" screen) plays the sound-pack samples for each key, follows the mode switch, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
+  <p>On the stand, the sound and both screens come from two pages of the GW Piano site running full-screen in Chromium. <code>kiosk-live.html</code> (larger screen) plays the sound-pack samples for each key, follows the mode switch, and draws the timeseries, spectrogram and histogram. <code>kiosk-controls.html</code> (touch screen) sends it the mode, example and detection commands. The two pages share state, so the touch screen and the mode pad always agree. No separate sampler is needed; <code>GW-Piano.sfz</code> remains available for use in other samplers.</p>
   <h3>1. Build the site on a laptop</h3>
   <p>Build the GW Piano site on a laptop rather than on the Pi. The build generates the waveforms with LALSimulation, which is slow on a Pi and may not install there; the Pi only needs the finished site.</p>
 <pre><code>git clone https://github.com/icg-gravwaves/GWPiano.git &amp;&amp; cd GWPiano
@@ -175,14 +175,47 @@ python3 -m venv .venv &amp;&amp; . .venv/bin/activate &amp;&amp; pip install .
 gw-piano --output dist</code></pre>
 
   <h3>2. Prepare the Pi</h3>
+  <p>None of this needs soldering or special tools; a small cross-head screwdriver is enough. The official <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">Raspberry Pi getting started guide</a> has photos of each part.</p>
+
+  <h4>a. Write the operating system to the microSD card</h4>
   <ol>
-    <li>On the laptop, write <b>Raspberry Pi OS (64-bit, with desktop)</b> to the microSD card with Raspberry Pi Imager. In its settings, set the hostname <code>gwpiano</code>, a user account and your Wi-Fi, and enable SSH.</li>
-    <li>Fit the active cooler, mount the Pi on the back of the touch screen inside the display case, and connect the display ribbon to a DSI port and its power lead to the GPIO pins. Connect the 10.1" display (or any HDMI monitor or TV) to HDMI0, and the keyboard and USB audio interface to the USB ports.</li>
-    <li>Select the USB audio interface as the audio output (right-click the volume icon on the desktop taskbar). Chromium plays through the default output.</li>
-    <li>In <b>Screen Configuration</b>, rotate the touch screen to landscape and place it to the left of the main display.</li>
-    <li>Update the Pi once while it is online: <code>sudo apt update &amp;&amp; sudo apt full-upgrade -y</code>. Chromium comes with Raspberry Pi OS.</li>
+    <li>On the laptop, install <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a> (Windows, macOS and Linux) and put the microSD card in the laptop's card reader.</li>
+    <li>In Imager choose <b>Raspberry Pi 5</b> as the device, <b>Raspberry Pi OS (64-bit)</b> (the version with desktop) as the OS, and the microSD card as the storage.</li>
+    <li>When Imager offers to customise settings, set the hostname to <code>gwpiano</code>, create a user name and password, enter the Wi-Fi name and password, and on the Services tab turn on <b>SSH</b> with password authentication. Then write the card. Imager's own walk-through, with screenshots, is in <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#imager-install">Install using Imager</a>.</li>
   </ol>
-  <p>Then copy the built site from the laptop to the Pi over the network:</p>
+
+  <h4>b. Fit the Active Cooler</h4>
+  <p>Do this before the Pi goes in its case, with the Pi unplugged.</p>
+  <ol>
+    <li>The cooler comes with its thermal pads already stuck on. Peel the protective film off the pads.</li>
+    <li>Line the cooler's two sprung push-pins up with the two mounting holes next to the processor, so the fan sits over the large silver chip, and press both pins down until they click.</li>
+    <li>Plug the cooler's small cable into the four-pin socket marked <b>FAN</b>, near the top edge of the board. It only fits one way round.</li>
+  </ol>
+  <p>The <a href="https://pip.raspberrypi.com/documents/RP-008188-DS-active-cooler-product-brief.pdf">Active Cooler product brief</a> (PDF) shows it fitted, and the <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-5-fans">Raspberry Pi 5 fans</a> section of the hardware documentation shows where the fan socket is. The Pi controls the fan by itself; it does not need setting up.</p>
+
+  <h4>c. Put the Pi and touch screen in their case</h4>
+  <ol>
+    <li>Connect the ribbon cable that came with the touch screen: the narrow end goes into the Pi 5 port marked <b>CAM/DISP 0</b> or <b>1</b>, the wide end into the screen. Each connector has a small latch: lift it, push the cable in squarely with the metal contacts facing the right way, and press the latch down.</li>
+    <li>Connect the screen's two-wire power lead to the Pi's GPIO pins: red to a 5&nbsp;V pin (pin 2 or 4) and black to a ground pin (pin 6).</li>
+    <li>Screw the Pi onto the back of the screen with the fixings supplied with the screen, then close the case around them following the case's own instructions.</li>
+  </ol>
+  <p>The <a href="https://www.raspberrypi.com/documentation/accessories/touch-display-2.html#connect-to-raspberry-pi">Touch Display 2 documentation</a> has photos of the ribbon and power connections.</p>
+
+  <h4>d. Plug everything in and start it</h4>
+  <ol>
+    <li>Put the microSD card in the slot on the underside of the Pi.</li>
+    <li>Connect the larger screen (any HDMI monitor or TV) with the micro-HDMI cable to the port marked <b>HDMI0</b>, next to the USB-C power socket.</li>
+    <li>Plug the keyboard and the USB audio interface into the USB ports, and the speakers into the audio interface.</li>
+    <li>Plug in the power supply last. The first start takes a few minutes while the Pi sets itself up; the desktop then appears on both screens.</li>
+  </ol>
+
+  <h4>e. First-time settings</h4>
+  <ol>
+    <li>Select the USB audio interface as the audio output: right-click the speaker icon on the taskbar and choose it. Chromium plays through the default output.</li>
+    <li>Open <b>Screen Configuration</b> (Preferences menu), rotate the touch screen to landscape and place it to the left of the main display. See <a href="https://www.raspberrypi.com/documentation/accessories/touch-display-2.html#change-display-orientation">Change display orientation</a>.</li>
+    <li>From the laptop, connect over SSH (<code>ssh gwpiano.local</code>; see <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#ssh">Remote access: SSH</a>) or open a terminal on the Pi, and update it once while it is online: <code>sudo apt update &amp;&amp; sudo apt full-upgrade -y</code>. Chromium comes with Raspberry Pi OS.</li>
+  </ol>
+  <p>Then copy the built site from the laptop to the Pi over the network (see <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#scp">Remote access: scp</a>):</p>
 <pre><code>scp -r dist gwpiano.local:~/gw-piano-site</code></pre>
   <p>To update the stand later, rebuild on the laptop and copy <code>dist</code> across again. The stand needs no internet connection at the event.
 

@@ -12,8 +12,9 @@ import shutil
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
-# External links allowed on the page: web fonts, the local kiosk server and the project repository.
-ALLOWED_HOSTS = ("fonts.googleapis.com", "localhost", "github.com/icg-gravwaves/")
+# External links allowed on the page: web fonts, the local kiosk server, the project repository
+# and the official Raspberry Pi documentation.
+ALLOWED_HOSTS = ("fonts.googleapis.com", "localhost", "github.com/icg-gravwaves/", "raspberrypi.com/")
 
 guide = (ROOT / "docs" / "stand-setup.html").read_text()
 web = ROOT / "src" / "gw_piano" / "web"
