@@ -40,8 +40,6 @@ th{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;col
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 tfoot td{font-weight:600;border-bottom:0}
 .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
-.status{display:grid;gap:8px}
-.status li::marker{color:var(--accent)}
 .note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted)}
 svg text{fill:var(--fg);font:13px var(--body)}
 svg .sub{fill:var(--muted);font-size:11px}
@@ -175,6 +173,7 @@ python3 -m venv .venv &amp;&amp; . .venv/bin/activate &amp;&amp; pip install .
 gw-piano --output dist</code></pre>
 
   <h3>2. Prepare the Pi</h3>
+  <p class="note">The kiosk pages have been tested in a desktop browser but not yet on a Pi with a MIDI keyboard, so check the sound and screens on the real stand well before the first event.</p>
   <p>None of this needs soldering or special tools; a small cross-head screwdriver is enough. The official <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">Raspberry Pi getting started guide</a> has photos of each part.</p>
 
   <h4>a. Write the operating system to the microSD card</h4>
@@ -251,14 +250,6 @@ chromium-browser --app=http://localhost:8000/kiosk-controls.html --window-positi
 vcgencmd get_throttled    # should report throttled=0x0</code></pre>
 </section>
 
-<section>
-  <h2>What still needs building</h2>
-  <ul class="status">
-    <li><b>Done:</b> the sound pack has both modes, with <code>GW-Piano.sfz</code> switching on CC20.</li>
-    <li><b>Done:</b> the kiosk pages <code>kiosk-live.html</code> and <code>kiosk-controls.html</code>, tested in a desktop browser with computer keys. They have not yet been run on a Pi with a MIDI keyboard.</li>
-    <li><b>To do:</b> an autostart script and Pi image, so the stand can be rebuilt from scratch, and a check of audio latency and frame rate on the Pi 5.</li>
-  </ul>
-</section>
 
 <section>
   <h2>On the day</h2>
