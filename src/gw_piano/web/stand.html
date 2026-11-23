@@ -61,8 +61,8 @@ a{color:var(--accent)}
 
 <section>
   <h2>The stand</h2>
-  <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand with a 7-inch touch screen and 10.1-inch screen above the keys and small desktop speakers on the keyboard ends" style="width:100%;border-radius:10px;border:1px solid var(--line)">
-  <p>The keyboard sits at standing height on an X-stand. The picture shows the screens just behind the controls; the simplest build instead stands the touch screen, with the Pi on its back, and a monitor on a table beside the keyboard (see <a href="#parts">Placing the screens</a>). Two small speakers sit on the keyboard ends or the table, angled up at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
+  <img src="stand-stand.png" alt="Outreach stand: keyboard on an X-stand and a table beside it holding the 7-inch touch screen in its case and a monitor with a speaker either side" style="width:100%;border-radius:10px;border:1px solid var(--line)">
+  <p>The keyboard sits at standing height on an X-stand. The touch screen, with the Pi on its back, and a monitor stand on a table beside it (see <a href="#parts">Placing the screens</a>). Two small speakers sit on the table either side of the monitor, angled at the player, and headphones hang from the stand. A table in front can hold printed mass cards, so visitors can find "their" black hole on the histogram.</p>
   <h3>10.1" screen: timeseries, spectrogram and histogram</h3>
   <img src="stand-screen-waveform.png" alt="Live screen mock-up: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram" style="width:100%;border-radius:10px">
   <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website. Played notes stack up as striped bars, and the note currently sounding shows in white.</p>
@@ -117,7 +117,7 @@ a{color:var(--accent)}
       <tr><td>microSD card, 16–64&nbsp;GB</td><td>From a known brand and rated A1 or A2, for reliable operating-system use. Raspberry Pi OS with desktop takes about 6&nbsp;GB and the GW Piano site under 100&nbsp;MB, so 16&nbsp;GB leaves room for updates. Pi OS is installed on it for free with Raspberry Pi Imager, so a card with Pi OS pre-installed is not needed.</td></tr>
       <tr><td>Raspberry Pi Touch Display 2 (7")</td><td>Mode screen; you can tap it to switch modes</td></tr>
       <tr><td>Desktop case and stand for Pi 5 + Touch Display 2</td><td>Metal case that holds the Pi on the back of the touch screen and stands on the table with an adjustable tilt; deep enough (HAT-height) to fit the active cooler, with ventilation slots</td></tr>
-      <tr><td>HDMI monitor or TV (borrowed), or a 10.1" 1280×800 HDMI display</td><td>Live timeseries, spectrogram and histogram screen</td></tr>
+      <tr><td>HDMI monitor or TV</td><td>Live timeseries, spectrogram and histogram screen</td></tr>
       <tr><td>Raspberry Pi micro-HDMI to HDMI cable, 2&nbsp;m</td><td>Pi to monitor, with reach to a screen beside the keyboard</td></tr>
       <tr><td>Keyboard X-stand</td><td>Holds the keyboard at standing height</td></tr>
       <tr><td>Table</td><td>Holds the touch screen, Pi, monitor and speakers, beside the keyboard</td></tr>
@@ -128,7 +128,7 @@ a{color:var(--accent)}
   </table>
   </div>
   <h3>Placing the screens</h3>
-  <p>The keyboard stands on its X-stand with a table beside it. The touch screen sits on the table in its case and stand, with the Pi mounted on its back, within easy reach of the player. The main display, a borrowed monitor or TV or a 10.1" HDMI display, stands on the same table where the player and onlookers can see it, connected by the 2&nbsp;m micro-HDMI cable. Only the Pi power lead, the monitor and the speakers need sockets.</p>
+  <p>The keyboard stands on its X-stand with a table beside it. The touch screen sits on the table in its case and stand, with the Pi mounted on its back, within easy reach of the player. The monitor or TV stands on the same table where the player and onlookers can see it, connected by the 2&nbsp;m micro-HDMI cable. Only the Pi power lead, the monitor and the speakers need sockets.</p>
 </section>
 
 <section>
@@ -157,7 +157,7 @@ a{color:var(--accent)}
   <h3>Audible, but not overpowering</h3>
   <p>The goal is for the stand to be heard clearly by the people at it in a busy room, without drowning out neighbouring stands.</p>
   <ul>
-    <li><b>Point the sound at the audience.</b> Two compact speakers on the keyboard ends, angled up towards the player and the people gathered in front, reach the group directly. Speakers aimed outwards, or raised on poles, spread the sound across the room instead. Speakers with some headroom (10–20 W per side) stay clear at this level instead of distorting.</li>
+    <li><b>Point the sound at the audience.</b> Two compact speakers on the table either side of the monitor, angled towards the player and the people gathered in front, reach the group directly. Speakers aimed outwards, or raised on poles, spread the sound across the room instead. Speakers with some headroom (10–20 W per side) stay clear at this level instead of distorting.</li>
     <li><b>Hard volume cap.</b> Set the maximum level once in software (the ALSA mixer level; the kiosk page also caps its own output level), so turning the speaker knob cannot push it past that level. Busy halls run at about 65–75 dB(A), so aim for about 75–80 dB(A) at the player's position. Set it with a phone sound-meter app at the event, then check the level at the next stand along: there it should sit below the room's own background noise.</li>
     <li><b>Headphones for busy or quiet rooms.</b> A small headphone amp drives two pairs of closed-back headphones, so the stand can go completely silent. Wipe the headphones between visitors.</li>
     <li><b>Mind the low notes.</b> Bass carries furthest. The sound is already one-shot and short, but if neighbours complain, use the low-cut on the speakers or keep visitors to the middle octaves.</li>
@@ -234,6 +234,36 @@ vcgencmd get_throttled    # should report throttled=0x0</code></pre>
     <li>Before the doors open, check the volume from the neighbouring stands, and ask them to tell you if it bothers them.</li>
     <li>Start with musical mode for melodies. Switch to scientific mode to show that heavier binaries chirp lower and for longer.</li>
     <li>A single key in scientific mode is the "what LIGO hears" moment. The waveform screen shows the matching strain.</li>
+  </ul>
+
+  <h3>Volunteer briefing</h3>
+  <p>Volunteers do not need to play the piano. Single key presses are the science, and the touch screen plays the musical parts.</p>
+  <p><b>The idea in one line:</b> each key is the sound of two black holes merging. Low notes are heavy black holes; high notes are light ones.</p>
+  <p><b>Getting a visitor started</b></p>
+  <ol>
+    <li>"Press any key." Start in scientific mode: one key gives the chirp that LIGO hears.</li>
+    <li>"Now try one at the far left, then one at the far right." Heavy black holes chirp lower and for longer; light ones chirp short and high.</li>
+    <li>Point at the monitor. The <b>timeseries</b> is the wave they just made. The <b>spectrogram</b> shows the frequency sweeping up as the black holes spiral together. On the <b>histogram</b>, the coloured line marks their key's mass, and the purple bars are the real black holes found by LIGO, Virgo and KAGRA.</li>
+    <li>"Which key matches the most common real black holes?" Visitors hunt along the keyboard for the tallest purple bars.</li>
+  </ol>
+  <p><b>For visitors who want music:</b> tap <b>MUSICAL</b> on the touch screen, then <b>Example 1–4</b>. The tune plays by itself, and visitors can join in on the keys.</p>
+  <p><b>The showpiece</b></p>
+  <ul>
+    <li><b>▶ Play detections in order</b> plays every real detection, oldest first: "That's every black-hole merger we've heard."</li>
+    <li><b>Detection timeline</b> plays them with their real spacing, squeezed into 30 seconds.</li>
+    <li><b>■ Stop all</b> stops everything.</li>
+  </ul>
+  <p><b>Housekeeping</b></p>
+  <ul>
+    <li><b>Reset played notes</b> clears the histogram between groups.</li>
+    <li>If it is too loud or the room goes quiet, switch to headphones rather than turning the speakers up.</li>
+    <li>If something freezes, unplug the Pi's power and plug it back in. The stand restarts by itself in about 30 seconds.</li>
+  </ul>
+  <p><b>Useful lines</b></p>
+  <ul>
+    <li>"You don't need to play piano. Every key is an experiment."</li>
+    <li>"Real gravitational waves from these black holes are in the audio band, so we can turn them straight into sound."</li>
+    <li>"To play what the LISA space mission will hear, you'd need a piano about 2 metres longer, and you'd wait several minutes for each wave to go by." Each key's pitch is the merger frequency of two equal-mass black holes, so each octave down doubles the mass; LISA's most sensitive band, around 3&nbsp;mHz, is about 13 octaves below the lowest A, or black holes of a few million solar masses each.</li>
   </ul>
 </section>
 </main>

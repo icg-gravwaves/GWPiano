@@ -11,7 +11,7 @@
   body { background: var(--bg); color: var(--text); font: 16px/1.4 Inter, system-ui, sans-serif; cursor: none;
          display: grid; grid-template-rows: auto 1fr 1.3fr 1.2fr; gap: 12px; padding: 14px 24px; box-sizing: border-box; }
   header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  h1 { font-size: 26px; margin: 0; }
+  h1 { margin: 0; line-height: 0; } h1 img { height: 64px; width: auto; }
   #last-note { color: var(--muted); }
   #mode-chip { text-transform: uppercase; font-weight: 700; letter-spacing: .06em; padding: 2px 12px; border-radius: 99px;
                background: var(--signal); color: var(--on-signal); }
@@ -30,7 +30,7 @@
 </style>
 </head>
 <body>
-  <header><h1>GW Piano · live</h1><span id="last-note">Play a key</span><span id="mode-chip" data-mode="scientific">scientific</span></header>
+  <header><h1><img src="gw-piano-dark.svg" alt="GW Piano" height="64"></h1><span id="last-note">Play a key</span><span id="mode-chip" data-mode="scientific">scientific</span></header>
   <section class="panel"><h2><span>Timeseries · strain (auto-scaled)</span><span>◀ last 4.5 s</span></h2>
     <canvas id="timeseries"></canvas><div id="markers"></div></section>
   <section class="panel"><h2><span>Spectrogram · frequency vs time</span><span>20 Hz – 2 kHz, log scale</span></h2>

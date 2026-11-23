@@ -1,68 +1,74 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1420" height="1000" viewBox="0 0 1420 1000" style="font-family:Inter,Helvetica,Arial,sans-serif">
   <defs>
     <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0f6"/><stop offset="1" stop-color="#dfe2ec"/></linearGradient>
-    <linearGradient id="banner" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3c023c"/><stop offset="1" stop-color="#621360"/></linearGradient>
   </defs>
   <rect width="1420" height="1000" fill="url(#wall)"/>
   <rect y="880" width="1420" height="120" fill="#c9ccd8"/>
-  <ellipse cx="760" cy="905" rx="560" ry="22" fill="#000" opacity=".08"/>
-
-  <!-- compact desktop speakers on the keyboard ends, angled at the player -->
-  <g>
-    <rect x="330" y="508" width="60" height="82" rx="10" fill="#2a2d38"/>
-    <circle cx="360" cy="528" r="9" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
-    <circle cx="360" cy="562" r="18" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
-    <rect x="1030" y="508" width="60" height="82" rx="10" fill="#2a2d38"/>
-    <circle cx="1060" cy="528" r="9" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
-    <circle cx="1060" cy="562" r="18" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
-  </g>
-  <!-- headphones on a hook -->
-  <path d="M1250 730 v40" stroke="#3a3f4f" stroke-width="5"/>
-  <path d="M1225 810 a25 28 0 0 1 50 0" fill="none" stroke="#2a2d38" stroke-width="7"/>
-  <rect x="1216" y="802" width="16" height="26" rx="6" fill="#2a2d38"/><rect x="1268" y="802" width="16" height="26" rx="6" fill="#2a2d38"/>
+  <ellipse cx="420" cy="905" rx="330" ry="20" fill="#000" opacity=".08"/>
+  <ellipse cx="1090" cy="905" rx="330" ry="20" fill="#000" opacity=".08"/>
 
   <!-- X-stand -->
-  <path d="M440 880 L980 655 M980 880 L440 655" stroke="#3a3f4f" stroke-width="12" stroke-linecap="round"/>
-  <path d="M410 880 h70 M940 880 h70" stroke="#3a3f4f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M190 880 L650 655 M650 880 L190 655" stroke="#3a3f4f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M160 880 h70 M610 880 h70" stroke="#3a3f4f" stroke-width="12" stroke-linecap="round"/>
 
   <!-- keyboard -->
-  <rect x="380" y="590" width="660" height="78" rx="10" fill="#1d1f27"/>
-  <g fill="#3a3f4f"><rect x="396" y="602" width="18" height="18" rx="3"/><rect x="420" y="602" width="18" height="18" rx="3"/><rect x="444" y="602" width="18" height="18" rx="3"/><rect x="468" y="602" width="18" height="18" rx="3"/><rect x="420" y="626" width="18" height="18" rx="3"/><rect x="444" y="626" width="18" height="18" rx="3"/><rect x="468" y="626" width="18" height="18" rx="3"/></g>
-  <rect x="396" y="626" width="18" height="18" rx="3" fill="#ffc56e"/>
-  <rect x="500" y="618" width="528" height="44" fill="#f4f6f9"/>
+  <rect x="90" y="590" width="660" height="78" rx="10" fill="#1d1f27"/>
+  <g fill="#3a3f4f"><rect x="106" y="602" width="18" height="18" rx="3"/><rect x="130" y="602" width="18" height="18" rx="3"/><rect x="154" y="602" width="18" height="18" rx="3"/><rect x="178" y="602" width="18" height="18" rx="3"/><rect x="130" y="626" width="18" height="18" rx="3"/><rect x="154" y="626" width="18" height="18" rx="3"/><rect x="178" y="626" width="18" height="18" rx="3"/></g>
+  <rect x="106" y="626" width="18" height="18" rx="3" fill="#ffc56e"/>
+  <rect x="210" y="618" width="528" height="44" fill="#f4f6f9"/>
   <g id="oct" stroke="#9aa0b0" stroke-width="1.5">
-    <line x1="518" y1="618" x2="518" y2="662"/><line x1="536" y1="618" x2="536" y2="662"/><line x1="554" y1="618" x2="554" y2="662"/><line x1="572" y1="618" x2="572" y2="662"/><line x1="590" y1="618" x2="590" y2="662"/><line x1="608" y1="618" x2="608" y2="662"/><line x1="626" y1="618" x2="626" y2="662"/>
+    <line x1="228" y1="618" x2="228" y2="662"/><line x1="246" y1="618" x2="246" y2="662"/><line x1="264" y1="618" x2="264" y2="662"/><line x1="282" y1="618" x2="282" y2="662"/><line x1="300" y1="618" x2="300" y2="662"/><line x1="318" y1="618" x2="318" y2="662"/><line x1="336" y1="618" x2="336" y2="662"/>
   </g>
   <use href="#oct" x="126"/><use href="#oct" x="252"/><use href="#oct" x="378"/>
-  <g id="blk" fill="#1d1f27"><rect x="512" y="618" width="10" height="26"/><rect x="530" y="618" width="10" height="26"/><rect x="566" y="618" width="10" height="26"/><rect x="584" y="618" width="10" height="26"/><rect x="602" y="618" width="10" height="26"/></g>
+  <g id="blk" fill="#1d1f27"><rect x="222" y="618" width="10" height="26"/><rect x="240" y="618" width="10" height="26"/><rect x="276" y="618" width="10" height="26"/><rect x="294" y="618" width="10" height="26"/><rect x="312" y="618" width="10" height="26"/></g>
   <use href="#blk" x="126"/><use href="#blk" x="252"/><use href="#blk" x="378"/>
 
-  <!-- screen mount arm -->
-  <path d="M700 590 V555 M560 590 V560" stroke="#3a3f4f" stroke-width="10"/>
-  <rect x="730" y="568" width="70" height="20" rx="3" fill="#5a8f3c"/>
+  <!-- headphones on a hook on the X-stand -->
+  <path d="M620 700 v40" stroke="#3a3f4f" stroke-width="5"/>
+  <path d="M595 780 a25 28 0 0 1 50 0" fill="none" stroke="#2a2d38" stroke-width="7"/>
+  <rect x="586" y="772" width="16" height="26" rx="6" fill="#2a2d38"/><rect x="638" y="772" width="16" height="26" rx="6" fill="#2a2d38"/>
 
-  <!-- 10.1" screen -->
-  <rect x="610" y="345" width="330" height="214" rx="12" fill="#111"/>
-  <image href="screen-waveform.svg" x="622" y="357" width="306" height="191" preserveAspectRatio="none"/>
-  <!-- 7" touch screen -->
-  <rect x="440" y="415" width="172" height="104" rx="10" fill="#111"/>
-  <image href="screen-touch.svg" x="448" y="423" width="156" height="88" preserveAspectRatio="none"/>
+  <!-- side table -->
+  <rect x="780" y="660" width="620" height="18" rx="3" fill="#8a6a4a"/>
+  <path d="M800 678 V880 M1380 678 V880" stroke="#6e5238" stroke-width="12" stroke-linecap="round"/>
 
-  <!-- table with mass cards -->
+  <!-- monitor on its own foot, speakers either side -->
+  <rect x="1135" y="642" width="120" height="12" rx="4" fill="#2a2d38"/>
+  <rect x="1185" y="598" width="20" height="48" fill="#2a2d38"/>
+  <rect x="1055" y="404" width="280" height="196" rx="10" fill="#111"/>
+  <image href="screen-waveform.svg" x="1065" y="414" width="260" height="176" preserveAspectRatio="none"/>
+  <g>
+    <rect x="995" y="584" width="52" height="76" rx="9" fill="#2a2d38"/>
+    <circle cx="1021" cy="602" r="8" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
+    <circle cx="1021" cy="634" r="16" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
+    <rect x="1343" y="584" width="52" height="76" rx="9" fill="#2a2d38"/>
+    <circle cx="1369" cy="602" r="8" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
+    <circle cx="1369" cy="634" r="16" fill="#15171e" stroke="#4a4f60" stroke-width="3"/>
+  </g>
+
+  <!-- touch screen in its case and stand, Pi on its back -->
+  <path d="M850 660 L870 600" stroke="#4a4f60" stroke-width="10" stroke-linecap="round"/>
+  <ellipse cx="850" cy="657" rx="34" ry="6" fill="#4a4f60"/>
+  <g transform="rotate(-12 900 560)">
+    <rect x="812" y="522" width="176" height="112" rx="8" fill="#5a5f70"/>
+    <rect x="820" y="530" width="160" height="96" rx="4" fill="#111"/>
+    <image href="screen-touch.svg" x="824" y="534" width="152" height="88" preserveAspectRatio="none"/>
+  </g>
 
   <!-- callouts -->
   <g font-size="22" fill="#2a2d38">
-    <text x="775" y="300" text-anchor="middle" font-weight="700">10.1" screen</text>
-    <text x="775" y="326" text-anchor="middle" fill="#5a6078">timeseries · spectrogram · histogram</text>
-    <text x="400" y="330" text-anchor="middle" font-weight="700">7" touch screen</text>
-    <text x="400" y="356" text-anchor="middle" fill="#5a6078">mode · examples · detections</text>
-    <path d="M440 366 L500 412" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="300" y="720" text-anchor="middle" fill="#5a6078">mode pad (optional)</text>
-    <path d="M320 702 L398 646" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="1080" y="705" fill="#5a6078">Pi 5 behind screen</text>
-    <path d="M1090 685 L790 590" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="318" y="500" text-anchor="end" fill="#5a6078">small desktop</text><text x="318" y="526" text-anchor="end" fill="#5a6078">speakers</text>
-    <text x="1250" y="866" text-anchor="middle" fill="#5a6078">headphones</text>
-    <text x="710" y="950" text-anchor="middle" fill="#5a6078">49-key MIDI keyboard on an X-stand · one extension lead</text>
+    <text x="1195" y="364" text-anchor="middle" font-weight="700">Monitor or TV</text>
+    <text x="1195" y="390" text-anchor="middle" fill="#5a6078">timeseries · spectrogram · histogram</text>
+    <text x="790" y="380" text-anchor="middle" font-weight="700">7" touch screen</text>
+    <text x="790" y="406" text-anchor="middle" fill="#5a6078">mode · examples · detections</text>
+    <path d="M820 416 L870 515" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="822" y="745" fill="#5a6078">Pi 5 in the case behind it</text>
+    <path d="M850 725 L856 662" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="20" y="720" fill="#5a6078">mode pad (optional)</text>
+    <path d="M100 700 L112 646" stroke="#5a6078" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="1195" y="700" text-anchor="middle" fill="#5a6078">speakers either side of the monitor</text>
+    <text x="662" y="800" fill="#5a6078">headphones</text>
+    <text x="420" y="950" text-anchor="middle" fill="#5a6078">49-key MIDI keyboard on an X-stand</text>
+    <text x="1090" y="950" text-anchor="middle" fill="#5a6078">table beside it · one extension lead</text>
   </g>
 </svg>
