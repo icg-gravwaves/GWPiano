@@ -75,7 +75,6 @@ class InstrumentTests(unittest.TestCase):
                     for key in ('sample', 'musical_sample'):
                         with wave.open(str(output / event[key])) as wav:
                             self.assertEqual((wav.getnchannels(), wav.getframerate()), (1, 44100))
-            self.assertTrue((output / 'portsmouth.svg').is_file())
             for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html', 'stand-day.html'):
                 self.assertTrue((output / page).is_file(), page)
             self.assertNotIn('£', (output / 'stand.html').read_text())

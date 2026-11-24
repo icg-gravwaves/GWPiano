@@ -62,7 +62,7 @@ The calendar timeline shows linked GWOSC observing-run intervals (O1, O2, O3a, O
 
 `kiosk-live.html` and `kiosk-controls.html` run a standalone stand: a MIDI keyboard and two screens driven by a Raspberry Pi. Parts and one-off setup are on `stand.html`; running the stand at an event, including a volunteer briefing, is on `stand-day.html`. The live page plays the sound-pack samples (both modes) for incoming MIDI notes, switches mode on MIDI CC20, and draws a scrolling strain timeseries, a spectrogram and the catalog histogram. The controls page is for the touch screen. It sends mode, example, detection, stop and reset commands to the live page over a `BroadcastChannel`, so both pages must run in the same browser profile. For testing without a keyboard, the live page accepts A W S E D F T G Y H U J K for C4–C5 and M to switch mode.
 
-`stand.html` and `stand-day.html` are generated from `docs/stand-setup.html` and `docs/stand-day.html` with `python scripts/sync_stand_page.py`, which refuses prices and shop links so neither enters the repository. `scripts/render_mockups.sh` regenerates the guide images.
+`stand.html` and `stand-day.html` are generated from `docs/stand-setup.html` and `docs/stand-day.html` with `python scripts/sync_stand_page.py`, which refuses prices and shop links so neither enters the repository. `scripts/render_mockups.sh` regenerates the guide images: the stand drawing from `docs/images/stand.svg`, and the screen previews as screenshots of the real kiosk pages from `dist/` (`scripts/capture_screens.mjs`, after `gw-piano --output dist`).
 
 ## Deploy on GitHub Pages
 
@@ -87,7 +87,7 @@ The workflow installs exact dependency versions from `ci/requirements.txt`, so a
 
 Project code: **GPL-3.0-or-later**, see LICENSE. LALSuite is GPL-2.0-or-later and is installed as a dependency, not bundled into the website. Generated waveform audio is offered under **CC0-1.0**, separately from code. GWOSC data retains its source attribution and applicable source terms; no project license is asserted over third-party data.
 
-The University of Portsmouth logo uses the original vector artwork from `https://www.port.ac.uk/themes/custom/portsmouth/logo.svg`, with its standard colors preserved and a thin white outline around the artwork for the dark background and linked to the University website. The original color asset is retained as `portsmouth.svg`; the dark-background adaptation is `portsmouth-dark.svg`. It is third-party branding, excluded from the project code and audio licenses. Its presence does not grant trademark rights or assert University endorsement.
+The website, fact cards and poster do not include the University of Portsmouth logo.
 
 GW Piano uses a transparent SVG adaptation of concept A: an accelerating chirp flowing into piano keys, with Portsmouth-blue strokes, light-blue piano-key accents, Portsmouth-blue “GW”, and white “PIANO” for the dark theme. The asset is `src/gw_piano/web/gw-piano-dark.svg`.
 

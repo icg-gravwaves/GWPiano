@@ -19,6 +19,10 @@ const MAX_LEVEL = 0.3;         // master gain cap; with the ALSA mixer, sets the
 const MAX_VOICES = 24;
 const BLOCK = 256;           // samples per timeseries envelope point (about 6 ms)
 const F_LOW = 20, F_HIGH = 2000;
+const FFT_SIZE = 8192;       // spectrogram window, matching the previous AnalyserNode resolution
+const HOP = 1024;            // samples between spectrogram columns (about 21 ms)
+const SPEC_ROWS = 192;       // log-frequency rows per spectrogram column
+const SPEC_SLOTS = 512;      // > 4.5 s of columns at 48 kHz
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 const channel = new BroadcastChannel('gw-piano-kiosk');
@@ -63,6 +67,53 @@ async function start() {
       if (this.n >= ${BLOCK}) { this.port.postMessage([currentFrame, this.lo, this.hi]); this.lo = this.hi = 0; this.n = 0; }
       return true;
     }
+  });
+  // Spectrum recorder: Blackman-windowed FFT every HOP samples, sampled onto log-frequency rows in dB
+  // (20 log10 |X| / N, the AnalyserNode convention). Rows run from F_HIGH at the top to F_LOW at the bottom.
+  registerProcessor('gw-spectrum', class extends AudioWorkletProcessor {
+    constructor() {
+      super();
+      const N = ${FFT_SIZE};
+      this.ring = new Float32Array(N); this.pos = 0; this.since = 0;
+      this.re = new Float64Array(N); this.im = new Float64Array(N);
+      this.win = Float64Array.from({length: N}, (_, i) => 0.42 - 0.5 * Math.cos(2 * Math.PI * i / N) + 0.08 * Math.cos(4 * Math.PI * i / N));
+      this.bins = Int32Array.from({length: ${SPEC_ROWS}}, (_, y) =>
+        Math.min(N / 2 - 1, Math.round(${F_LOW} * (${F_HIGH} / ${F_LOW}) ** (1 - y / ${SPEC_ROWS}) / (sampleRate / N))));
+    }
+    fft() {
+      const re = this.re, im = this.im, n = re.length;
+      for (let i = 1, j = 0; i < n; i++) {
+        let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+        if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
+      }
+      for (let len = 2; len <= n; len <<= 1) {
+        const ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+        for (let i = 0; i < n; i += len) {
+          let cr = 1, ci = 0;
+          for (let k = 0; k < len / 2; k++) {
+            const a = i + k, b = a + len / 2, tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr;
+            re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
+            const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr;
+          }
+        }
+      }
+    }
+    process([input]) {
+      const data = input[0] || new Float32Array(128), N = this.ring.length;
+      for (const v of data) { this.ring[this.pos] = v; this.pos = (this.pos + 1) % N; }
+      this.since += data.length;
+      if (this.since < ${HOP}) return true;
+      this.since = 0;
+      for (let i = 0; i < N; i++) { this.re[i] = this.ring[(this.pos + i) % N] * this.win[i]; this.im[i] = 0; }
+      this.fft();
+      const column = new Float32Array(${SPEC_ROWS});
+      for (let y = 0; y < column.length; y++) {
+        const k = this.bins[y];
+        column[y] = 20 * Math.log10(Math.hypot(this.re[k], this.im[k]) / N + 1e-12);
+      }
+      this.port.postMessage([currentFrame + data.length, column], [column.buffer]);
+      return true;
+    }
   });`;
   await context.audioWorklet.addModule(URL.createObjectURL(new Blob([worklet], {type: 'text/javascript'})));
   const envelope = new AudioWorkletNode(context, 'gw-envelope');
@@ -71,6 +122,12 @@ async function start() {
     envelopeBlock[slot] = block; envelopeLo[slot] = lo; envelopeHi[slot] = hi;
   };
   analyser.connect(envelope);
+  const spectrum = new AudioWorkletNode(context, 'gw-spectrum');
+  spectrum.port.onmessage = ({data: [frameIndex, column]}) => {
+    const hop = Math.floor(frameIndex / HOP), slot = hop % SPEC_SLOTS;
+    specHop[slot] = hop; specColumns.set(column, slot * SPEC_ROWS);
+  };
+  analyser.connect(spectrum);
   const [pack, catalogData] = await Promise.all([
     fetch('sound-pack-manifest.json').then(r => r.json()), fetch('catalog.json').then(r => r.json())]);
   notes = pack.notes; catalog = catalogData;
@@ -151,6 +208,10 @@ function stopAll() {
   batch?.stop(); batch = null;
   for (const source of voices) source.stop();
   voices.clear();
+  // Drop labels for scheduled notes that will now never sound; labels already played keep scrolling with their audio.
+  const now = context.currentTime;
+  for (let i = markers.length - 1; i >= 0; i--) if (markers[i].time > now) markers.splice(i, 1);
+  console.debug('GW Piano kiosk stop: kept', markers.length, 'played labels');
   state.busy = null;
   broadcast();
 }
@@ -255,8 +316,10 @@ window.addEventListener('keydown', event => {
 const wave = document.querySelector('#timeseries'), spec = document.querySelector('#spectrogram');
 const wctx = wave.getContext('2d'), sctx = spec.getContext('2d');
 let lastFrame = null, carry = 0;
-const freqData = new Float32Array(4096);
 const ENVELOPE_SLOTS = 2048;   // > 4.5 s of 256-sample blocks at 48 kHz
+// Spectrogram history from the gw-spectrum worklet, indexed by HOP-sample column like the envelope.
+const specHop = new Float64Array(SPEC_SLOTS).fill(-1), specColumns = new Float32Array(SPEC_SLOTS * SPEC_ROWS);
+const specImage = document.createElement('canvas'), specImageCtx = specImage.getContext('2d');
 const envelopeBlock = new Float64Array(ENVELOPE_SLOTS).fill(-1), envelopeLo = new Float32Array(ENVELOPE_SLOTS), envelopeHi = new Float32Array(ENVELOPE_SLOTS);
 
 function drawTimeseries() {
@@ -280,6 +343,27 @@ function drawTimeseries() {
     }
     wctx.fillRect(x, mid - hi * scale, 1, Math.max(1, (hi - lo) * scale));
   }
+}
+
+function drawSpectrogram() {
+  // Redraw the whole spectrogram from the recorded columns, newest at the right edge, so time the
+  // page spent hidden (no animation frames) still appears and stays aligned with the timeseries.
+  const newest = Math.floor(context.currentTime * context.sampleRate / HOP);
+  const span = Math.round(WINDOW_SECONDS * context.sampleRate / HOP);
+  if (specImage.width !== span) { specImage.width = span; specImage.height = SPEC_ROWS; }
+  const image = specImageCtx.createImageData(span, SPEC_ROWS);
+  const top = analyser.maxDecibels, floor = top - 70;
+  for (let x = 0; x < span; x++) {
+    const hop = newest - span + 1 + x, slot = ((hop % SPEC_SLOTS) + SPEC_SLOTS) % SPEC_SLOTS, have = specHop[slot] === hop;
+    for (let y = 0; y < SPEC_ROWS; y++) {
+      const db = have ? specColumns[slot * SPEC_ROWS + y] : -Infinity;
+      const [r, g, b] = palette[Math.max(0, Math.min(255, Math.round((db - floor) / (top - floor) * 255)))];
+      image.data.set([r, g, b, 255], (y * span + x) * 4);
+    }
+  }
+  specImageCtx.putImageData(image, 0, 0);
+  sctx.imageSmoothingEnabled = true;
+  sctx.drawImage(specImage, 0, 0, spec.width, spec.height);
 }
 
 function fit(canvas) {
@@ -310,18 +394,7 @@ function frame(now) {
 
   drawTimeseries();
 
-  // Spectrogram: scroll left and paint one column per new pixel on a log-frequency axis.
-  analyser.getFloatFrequencyData(freqData);
-  sctx.drawImage(spec, -shift, 0);
-  const column = sctx.createImageData(shift, spec.height);
-  const binHz = context.sampleRate / analyser.fftSize, top = analyser.maxDecibels, floor = top - 70;
-  for (let y = 0; y < spec.height; y++) {
-    const frequency = F_LOW * (F_HIGH / F_LOW) ** (1 - y / spec.height);
-    const db = freqData[Math.min(freqData.length - 1, Math.round(frequency / binHz))];
-    const [r, g, b] = palette[Math.max(0, Math.min(255, Math.round((db - floor) / (top - floor) * 255)))];
-    for (let x = 0; x < shift; x++) { const i = (y * shift + x) * 4; column.data.set([r, g, b, 255], i); }
-  }
-  sctx.putImageData(column, spec.width - shift, 0);
+  drawSpectrogram();
   drawMarkers();
 }
 

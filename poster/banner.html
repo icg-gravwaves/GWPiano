@@ -6,15 +6,15 @@
 html,body{width:1189mm;background:#ffffff;color:#1d1a24;font-family:var(--font-body),sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .p{position:relative;width:1189mm;height:280mm;overflow:hidden;background:#ffffff}
 .logo{position:absolute;top:50%;transform:translateY(-50%)}
-.gw{left:9mm;width:108mm;top:40%!important}.up{right:9mm;height:102mm}
+.gw{left:9mm;width:180mm;top:38%!important}
 h1{position:absolute;left:120mm;right:120mm;top:9mm;font-family:var(--font-heading);font-weight:var(--weight-heading);font-weight:500;font-size:40pt;line-height:1;text-align:center}
 h1 small{display:block;font-family:var(--font-body);font-size:16pt;color:#b6bfcc;margin-top:2.5mm}
 .card{position:absolute;width:215mm;background:#ffffff;border:.5mm solid #5d6879;border-radius:3mm;padding:3mm 4.5mm}
 .card .n{font-family:var(--font-heading);font-weight:var(--weight-heading);font-size:26pt;color:#0076A6}
 .hw{font-family:var(--font-note);font-weight:var(--weight-note);font-size:22pt;color:#000;background:#dcfd35;padding:.6mm 2.5mm;line-height:1.2;display:inline-block}
-.tags{position:absolute;left:9mm;width:108mm;top:172mm}
-.tags .an{display:inline-block;background:#000;color:#fff;font-family:var(--font-label);font-size:34pt;line-height:1.15;padding:1mm 3mm}
-.tags .hw{font-size:26pt;margin-top:0;padding:1mm 3mm}
+.tags{position:absolute;left:12mm;width:180mm;top:172mm}
+.tags .an{display:inline-block;background:#000;color:#fff;font-family:var(--font-label);font-size:42pt;line-height:1.15;padding:1mm 3mm}
+.tags .hw{font-size:32pt;margin-top:0;padding:1mm 3mm}
 .card .n span{float:right;font-family:var(--font-body);font-size:17pt;color:#621360;margin-top:1.2mm}
 .card h3{display:inline-block;vertical-align:middle;margin:0 0 0 auto;font-family:var(--font-note);font-weight:var(--weight-note);font-size:21pt;line-height:1.25;color:#000;background:var(--highlight);padding:.2mm 2.5mm;transform:rotate(-2deg)}
 .card .sol svg{position:static;display:inline-block;width:2.8mm!important;height:2.8mm!important;vertical-align:-1.2mm;margin-left:.2mm}.card .sol{font-size:inherit;vertical-align:baseline}
@@ -27,7 +27,7 @@ footer{position:absolute;left:120mm;right:120mm;bottom:5mm;font-size:12pt;color:
 .pg{width:297mm;height:210mm;overflow:hidden;position:relative;break-after:page}
 .pg .p{position:absolute;top:0}
 </style></head><body><div class="p" id="p">
-<img class="logo gw" src="gw-piano-light.svg"><img class="logo up" src="../dist/portsmouth.svg">
+<img class="logo gw" src="gw-piano-light.svg">
 <div class="tags"><div class="an">Hear black holes collide</div><br><div class="hw">Have a go on the piano!</div></div>
 <svg id="w"></svg><div id="cards"></div>
 </div>
@@ -44,13 +44,13 @@ const E=[ // note, name, title, masses, text, above
 ['B3','GW250114','GW150914’s louder twin','34 + 32','Almost a twin of the first event, but far clearer, letting scientists test Hawking’s ideas about black holes.',0],
 ['C6','GW230529','Picked out by Portsmouth','3.7 + 1.4','Seen by one detector and found within 15 seconds by PyCBC Live single-detector search, developed at Portsmouth.',0],
 ['off','GW170817','Heard in gravity, seen in light','1.5 + 1.3','Two neutron stars collided, making gold in a kilonova seen by telescopes worldwide.',0]];
-// keyboard and card area sits between the two logos
-const X0=mm(124),X1=mm(1058),KW=(X1-X0)/22,KY=mm(88),KH=mm(118),BH=KH*0.62,BW=KW*0.6,CW=mm(215);
+// keyboard and card area sits right of the GW Piano logo
+const X0=mm(200),X1=mm(1100),KW=(X1-X0)/22,KY=mm(88),KH=mm(118),BH=KH*0.62,BW=KW*0.6,CW=mm(215);
 const names=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],wh=[0,2,4,5,7,9,11];
 const keys={};let wi=0,s='';
 for(let m=48;m<=84;m++){const nm=names[m%12]+Math.floor(m/12-1);
  if(wh.includes(m%12)){keys[nm]={x:X0+wi*KW+KW/2,b:0};wi++}else keys[nm]={x:X0+wi*KW,b:1}}
-keys.off={x:mm(1180),b:0,off:1}; // off-scale arrow runs from the card edge, above the right-hand logo
+keys.off={x:mm(1180),b:0,off:1}; // off-scale arrow runs from the card edge
 const hit=new Set(E.map(e=>e[0]));
 let d='';for(let i=0;i<=600;i++){const t=i/600,x=X0+t*(X1-X0),f=4+60*t*t,a=mm(5)*(0.3+t);d+=(i?'L':'M')+x+','+(KY-mm(10)-a*Math.sin(f*t*6.28))}
 const defs=`<defs>
@@ -80,7 +80,7 @@ for(const up of [1,0]) E.filter(e=>e[5]==up).forEach((e,i)=>{
 const used={};
 for(const e of E){const k=keys[e[0]],up=e[5],r=e.c.getBoundingClientRect();let ax=r.left+r.width/2,ay=up?r.bottom:r.top;
  if(k.off){ax=r.right;ay=r.top+r.height/2}
- if(k.off){const t=document.createElement('b');t.className='hw';t.textContent='off the scale!';t.style.cssText='position:absolute;transform:translate(-50%,-100%) rotate(-2deg)';t.style.left=(ax+k.x)/2+'px';t.style.top=(ay-mm(1.5))+'px';cards.appendChild(t)}
+ if(k.off){const t=document.createElement('b');t.className='hw';t.textContent='off the scale!';t.style.cssText='position:absolute;white-space:nowrap;transform:translate(-50%,-100%) rotate(-2deg)';t.style.left=(ax+k.x)/2+'px';t.style.top=(ay-mm(1.5))+'px';cards.appendChild(t)}
  const n=used[e[0]]=(used[e[0]]||0)+1;
  const ky=k.off?ay:(up?(k.b?KY+BH*0.5:KY+KH*0.25):(k.b?KY+BH-8:KY+KH-mm(14)))+(up?1:-1)*(n-1)*mm(7);
  s+=`<path d="${k.off?`M${ax},${ay} L${k.x-mm(4)},${ky}`:`M${ax},${ay} C${ax},${(ay+ky)/2} ${k.x},${(ay+ky)/2} ${k.x},${ky}`}" fill="none" stroke="#621360" stroke-width="5"/>${k.off?`<path d="M${k.x-22},${ky-16} L${k.x},${ky} L${k.x-22},${ky+16}Z" fill="#621360"/>`:`<circle cx="${k.x}" cy="${ky}" r="11" fill="#621360"/>`}`}

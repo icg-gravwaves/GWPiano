@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 THEME = json.loads((ROOT / "conf/theme.json").read_text())
 DARK = THEME["colours"]
 HEAD_FONT, BODY_FONT = THEME["fonts"]["heading"]["family"], THEME["fonts"]["body"]["family"]
+NOTE_FONT = THEME["fonts"]["note"]["family"]
 # Print-friendly light body in the site's brand colours; the header band stays in the site's dark scheme.
 C = {**DARK, "bg": "#ffffff", "panel": "#f5f3f8", "text": "#0f1218", "muted": "#555d6a", "line": "#c3c9d2",
      "signal": DARK["brand-blue"], "accent-text": DARK["brand-blue"], "catalog": DARK["brand-purple"],
@@ -65,8 +66,8 @@ MIN_ALIGN_SNR = 7
 # Colour range of whitened energy (in units of the noise) for the detector maps.
 ENERGY_MAX = 20
 # Top of the shared frequency axis, so high and low mergers compare at a glance; it matches the
-# ~1.8 kHz reach of the 4 kHz detector data. Cards whose merger frequency is higher (neutron-star
-# pairs) extend their model track to F_TOP_HIGH instead.
+# ~1.8 kHz reach of the 4 kHz detector data. Only GW170817, whose merger is far above that,
+# extends its model track to F_TOP_HIGH; other high notes may sit at or above the top edge.
 F_TOP = 1843
 F_TOP_HIGH = 7000
 # Low edge of the detectors' sensitive band, used for the quoted duration.
@@ -174,8 +175,7 @@ def draw_detector(ax, event, detector, f_range):
     ax.set_ylim(*f_range)
     ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
     ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
-    ax.set_ylabel("Frequency (Hz)", fontsize=8, color=C["muted"])
-    ax.set_title(f"As {DETECTORS[detector]} saw it", fontsize=10, loc="left", color=C["text"], family=HEAD)
+    ax.set_title(f"As {DETECTORS[detector]} saw it", fontsize=9, loc="left", color=C["text"], family=HEAD)
     logging.info("%s: %s data, SNR %.1f", event["name"], detector, snr)
 
 
@@ -188,14 +188,18 @@ def card(pdf, mark, event, detector):
 
     fig = plt.figure(figsize=A5)
     fig.patch.set_facecolor(C["bg"])
-    # Small dark header band holding the site logo; the university logo sits in the light footer.
+    # Small dark header band holding the site logo.
     fig.add_artist(Rectangle((0, 0.92), 1, 0.08, transform=fig.transFigure, fc=DARK["bg"], ec="none", zorder=-1))
     add_logo(fig, LOGOS / "gw-piano-dark.png", 0, 0.99, 0.06)
 
     fig.text(0.93, 0.86, uk_date(event["utc"]), fontsize=10, family=HEAD, color=C["muted"], va="center", ha="right")
-    fig.text(0.07, 0.86, mark["label"], fontsize=24, family=HEAD, color=C["text"], va="center")
-    fig.text(0.07, 0.823, mark["title"], fontsize=12, color=C["catalog"], va="center", weight="semibold")
-    fig.text(0.07, 0.8, textwrap.fill(mark["text"], 78), fontsize=8.5, color=C["muted"], va="top", linespacing=1.4)
+    fig.text(0.07, 0.86, mark["label"], fontsize=24, family=HEAD, color=C["brand-purple"], va="center")
+    # Subtitle as the site's handwritten note on a lime highlight, centred and tilted 2 degrees
+    # anticlockwise like the site's notes (CSS rotate(-2deg)).
+    fig.text(0.5, 0.818, mark["title"], fontsize=12, family=[NOTE_FONT, "DejaVu Sans"], weight="bold",
+             color=C["black"], ha="center", va="center", rotation=2, rotation_mode="anchor",
+             bbox=dict(boxstyle="square,pad=0.25", fc=C["highlight"], ec="none"))
+    fig.text(0.07, 0.792, textwrap.fill(mark["text"], 78), fontsize=8.5, color=C["muted"], va="top", linespacing=1.4)
 
     # Two rows of two: what merged and for how long, then what it sounds like.
     facts = [("Masses", f"{m1:g} + {m2:g} M$_\\odot$"),
@@ -209,36 +213,45 @@ def card(pdf, mark, event, detector):
         fig.text(x, y - 0.024, v, fontsize=11.5, family=HEAD,
                  color=C["accent-text"] if k == "Piano note" else C["text"])
 
-    ax_t = fig.add_axes([0.13, 0.475, 0.80, 0.11])
+    ax_t = fig.add_axes([0.13, 0.445, 0.80, 0.12])
     ax_t.plot(t, h, color=C["signal"], lw=0.6)
     ax_t.set_ylabel("Strain", fontsize=8, color=C["muted"])
     ax_t.set_yticks([])
     ax_t.set_title("The chirp as a wave", fontsize=10, loc="left", color=C["text"], family=HEAD)
 
-    ax_f = fig.add_axes([0.13, 0.325, 0.80, 0.115])
+    # Model track and detector data side by side, on the same time and frequency axes.
+    ax_f = fig.add_axes([0.13, 0.2, 0.37, 0.19])
     track = LinearSegmentedColormap.from_list("track", [DARK["catalog"], C["accent"], C["brand-purple"]])
     ax_f.scatter(t, f, c=amp, cmap=track, s=1.5, lw=0, vmin=0, vmax=1, rasterized=True)
     ax_f.set_yscale("log")
-    ax_f.set_ylim(F_LOWER, F_TOP if f_note_peak * 1.2 < F_TOP else F_TOP_HIGH)
-    ax_f.axhline(f_note_peak, color=C["catalog"], ls="--", lw=0.8)
-    ax_f.text(-WINDOW, f_note_peak * 1.1, f" musical note {note_label(midi)}", color=C["catalog"], fontsize=7.5)
+    ax_f.set_ylim(F_LOWER, F_TOP_HIGH if event["name"] == "GW170817" else F_TOP)
+    top = ax_f.get_ylim()[1]
+    if f_note_peak < top:
+        ax_f.axhline(f_note_peak, color=C["catalog"], ls="--", lw=0.8)
+        ax_f.text(-WINDOW, min(f_note_peak * 1.1, top * 0.75), f" {note_label(midi)}",
+                  color=C["catalog"], fontsize=7)
+    else:
+        # The note is above this axis: say so inside the graph instead of drawing the line off the top.
+        ax_f.text(-WINDOW, top * 0.85, f" {note_label(midi)} ↑",
+                  color=C["catalog"], fontsize=7, va="top")
     ax_f.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
     ax_f.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
     ax_f.set_ylabel("Frequency (Hz)", fontsize=8, color=C["muted"])
-    ax_f.set_title("The chirp in time and frequency", fontsize=10, loc="left", color=C["text"], family=HEAD)
-    ax_d = fig.add_axes([0.13, 0.175, 0.80, 0.115])
+    ax_f.set_title("Model chirp", fontsize=9, loc="left", color=C["text"], family=HEAD)
+    ax_d = fig.add_axes([0.565, 0.2, 0.365, 0.19])
     draw_detector(ax_d, event, detector, ax_f.get_ylim())
-    ax_d.set_xlabel("Time from merger (s)", fontsize=8, color=C["muted"])
     for ax in (ax_t, ax_f, ax_d):
         style_axes(ax)
+    for ax in (ax_f, ax_d):
+        ax.set_xticks([-1, -0.5, 0])
+        ax.set_xlabel("Time from merger (s)", fontsize=7.5, color=C["muted"])
     if duration > WINDOW:
         ax_t.annotate(f"started {duration_label(duration)} earlier", xy=(-WINDOW, 0.9), xytext=(-WINDOW * 0.72, 0.9),
                       fontsize=7, color=C["muted"], va="center",
                       arrowprops=dict(arrowstyle="-|>", color=C["muted"], lw=0.8))
-    plt.setp(ax_t.get_xticklabels() + ax_f.get_xticklabels(), visible=False)
+    plt.setp(ax_t.get_xticklabels(), visible=False)
 
     draw_keyboard(fig.add_axes([0.07, 0.085, 0.86, 0.04]), midi)
-    add_logo(fig, LOGOS / "portsmouth.png", 0.93, 0.075, 0.065)
     fig.text(0.07, 0.03,
              "Model chirp (IMRPhenomD, no spin); duration counted from 20 Hz, where the detectors become sensitive.\n"
              "The piano note is the nearest key to the merger frequency.",

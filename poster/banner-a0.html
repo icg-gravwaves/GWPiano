@@ -1,0 +1,13 @@
+<!doctype html>
+<!-- Landscape A0 sheet holding three copies of banner.html, with dotted cut lines between them. -->
+<meta charset="utf-8">
+<style>
+@page{size:1189mm 841mm;margin:0}
+html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{position:relative;width:1189mm;height:841mm}
+iframe{display:block;width:1189mm;height:280mm;border:0}
+/* Cut lines sit on top of the banners at each 280 mm boundary, so they do not shift the layout. */
+.cut{position:absolute;left:0;width:1189mm;height:0;border-top:.6mm dotted #555}
+</style>
+<iframe src="banner.html"></iframe><iframe src="banner.html"></iframe><iframe src="banner.html"></iframe>
+<div class="cut" style="top:280mm"></div><div class="cut" style="top:560mm"></div>

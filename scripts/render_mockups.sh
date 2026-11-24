@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Regenerate the docs mock-up SVGs and render them to PNG with headless Chrome.
+# Regenerate the stand guide images:
+#   docs/images/stand.png                        from the hand-drawn stand.svg, rendered with headless Chrome
+#   docs/images/screen-waveform.png, screen-touch.png  screenshots of the real kiosk pages (needs dist/, see capture_screens.mjs)
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-python "$ROOT/scripts/render_mockups.py" "$ROOT"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 cd "$ROOT/docs/images"
-for spec in stand:1420,1000 screen-waveform:1280,800 screen-touch:1280,720; do
-  name=${spec%%:*}; size=${spec#*:}
-  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files \
-    --window-size="$size" --screenshot="$PWD/$name.png" "file://$PWD/$name.svg" 2>/dev/null
-done
+"$CHROME" --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files \
+  --window-size=1420,1000 --screenshot="$PWD/stand.png" "file://$PWD/stand.svg" 2>/dev/null
+CHROME="$CHROME" node "$ROOT/scripts/capture_screens.mjs"
