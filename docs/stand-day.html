@@ -59,6 +59,13 @@ a{color:var(--accent)}
 <section>
   <h2>The screens</h2>
   <p class="note">Open the screens directly: <a href="kiosk-live.html">live display</a> (larger screen) and <a href="kiosk-controls.html">controls</a> (touch screen). On the stand they run from the Pi at <code>http://localhost:8000/</code>; open both in the same browser so the controls can reach the live display.</p>
+  <h3>Making the screens full screen</h3>
+  <p>On the stand, both pages open full screen by themselves when the Pi starts. If one shows a browser frame or tab bar:</p>
+  <ul>
+    <li><b>Quickest fix:</b> unplug the Pi's power and plug it back in. Both screens come back full screen in about 30 seconds.</li>
+    <li><b>With a computer keyboard plugged into the Pi:</b> tap the screen that is not full screen, then press <kbd>F11</kbd>. Press <kbd>F11</kbd> again to leave full screen.</li>
+    <li><b>Running the pages on a laptop</b> (for example to test or demonstrate): open each link above in its own window in the same browser, drag each window to its screen, click it and press <kbd>F11</kbd> on Windows or Linux, or <kbd>Ctrl</kbd>+<kbd>⌘</kbd>+<kbd>F</kbd> on a Mac.</li>
+  </ul>
   <h3>Larger screen: timeseries, spectrogram and histogram</h3>
   <img src="images/screen-waveform.png" alt="Live screen: scrolling strain timeseries, spectrogram showing each chirp sweeping up in frequency, and the LVK mass histogram with a coloured line for each key" style="width:100%;border-radius:10px">
   <p>The top strip is a live timeseries of the sound being played, scrolling from right to left over the last 4.5 seconds, with each note labelled by its mass and mode. Underneath, a spectrogram on the same time axis shows each chirp sweeping up in frequency. Musical-mode notes then hold a flat line at the note's pitch. The bottom panel is the catalogue histogram from the website, with a coloured line for each key at its mass. Played notes stack up as striped bars, and the key currently sounding is highlighted.</p>
@@ -147,8 +154,9 @@ a{color:var(--accent)}
   <h2>If something goes wrong</h2>
   <ul>
     <li><b>No sound:</b> check the speakers are on and plugged into the USB audio interface, and that the volume knob is up.</li>
-    <li><b>Keys do nothing:</b> check the keyboard's USB cable is plugged into the Pi, then tap Stop all.</li>
+    <li><b>Keys do nothing:</b> check the keyboard's USB cable is plugged into the Pi, then tap Stop.</li>
     <li><b>The touch screen buttons stay grey:</b> the live display is still loading; wait 30 seconds.</li>
+    <li><b>A screen shows a browser frame or tab bar:</b> see <i>Making the screens full screen</i> above.</li>
     <li><b>Anything else freezes:</b> unplug the Pi's power and plug it back in. The stand restarts by itself in about 30 seconds.</li>
     <li><b>The Pi is too hot or slow:</b> clear anything blocking the vents on the back of the touch screen case.</li>
   </ul>

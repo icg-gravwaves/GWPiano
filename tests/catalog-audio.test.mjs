@@ -49,7 +49,7 @@ test('highlights expire at sound end while overlapping notes remain lit', () => 
 function audioContextStub() {
   const sources=[];
   const gain={gain:{setValueAtTime(){},linearRampToValueAtTime(){}},connect(){},disconnect(){}};
-  return {sources,createGain:()=>gain,createBufferSource(){
+  return {sources,currentTime:10,createGain:()=>gain,createBufferSource(){
     const source={playbackRate:{value:1},connect(){},disconnect(){},start(time){this.startTime=time;},stop(){this.stopped=true;this.onended();}};
     sources.push(source);return source;
   }};
@@ -58,7 +58,7 @@ test('lookup playback reuses buffers and schedules every component without a mix
   const context=audioContextStub(),buffer={duration:0.5};
   const plan=[{offset:0,playbackRate:1,note:notes[0]},{offset:3,playbackRate:2,note:notes[1]}];
   let ended=0;
-  scheduleCatalog(context,plan,()=>buffer,{},10,()=>ended++);
+  scheduleCatalog(context,plan,()=>buffer,{},10,()=>ended++,{lookahead:Infinity});
   assert.deepEqual(context.sources.map(source=>source.startTime),[10,13]);
   assert.deepEqual(context.sources.map(source=>source.playbackRate.value),[1,2]);
   assert.ok(context.sources.every(source=>source.buffer===buffer));
@@ -66,12 +66,23 @@ test('lookup playback reuses buffers and schedules every component without a mix
   context.sources[0].onended();assert.equal(ended,0);
   context.sources[1].onended();assert.equal(ended,1);
 });
-test('stopping lookup playback cancels future components without a completion callback',()=>{
+test('stopping lookup playback cancels scheduled and future components without a completion callback',async()=>{
   const context=audioContextStub();let ended=0;
   const plan=Array.from({length:40},(_,i)=>({offset:i,playbackRate:1,note:notes[0]}));
-  const batch=scheduleCatalog(context,plan,()=>({duration:0.5}),{},10,()=>ended++);
+  const batch=scheduleCatalog(context,plan,()=>({duration:0.5}),{},10,()=>ended++,{lookahead:1,interval:0.01});
+  assert.equal(context.sources.length,2);
   batch.stop();batch.stop();
-  assert.equal(context.sources.length,40);
+  context.currentTime=50;await new Promise(r=>setTimeout(r,40));
+  assert.equal(context.sources.length,2);
   assert.ok(context.sources.every(source=>source.stopped));
   assert.equal(ended,0);
+});
+test('lookup playback picks each buffer when it is scheduled, so a mode switch reaches later notes',async()=>{
+  const context=audioContextStub();let mode='scientific';
+  const plan=[{offset:0,playbackRate:1,note:notes[0]},{offset:5,playbackRate:1,note:notes[0]}];
+  const buffers={scientific:{duration:0.5},musical:{duration:0.4}};
+  const batch=scheduleCatalog(context,plan,()=>buffers[mode],{},10,()=>{},{lookahead:1,interval:0.01});
+  mode='musical';context.currentTime=14.5;await new Promise(r=>setTimeout(r,40));
+  assert.deepEqual(context.sources.map(source=>source.buffer),[buffers.scientific,buffers.musical]);
+  batch.stop();
 });

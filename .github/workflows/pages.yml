@@ -26,6 +26,20 @@ jobs:
       - name: Build printable landmark fact cards
         # Downloads about 0.5 GB of GWOSC strain into a temporary directory and discards it.
         run: python scripts/fact_cards.py --output dist/landmark-fact-cards.pdf
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Capture stand guide screen previews from the built kiosk pages
+        # Screenshots kiosk-live.html and kiosk-controls.html in headless Chrome (preinstalled on the
+        # runner) and replaces the committed previews in the deployed stand pages. If capture fails,
+        # the committed images in docs/images are deployed instead.
+        continue-on-error: true
+        env:
+          CHROME: /usr/bin/google-chrome
+        run: |
+          node scripts/capture_screens.mjs
+          cp docs/images/screen-waveform.png dist/stand-screen-waveform.png
+          cp docs/images/screen-touch.png dist/stand-screen-touch.png
       - name: Check sound pack before deploying
         run: python scripts/check_pack.py dist
       - uses: actions/configure-pages@v6

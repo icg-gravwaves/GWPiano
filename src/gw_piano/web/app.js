@@ -129,8 +129,10 @@ function describeMode() {
     ? 'Musical: short model chirp + 350 ms decaying tone at the note frequency. The tone is synthetic.'
     : 'Scientific: the full model waveform, with no added tone.';
 }
+// Switching mode leaves playback running: tunes, detection runs and keys pick up the new mode
+// from their next note (see scheduleCatalog).
 document.querySelector('#musical-mode').addEventListener('change', () => {
-  stopAll();
+  console.debug('GW Piano mode', document.querySelector('#musical-mode').checked ? 'musical' : 'scientific');
   describeMode();
   warmCatalog();
   status.textContent = document.querySelector('#musical-mode').checked
@@ -518,7 +520,7 @@ async function playCatalog(condensed) {
         if (nextComponent === plan.length) document.querySelector('#chart-status').textContent += ' · matches catalog';
       }
     };
-    const source = scheduleCatalog(context, plan, note => (musical ? musicalBuffers : buffers).get(note.midi), master, start, () => {
+    const source = scheduleCatalog(context, plan, note => (document.querySelector('#musical-mode').checked ? musicalBuffers : buffers).get(note.midi), master, start, () => {
       voices.delete(source);
       if (ensembleSource === source) {
         progress(context.currentTime - start);

@@ -47,22 +47,28 @@ export function activeNotes(plan, elapsed) {
 }
 
 /** Schedule cached note buffers directly, scaling pitch and duration by mass. */
-export function scheduleCatalog(context, plan, bufferFor, output, start, onended) {
+export function scheduleCatalog(context, plan, bufferFor, output, start, onended, {lookahead = 1, interval = 0.2} = {}) {
+  // Parts are scheduled a short lookahead before they sound, and bufferFor is called at that moment,
+  // so switching between scientific and musical mode mid-run changes the notes still to come.
   const gain = context.createGain(), sources = new Set();
   gain.gain.setValueAtTime(0, start);
   gain.gain.linearRampToValueAtTime(0.25, start + 0.005);
   gain.connect(output);
-  let stopped = false;
+  let stopped = false, next = 0, timer = null;
+  const finish = () => { clearInterval(timer); timer = null; gain.disconnect(); };
   const batch = {
     stop() {
       if (stopped) return;
       stopped = true;
       for (const source of sources) source.stop();
-      gain.disconnect();
+      finish();
     }
   };
-  try {
-    for (const part of plan) {
+  const pump = () => {
+    if (stopped) return;
+    const horizon = (context.currentTime ?? start) + lookahead;
+    while (next < plan.length && start + plan[next].offset <= horizon) {
+      const part = plan[next++];
       const source = context.createBufferSource();
       source.buffer = bufferFor(part.note);
       source.playbackRate.value = part.playbackRate;
@@ -72,10 +78,15 @@ export function scheduleCatalog(context, plan, bufferFor, output, start, onended
       source.onended = () => {
         sources.delete(source);
         source.disconnect();
-        if (!sources.size && !stopped) { gain.disconnect(); onended(); }
+        if (!sources.size && next >= plan.length && !stopped) { finish(); onended(); }
       };
       source.start(start + part.offset);
     }
+    if (next >= plan.length) { clearInterval(timer); timer = null; }
+  };
+  try {
+    pump();
+    if (next < plan.length) timer = setInterval(() => { try { pump(); } catch (error) { console.debug('GW Piano catalog scheduling', error); batch.stop(); } }, interval * 1000);
   } catch (error) { batch.stop(); throw error; }
   return batch;
 }
