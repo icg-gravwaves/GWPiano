@@ -6,45 +6,45 @@
 <style>
 /* Layout: single reading column; wiring diagram and parts table scroll inside their own containers */
 :root{
-  --bg:#f5f6fa; --surface:#ffffff; --fg:#161a2b; --muted:#5a6078; --line:#d9dce8;
-  --sci:#3b5bdb; --mus:#c2410c; --accent:#6741d9;
+  --g-bg:#f5f6fa; --g-surface:var(--white); --g-fg:#161a2b; --g-muted:#5a6078; --g-line:#d9dce8;
+  --sci:var(--brand-blue); --mus:var(--highlight-pink); --accent:var(--brand-purple);
   --display:var(--font-heading); --body:var(--font-body); --mono:ui-monospace,SFMono-Regular,Menlo,monospace; color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
-  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}}
+  --g-bg:var(--bg); --g-surface:var(--panel); --g-fg:var(--text); --g-muted:var(--muted); --g-line:var(--line);
+  --sci:var(--brand-blue-bright); --mus:var(--highlight-pink); --accent:var(--highlight); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
-  --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}
-body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+  --g-bg:var(--bg); --g-surface:var(--panel); --g-fg:var(--text); --g-muted:var(--muted); --g-line:var(--line);
+  --sci:var(--brand-blue-bright); --mus:var(--highlight-pink); --accent:var(--highlight); color-scheme:dark}
+body{background:var(--g-bg);color:var(--g-fg);font:16px/1.6 var(--body)}
 main{max-width:860px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
 h1,h2,h3{font-family:var(--display);font-weight:var(--weight-heading);text-wrap:balance;margin:0;line-height:1.2}
 h1{font-size:2.4rem}h2{font-size:1.5rem}h3{font-size:1.1rem}
 section{display:grid;gap:14px;min-width:0}
 p,li{max-width:68ch;margin:0}
 ul,ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
-.lede{color:var(--muted);font-size:1.1rem}
+.lede{color:var(--g-muted);font-size:1.1rem}
 .eyebrow{font:600 .75rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 code,pre{font-family:var(--mono);font-size:.85rem}
-code{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
-pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;margin:0;line-height:1.5}
+code{background:var(--g-surface);border:1px solid var(--g-line);border-radius:4px;padding:1px 5px}
+pre{background:var(--g-surface);border:1px solid var(--g-line);border-radius:8px;padding:14px;overflow-x:auto;margin:0;line-height:1.5}
 pre code{border:0;padding:0;background:none}
 .modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.mode{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);display:grid;gap:6px}
+.mode{border:1px solid var(--g-line);border-radius:10px;padding:16px;background:var(--g-surface);display:grid;gap:6px}
 .mode b{font-family:var(--display);font-size:1.1rem}
 .mode.sci{border-top:4px solid var(--sci)}.mode.mus{border-top:4px solid var(--mus)}
-.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.scroll{overflow-x:auto;border:1px solid var(--g-line);border-radius:10px;background:var(--g-surface)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--g-line);vertical-align:top}
+th{font:600 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--g-muted)}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 tfoot td{font-weight:600;border-bottom:0}
-.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
-.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted)}
-svg text{fill:var(--fg);font:13px var(--body)}
-svg .sub{fill:var(--muted);font-size:11px}
-svg .box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
-svg .wire{stroke:var(--muted);stroke-width:1.5;fill:none}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--g-line);color:var(--g-muted)}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--g-muted)}
+svg text{fill:var(--g-fg);font:13px var(--body)}
+svg .sub{fill:var(--g-muted);font-size:11px}
+svg .box{fill:var(--g-surface);stroke:var(--g-line);stroke-width:1.5}
+svg .wire{stroke:var(--g-muted);stroke-width:1.5;fill:none}
 svg .audio{stroke:var(--accent)}
 a{color:var(--accent)}
 </style>
@@ -119,8 +119,8 @@ a{color:var(--accent)}
   <ol>
     <li>"Press any key." Start in scientific mode: one key gives the chirp that LIGO hears.</li>
     <li>"Now try one at the far left, then one at the far right." Heavy black holes chirp lower and for longer; light ones chirp short and high.</li>
-    <li>Point at the monitor. The <b>timeseries</b> is the wave they just made. The <b>spectrogram</b> shows the frequency sweeping up as the black holes spiral together. On the <b>histogram</b>, the coloured line marks their key's mass, and the purple bars are the real black holes found by LIGO, Virgo and KAGRA.</li>
-    <li>"Which key matches the most common real black holes?" Visitors hunt along the keyboard for the tallest purple bars.</li>
+    <li>Point at the monitor. The <b>timeseries</b> is the wave they just made. The <b>spectrogram</b> shows the frequency sweeping up as the black holes spiral together. On the <b>histogram</b>, the coloured line marks their key's mass, and the pink bars are the real black holes found by LIGO, Virgo and KAGRA.</li>
+    <li>"Which key matches the most common real black holes?" Visitors hunt along the keyboard for the tallest blue bars.</li>
   </ol>
   <p><b>For visitors who want music:</b> tap <b>MUSICAL</b> on the touch screen, then <b>Example 1–4</b>. The tune plays by itself, and visitors can join in on the keys.</p>
   <p><b>The showpiece</b></p>

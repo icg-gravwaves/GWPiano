@@ -289,7 +289,7 @@ function fit(canvas) {
 }
 
 function colourMap(t) {
-  // Panel → purple → blue → cyan → white, matching the site palette.
+  // Panel → purple → blue → bright blue → white, from the theme colours.
   const stops = [css('--panel'), css('--brand-purple'), css('--accent'), css('--signal'), '#ffffff'].map(hex =>
     [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)));
   const x = Math.max(0, Math.min(0.9999, t)) * (stops.length - 1), i = Math.floor(x), f = x - i;
@@ -381,7 +381,7 @@ function drawHistogram() {
   const ticks = [0, 25, 50, 75, 100, 125, 150].map(m =>
     `<text x="${W * m / 150}" y="${H + 18}" text-anchor="middle">${m}${m === 150 ? massMarkup(' M☉') : ''}</text>`).join('');
   svg.innerHTML = `<defs><pattern id="stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-    <rect width="8" height="8" fill="var(--signal)" opacity=".35"/><rect width="3" height="8" fill="var(--signal)"/></pattern></defs>
+    <rect width="8" height="8" fill="var(--played)" opacity=".35"/><rect width="3" height="8" fill="var(--played)"/></pattern></defs>
     ${keyLines}${bars(catalogCounts, () => 'var(--catalog)')}${bars(playedCounts, i => i === sounding ? '#fff' : 'url(#stripe)')}
     <line x1="0" y1="${H}" x2="${W}" y2="${H}" stroke="var(--line)"/>${ticks}${keyLabels}`;
   document.querySelector('#played-count').textContent = `${state.played.length} components played`;

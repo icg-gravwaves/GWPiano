@@ -355,7 +355,7 @@ function drawHistogram() {
   const svg = document.querySelector('#histogram'); svg.replaceChildren();
   const defs = svgElement('defs', {});
   const stripes = svgElement('pattern', {id:'played-stripes', patternUnits:'userSpaceOnUse', width:8, height:8});
-  stripes.append(svgElement('path', {d:'M-2 2 L2 -2 M0 8 L8 0 M6 10 L10 6', stroke:'var(--signal)', 'stroke-width':3}));
+  stripes.append(svgElement('path', {d:'M-2 2 L2 -2 M0 8 L8 0 M6 10 L10 6', stroke:'var(--played)', 'stroke-width':3}));
   defs.append(stripes); svg.append(defs);
   const markerLayer = svgElement('g', {class:'note-markers'});
   svg.append(markerLayer);
@@ -367,7 +367,7 @@ function drawHistogram() {
   svg.append(svgElement('text', {x:60,y:48}, 'Component count'));
   for (let i = 0; i < bins; i++) {
     const x = 60 + i * 920 / bins, width = 920 / bins;
-    for (const [values, color, isPlayed] of [[a,'var(--catalog)',false],[b,'var(--signal)',true]]) {
+    for (const [values, color, isPlayed] of [[a,'var(--catalog)',false],[b,'var(--played)',true]]) {
       const height = values[i] / ymax * 240;
       const bar = svgElement('rect', {x, y:305-height, width, height, class:isPlayed ? 'played-bar' : 'observed-bar', 'data-low':axis.edges[i], 'data-high':axis.edges[i+1], fill:color, stroke:isPlayed ? 'var(--white)' : 'none', 'stroke-width':isPlayed ? 1 : 0});
       bar.append(svgElement('title', {}, `${formatMass(axis.edges[i])}–${formatMass(axis.edges[i+1])} M☉: ${values[i]} components`)); svg.append(bar);
@@ -410,6 +410,8 @@ function drawHistogram() {
   const axisLabel = svgElement('text', {x:520,y:360,'text-anchor':'middle'}); setMassText(axisLabel, 'Component mass / M☉'); svg.append(axisLabel);
   const activity = [playedNotes ? `${playedNotes} notes` : '', playedEvents ? `${playedEvents} catalog events` : ''].filter(Boolean).join(' + ') || '0 notes';
   setMassText(document.querySelector('#chart-status'), `${observed.length} catalog components · ${activity} played / ${played.length} played components${overflow ? ` · ${overflow} above 150 M☉ (off chart)` : ""}`);
+  // The redraw replaces every bar, so mark the bins that are still sounding again
+  updateSoundingBars();
 }
 document.querySelector('#reset').onclick = () => { stopAll(); played.length = 0; playedNotes = 0; playedEvents = 0; latestNote = null; drawHistogram(); };
 Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(async responses => {
