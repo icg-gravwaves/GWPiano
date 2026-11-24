@@ -8,6 +8,7 @@ import {catalogPlan, scheduleCatalog} from './catalog-audio.mjs';
 import {eventTimeline} from './timeline.mjs';
 import {tunes, tuneSchedule} from './tunes.mjs';
 import {landmarks, landmarkNotes} from './landmarks.mjs';
+import {massMarkup, setMassText} from './solar.mjs';
 
 // Seconds between detections in Play detections in order. Each sample lasts up to 0.35 s,
 // so neighbouring chirps overlap a little while staying distinct on the timeseries.
@@ -24,6 +25,8 @@ const channel = new BroadcastChannel('gw-piano-kiosk');
 const state = {mode: 'scientific', busy: null, ready: false, played: [], lastNote: null};
 let context, master, analyser, notes = [], byMidi = new Map(), catalog;
 const buffers = {scientific: new Map(), musical: new Map()};
+// Notable detections' own real-mass waveforms, keyed by catalog event name.
+const landmarkBuffers = {scientific: new Map(), musical: new Map()};
 const voices = new Set();
 let tuneTimers = [], batch = null, generation = 0;
 const markers = [];   // {time, label, colour}: note onsets drawn on the strips
@@ -84,6 +87,12 @@ async function start() {
       status.textContent = `Loading sounds ${++loaded}/${notes.length * 2}`;
     }
   }));
+  // Notable detections have their own real-mass waveforms; a missing one falls back to the retuned note.
+  await Promise.all(catalog.events.filter(event => event.sample).flatMap(event =>
+    [['scientific', event.sample], ['musical', event.musical_sample]].map(async ([mode, url]) => {
+      try { landmarkBuffers[mode].set(event.name, await loadBuffer(url)); }
+      catch (error) { console.debug('GW Piano kiosk landmark sample unavailable', url, error); }
+    })));
   state.ready = true;
   status.textContent = '';
   broadcast();
@@ -131,8 +140,8 @@ function playNote(midi, velocity = 100, when = null) {
   state.lastNote = note;
   addPlayed(note.mass, `${note.name} · ${note.mass.toFixed(0)} M☉`, at);
   addPlayed(note.mass, null, at);   // equal-mass binary: two components
-  document.querySelector('#last-note').textContent =
-    `Last note: ${note.name} · 2 × ${note.mass.toFixed(1)} M☉ · ${state.mode}`;
+  setMassText(document.querySelector('#last-note'),
+    `Last note: ${note.name} · 2 × ${note.mass.toFixed(1)} M☉ · ${state.mode}`);
 }
 
 function stopAll() {
@@ -177,7 +186,7 @@ function playDetections(condensed) {
   }
 }
 
-/** Play one notable detection as its chirp-mass-equivalent equal-mass chirp. */
+/** Play one notable detection, tuned to its own merger frequency. */
 function playLandmark(index) {
   stopAll();
   const landmark = landmarkNotes(catalog.events, notes).find(item => item.name === landmarks[index]?.name);
@@ -185,13 +194,16 @@ function playLandmark(index) {
   const ticket = generation;
   const at = context.currentTime + 0.05;
   state.busy = `landmark-${index}`; broadcast();
-  batch = scheduleCatalog(context, [{...landmark.part}], note => buffers[state.mode].get(note.midi), master, at, () => {
+  // Use the detection's own real-mass waveform when it has loaded, else the retuned nearest note.
+  const own = landmarkBuffers[state.mode].get(landmark.name);
+  const part = own ? {...landmark.part, playbackRate: 1} : {...landmark.part};
+  batch = scheduleCatalog(context, [part], own ? () => own : note => buffers[state.mode].get(note.midi), master, at, () => {
     if (ticket === generation) { batch = null; state.busy = null; broadcast(); }
   });
   // Each component of the real binary goes on the histogram; the first carries the event label.
   landmark.event.masses.forEach((mass, i) => addPlayed(mass, i === 0 ? landmark.name : null, at, landmark.note));
-  document.querySelector('#last-note').textContent =
-    `${landmark.name} · ${landmark.title} · ${landmark.event.masses.join(' + ')} M☉`;
+  setMassText(document.querySelector('#last-note'),
+    `${landmark.label} · ${landmark.title} · ${landmark.event.masses.join(' + ')} M☉`);
   console.debug('GW Piano kiosk landmark', landmark.name, landmark.part.frequency);
 }
 
@@ -326,7 +338,7 @@ function drawMarkers() {
   });
   layer.replaceChildren(...shown.map(m => {
     const tag = document.createElement('span');
-    tag.textContent = m.label;
+    setMassText(tag, m.label);
     tag.style.left = `${100 * (1 - (nowTime - m.time) / WINDOW_SECONDS)}%`;
     tag.style.borderColor = tag.style.color = m.colour;
     return tag;
@@ -367,7 +379,7 @@ function drawHistogram() {
     }
   }
   const ticks = [0, 25, 50, 75, 100, 125, 150].map(m =>
-    `<text x="${W * m / 150}" y="${H + 18}" text-anchor="middle">${m}${m === 150 ? ' M☉' : ''}</text>`).join('');
+    `<text x="${W * m / 150}" y="${H + 18}" text-anchor="middle">${m}${m === 150 ? massMarkup(' M☉') : ''}</text>`).join('');
   svg.innerHTML = `<defs><pattern id="stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <rect width="8" height="8" fill="var(--signal)" opacity=".35"/><rect width="3" height="8" fill="var(--signal)"/></pattern></defs>
     ${keyLines}${bars(catalogCounts, () => 'var(--catalog)')}${bars(playedCounts, i => i === sounding ? '#fff' : 'url(#stripe)')}

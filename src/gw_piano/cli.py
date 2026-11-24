@@ -5,7 +5,9 @@ from importlib.resources import files
 from pathlib import Path
 import zipfile
 
-from .synthesis import MAX_SECONDS, component_mass, musical_sample, note_frequency, note_name, synthesize, write_wav
+from .landmarks import landmarks
+from .synthesis import (MAX_SECONDS, component_mass, merger_peak, musical_sample, note_frequency, note_name,
+                        synthesize, synthesize_pair, write_wav)
 
 
 def build(output: Path, low: int = 48, high: int = 84, ratio: float = 0.12,
@@ -63,7 +65,22 @@ def build(output: Path, low: int = 48, high: int = 84, ratio: float = 0.12,
         for item in [*(output / n["file"] for n in notes), *(output / n["musical_file"] for n in notes),
                      *(output / name for name in sfz_files), output / "sound-pack-manifest.json", output / "PACK-README.txt"]:
             pack.write(item, item.relative_to(output))
-    (output / "catalog.json").write_bytes(files("gw_piano").joinpath("data/catalog.json").read_bytes())
+    # Each binary's own model merger frequency lets the browser tune it without assuming equal masses.
+    catalog = json.loads(files("gw_piano").joinpath("data/catalog.json").read_text())
+    for event in catalog["events"]:
+        if len(event["masses"]) == 2:
+            event["peak"] = round(merger_peak(*event["masses"]), 3)
+    # Notable detections also get their own real-mass waveform, so they play their true chirp.
+    notable = {mark["name"] for mark in landmarks()}
+    (output / "audio-landmarks").mkdir(exist_ok=True)
+    for event in catalog["events"]:
+        if event["name"] in notable and "peak" in event:
+            samples = synthesize_pair(*event["masses"], ratio, max_seconds=max_seconds)
+            event["sample"] = f"audio-landmarks/{event['name']}.wav"
+            event["musical_sample"] = f"audio-landmarks/{event['name']}-musical.wav"
+            write_wav(output / event["sample"], samples)
+            write_wav(output / event["musical_sample"], musical_sample(samples, event["peak"]))
+    (output / "catalog.json").write_text(json.dumps(catalog, indent=2) + "\n")
     for item in files("gw_piano").joinpath("web").iterdir():
         (output / item.name).write_bytes(item.read_bytes())
     (output / ".nojekyll").touch()

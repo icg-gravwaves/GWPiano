@@ -4,6 +4,7 @@ import {massBins} from './histogram.mjs';
 import {catalogPlan, scheduleCatalog, activeNotes} from './catalog-audio.mjs';
 import {tunes, tuneSchedule} from './tunes.mjs';
 import {landmarkNotes} from './landmarks.mjs';
+import {setMassText} from './solar.mjs';
 
 'use strict';
 const status = document.querySelector('#status');
@@ -80,13 +81,40 @@ const wavePath = Array.from({length: 1200}, (_, i) => {
   return `${i ? 'L' : 'M'}${(t * 600).toFixed(2)},${(180 + Math.sin(12*t + 220*t**4) * (8 + 140*t**3)).toFixed(2)}`;
 }).join(' ');
 document.querySelector('#waveform').setAttribute('d', wavePath);
+const HERO_EVENT = 'GW150914';
+/** Redraw the header waveform from a real merger's model strain: the last 0.2 s before peak plus the ringdown. */
+async function drawHeroWaveform(event) {
+  if (!event?.sample) return;
+  try {
+    const bytes = await (await fetch(event.sample)).arrayBuffer();
+    const audio = await new OfflineAudioContext(1, 1, 44100).decodeAudioData(bytes);
+    const data = audio.getChannelData(0);
+    let peak = 0;
+    for (let i = 1; i < data.length; i++) if (Math.abs(data[i]) > Math.abs(data[peak])) peak = i;
+    const start = Math.max(0, peak - Math.round(0.2 * audio.sampleRate));
+    const end = Math.min(data.length, peak + Math.round(0.03 * audio.sampleRate));
+    const scale = 160 / Math.abs(data[peak]);
+    const points = 1200;
+    const path = Array.from({length: points}, (_, i) => {
+      const sample = data[Math.round(start + (end - start - 1) * i / (points - 1))];
+      return `${i ? 'L' : 'M'}${(i / (points - 1) * 600).toFixed(2)},${(180 - sample * scale).toFixed(2)}`;
+    }).join(' ');
+    document.querySelector('#waveform').setAttribute('d', path);
+    document.querySelector('#hero-label').textContent = `h(t) / ${event.name} · model strain`;
+    document.querySelector('.art svg').setAttribute('aria-label', `The model gravitational waveform of ${event.name}`);
+    console.debug('GW Piano header waveform', event.name, start, peak, end);
+  } catch (error) {
+    console.debug('GW Piano header waveform kept synthetic', error);
+  }
+}
 function stopAll() {
   generation++;
   soundingManual.clear();
   clearHighlights();
   for (const source of voices) source.stop();
   voices.clear();
-  for (const button of buttons.values()) button.classList.remove('active');
+  for (const button of buttons.values()) button.classList.remove('active', 'landmark-active');
+  for (const button of document.querySelectorAll('#landmark-buttons button')) button.dataset.state = 'idle';
   ensembleSource = null;
   catalogBusy = false;
   if (catalogPaused && context && context.state === 'suspended') context.resume();
@@ -172,7 +200,7 @@ async function preloadAudio() {
   } finally { loadingAudio = false; }
 }
 document.querySelector('#retry-audio').addEventListener('click', preloadAudio);
-async function play(note) {
+async function play(note, when = 0) {
   const pressedAt = performance.now();
   // A keyboard note while detections are paused ends the paused run.
   if (catalogPaused) stopAll();
@@ -186,7 +214,8 @@ async function play(note) {
     if (manualVoices.length >= 24) { const oldest = manualVoices[0]; oldest.stop(); voices.delete(oldest); }
     const source = context.createBufferSource();
     const gain = context.createGain();
-    const startAt = context.currentTime;
+    // Tunes pass an audio-clock time so notes land exactly on the beat.
+    const startAt = Math.max(when, context.currentTime);
     gain.gain.setValueAtTime(0, startAt);
     gain.gain.linearRampToValueAtTime(0.25, startAt + 0.005);
     const musical = document.querySelector('#musical-mode').checked;
@@ -211,7 +240,7 @@ async function play(note) {
     played.push(note.mass, note.mass);
     playedNotes++;
     latestNote = note;
-    drawHistogram();
+    scheduleHistogram();
     updateSoundingBars();
   } catch (error) { status.textContent = `Could not play audio. ${error.message}. Try again.`; }
 }
@@ -277,7 +306,13 @@ for (const tuneButton of tuneButtons) tuneButton.addEventListener('click', () =>
   tuneButton.textContent = '■';
   tuneButton.setAttribute('aria-label', 'Stop example');
   tuneButton.dataset.state = 'playing';
-  tuneTimers = schedule.map(({note, time}) => setTimeout(() => { if (ticket === generation) play(note); }, time * 1000));
+  // Notes are queued on the audio clock; timers fire 100 ms early only to light keys and start voices.
+  if (context.state !== 'running') context.resume();
+  const base = context.currentTime + 0.15;
+  const lead = 0.1;
+  tuneTimers = schedule.map(({note, time}) => setTimeout(() => {
+    if (ticket === generation) play(note, base + time);
+  }, Math.max(0, time + 0.15 - lead) * 1000));
   const end = schedule.at(-1).time + 1.5;
   tuneTimers.push(setTimeout(() => { if (ticket === generation) resetPlaybackButtons(); }, end * 1000));
 });
@@ -298,6 +333,11 @@ function svgElement(tag, attributes, text) {
 // Continuous rainbow over the 12 semitones, starting at A (red) and ending at G# (violet).
 // Sharps sit between their neighbours, so they stay distinct from naturals.
 const noteColor = midi => `hsl(${((midi - 21) % 12 + 12) % 12 * 25}, 85%, 70%)`;
+// Coalesce redraws so chords and fast tunes rebuild the SVG at most once per frame.
+let histogramFrame = 0;
+function scheduleHistogram() {
+  if (!histogramFrame) histogramFrame = requestAnimationFrame(() => { histogramFrame = 0; drawHistogram(); });
+}
 function drawHistogram() {
   if (!catalog || !fullNotes.length) return;
   const observed = catalog.events.flatMap(event => event.masses);
@@ -364,12 +404,12 @@ function drawHistogram() {
   if (examples && !examples.textContent) {
     const describe = name => { const n = fullNotes.find(note => note.name === name);
       return n ? `${n.name} (${n.frequency.toFixed(0)} Hz) is two ${n.mass.toFixed(0)} M☉ black holes` : ''; };
-    examples.textContent = `For example, ${describe('A4')}, and ${describe('A2')}.`;
+    setMassText(examples, `For example, ${describe('A4')}, and ${describe('A2')}.`);
   }
   svg.append(labelLayer);
-  svg.append(svgElement('text', {x:520,y:360,'text-anchor':'middle'}, 'Component mass / M☉'));
+  const axisLabel = svgElement('text', {x:520,y:360,'text-anchor':'middle'}); setMassText(axisLabel, 'Component mass / M☉'); svg.append(axisLabel);
   const activity = [playedNotes ? `${playedNotes} notes` : '', playedEvents ? `${playedEvents} catalog events` : ''].filter(Boolean).join(' + ') || '0 notes';
-  document.querySelector('#chart-status').textContent = `${observed.length} catalog components · ${activity} played / ${played.length} played components${overflow ? ` · ${overflow} above 150 M☉ (off chart)` : ""}`;
+  setMassText(document.querySelector('#chart-status'), `${observed.length} catalog components · ${activity} played / ${played.length} played components${overflow ? ` · ${overflow} above 150 M☉ (off chart)` : ""}`);
 }
 document.querySelector('#reset').onclick = () => { stopAll(); played.length = 0; playedNotes = 0; playedEvents = 0; latestNote = null; drawHistogram(); };
 Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(async responses => {
@@ -382,6 +422,7 @@ Promise.all([fetch('catalog.json'), fetch('sound-pack-manifest.json')]).then(asy
   document.querySelector('#catalog-info').textContent = `GWOSC snapshot: ${data.retrieved} · ${data.events.length} events`;
   drawHistogram();
   renderLandmarks();
+  drawHeroWaveform(catalog.events.find(event => event.name === HERO_EVENT));
   warmCatalog();
 }).catch(error => { document.querySelector('#chart-status').textContent = `Catalog unavailable: ${error.message}`; });
 
@@ -508,7 +549,7 @@ async function playCatalog(condensed) {
     }
   } finally { if (ticket === generation) catalogBusy = false; }
 }
-/** List landmark detections with their chirp-mass-equivalent binary and nearest piano note. */
+/** List landmark detections with their masses and the nearest piano note to their merger frequency. */
 function renderLandmarks() {
   const list = document.querySelector('#landmark-list');
   if (!list) return;
@@ -516,44 +557,85 @@ function renderLandmarks() {
   list.replaceChildren(...landmarkNotes(catalog.events, fullNotes).map(landmark => {
     const card = document.createElement('article');
     card.className = 'landmark';
-    const eyebrow = document.createElement('p'); eyebrow.className = 'eyebrow'; eyebrow.textContent = landmark.name;
+    const eyebrow = document.createElement('p'); eyebrow.className = 'eyebrow'; eyebrow.textContent = landmark.label;
     const h3 = document.createElement('h3'); h3.textContent = landmark.title;
     const text = document.createElement('p'); text.textContent = landmark.text;
     const pair = document.createElement('p'); pair.className = 'pair';
-    pair.textContent = `${landmark.event.masses.join(' + ')} M☉ · chirp mass ${landmark.chirp.toPrecision(3)} M☉ → like ${landmark.mass.toPrecision(3)} + ${landmark.mass.toPrecision(3)} M☉`;
+    setMassText(pair, `${landmark.event.masses.join(' + ')} M☉`);
     const note = document.createElement('p'); note.className = 'landmark-note';
     note.textContent = landmark.note === top && landmark.cents > 50
       ? `Above ${top.name} · ${Math.round(landmark.part.frequency)} Hz`
       : `${landmark.note.name} · ${Math.round(landmark.part.frequency)} Hz`;
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = `Play ${landmark.name}`;
+    button.textContent = `Play ${landmark.label}`;
     button.onclick = () => playLandmark(landmark);
     card.append(eyebrow, h3, text, pair, note, button);
     return card;
   }));
+  // Compact copies of the landmark buttons beside the keyboard
+  const quick = document.querySelector('#landmark-buttons');
+  if (quick) quick.replaceChildren(...landmarkNotes(catalog.events, fullNotes).map(landmark => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = landmark.label;
+    button.title = landmark.title;
+    button.setAttribute('aria-label', `Play ${landmark.label}: ${landmark.title}`);
+    button.onclick = () => playLandmark(landmark, button);
+    return button;
+  }));
 }
-/** Play one landmark as its chirp-mass-equivalent equal-mass chirp, resampled from the nearest note. */
-async function playLandmark(landmark) {
+/** Key on the displayed keyboard nearest to a landmark's note, clamped to the keyboard's range. */
+function landmarkKey(landmark) {
+  const midis = [...buttons.keys()];
+  const midi = Math.min(Math.max(landmark.note.midi, Math.min(...midis)), Math.max(...midis));
+  return buttons.get(midi);
+}
+const landmarkBuffers = new Map();
+/** Decode a notable detection's own real-mass waveform once and reuse it. */
+async function landmarkBuffer(url) {
+  if (!landmarkBuffers.has(url)) {
+    landmarkBuffers.set(url, fetch(url).then(async response => {
+      if (!response.ok) throw new Error(`Sample download failed: ${response.status}`);
+      return context.decodeAudioData(await response.arrayBuffer());
+    }).catch(error => { landmarkBuffers.delete(url); throw error; }));
+  }
+  return landmarkBuffers.get(url);
+}
+/** Play one landmark: its own real-mass waveform when the build made one, else the retuned nearest note. */
+async function playLandmark(landmark, trigger) {
   stopAll();
   const ticket = generation;
+  const key = landmarkKey(landmark);
+  // The pressed merger button and its closest key stay pink while the merger sounds
+  if (trigger) trigger.dataset.state = 'playing';
+  if (key) key.classList.add('active', 'landmark-active');
+  const done = () => {
+    if (trigger) trigger.dataset.state = 'idle';
+    if (key) key.classList.remove('active', 'landmark-active');
+  };
   const musical = document.querySelector('#musical-mode').checked;
   try {
     createAudio();
     if (context.state !== 'running') await context.resume();
-    await noteBuffer(landmark.note);
+    const url = musical ? landmark.event.musical_sample : landmark.event.sample;
+    const own = url ? await landmarkBuffer(url) : null;
+    if (!own) await noteBuffer(landmark.note);
     if (ticket !== generation) return;
-    const parts = [{...landmark.part}];
-    const source = scheduleCatalog(context, parts, note => (musical ? musicalBuffers : buffers).get(note.midi), master, context.currentTime + 0.02, () => {
+    const parts = [own ? {...landmark.part, playbackRate: 1} : {...landmark.part}];
+    const bufferFor = own ? () => own : note => (musical ? musicalBuffers : buffers).get(note.midi);
+    const source = scheduleCatalog(context, parts, bufferFor, master, context.currentTime + 0.02, () => {
       voices.delete(source);
       if (ensembleSource === source) ensembleSource = null;
+      if (ticket === generation) done();
     });
     ensembleSource = source;
     voices.add(source);
     console.debug('GW Piano landmark playback', landmark.name, landmark.part.frequency);
-    status.textContent = `Playing ${landmark.name}: two ${landmark.mass.toPrecision(3)} M☉ black holes, peak ${Math.round(landmark.part.frequency)} Hz`;
+    setMassText(status, `Playing ${landmark.label}: ${landmark.event.masses.join(' + ')} M☉, merger at ${Math.round(landmark.part.frequency)} Hz`);
   } catch (error) {
-    status.textContent = `Could not play ${landmark.name}: ${error.message}`;
+    done();
+    status.textContent = `Could not play ${landmark.label}: ${error.message}`;
   }
 }
 eventsButton.addEventListener('click', () => playCatalog(false));

@@ -1,6 +1,6 @@
 # Site design configuration
 
-`palette.json` is the single source for interface colours and `templates/` contains SVG logo artwork with palette tokens. `sync_palette.py` generates the standalone `theme.css`, logos, and browser theme colour used by this site.
+`theme.json` is the single source for interface colours and fonts (each font role names its family, weight and files in `fonts/`) and `templates/` contains SVG logo artwork with palette tokens. `sync_palette.py` generates the standalone `theme.css`, logos, and browser theme colour used by this site.
 
 Run from this repository root:
 

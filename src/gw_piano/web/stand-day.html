@@ -2,13 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GW Piano Stand: on the day</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="theme.css">
 <style>
 /* Layout: single reading column; wiring diagram and parts table scroll inside their own containers */
 :root{
   --bg:#f5f6fa; --surface:#ffffff; --fg:#161a2b; --muted:#5a6078; --line:#d9dce8;
   --sci:#3b5bdb; --mus:#c2410c; --accent:#6741d9;
-  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --display:var(--font-heading); --body:var(--font-body); --mono:ui-monospace,SFMono-Regular,Menlo,monospace; color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0e1120; --surface:#171b2e; --fg:#e6e8f2; --muted:#9aa0bb; --line:#2a3050;
@@ -18,7 +18,7 @@
   --sci:#7b96ff; --mus:#fb8c4a; --accent:#a78bfa; color-scheme:dark}
 body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
 main{max-width:860px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1,h2,h3{font-family:var(--display);font-weight:var(--weight-heading);text-wrap:balance;margin:0;line-height:1.2}
 h1{font-size:2.4rem}h2{font-size:1.5rem}h3{font-size:1.1rem}
 section{display:grid;gap:14px;min-width:0}
 p,li{max-width:68ch;margin:0}

@@ -9,7 +9,8 @@ import zipfile
 import lalsimulation as lalsim
 import numpy as np
 from gw_piano.cli import build
-from gw_piano.synthesis import component_mass, musical_sample, note_frequency, synthesize
+from gw_piano.landmarks import landmarks
+from gw_piano.synthesis import component_mass, merger_peak, musical_sample, note_frequency, synthesize
 
 
 class InstrumentTests(unittest.TestCase):
@@ -63,6 +64,17 @@ class InstrumentTests(unittest.TestCase):
             names = [event['name'] for event in catalog['events']]
             self.assertEqual(len(names), len(set(names)))
             self.assertTrue(all(m > 0 for event in catalog['events'] for m in event['masses']))
+            gw150914 = next(event for event in catalog['events'] if event['name'] == 'GW150914')
+            self.assertAlmostEqual(gw150914['peak'], merger_peak(*gw150914['masses']), places=2)
+            self.assertTrue(all('peak' in event for event in catalog['events'] if len(event['masses']) == 2))
+            notable = {mark['name'] for mark in landmarks()}
+            sampled = {event['name'] for event in catalog['events'] if 'sample' in event}
+            self.assertEqual(sampled, notable)
+            for event in catalog['events']:
+                if 'sample' in event:
+                    for key in ('sample', 'musical_sample'):
+                        with wave.open(str(output / event[key])) as wav:
+                            self.assertEqual((wav.getnchannels(), wav.getframerate()), (1, 44100))
             self.assertTrue((output / 'portsmouth.svg').is_file())
             for page in ('kiosk-live.html', 'kiosk-controls.html', 'kiosk.mjs', 'stand.html', 'stand-day.html'):
                 self.assertTrue((output / page).is_file(), page)

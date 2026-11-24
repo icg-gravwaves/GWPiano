@@ -13,6 +13,14 @@ test('each merger plays once as its chirp-mass-equivalent binary', () => {
   assert.equal(plan[1].mass,15);
   for (const part of plan) assert.ok(Math.abs(part.frequency*part.mass-1000)<1e-10);
 });
+test('a build-time merger peak tunes the event without an equal-mass assumption', () => {
+  const [part] = catalogPlan([{name:'unequal',masses:[30,3],peak:60}],notes);
+  assert.equal(part.note.midi,48);
+  assert.ok(Math.abs(part.frequency-60)<1e-9);
+  assert.ok(Math.abs(part.playbackRate-60/50)<1e-12);
+  assert.ok(Math.abs(part.mass*part.frequency-1000)<1e-9);
+  assert.deepEqual(part.components,[30,3]);
+});
 test('played and detected bin counts match for the actual bundled catalog', () => {
   const catalog = JSON.parse(readFileSync(new URL('../src/gw_piano/data/catalog.json',import.meta.url)));
   const masses = catalog.events.flatMap(event=>event.masses);

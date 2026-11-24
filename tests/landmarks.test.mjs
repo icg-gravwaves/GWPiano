@@ -9,7 +9,7 @@ test('equal masses are their own chirp-mass equivalent', () => {
   assert.ok(Math.abs(equivalentMass([18, 18]) - 18) < 1e-12);
   assert.ok(Math.abs(chirpMass([18, 18]) - 18 / 2 ** 0.2) < 1e-12);
 });
-test('each landmark plays its chirp-mass-equivalent binary', () => {
+test('without a merger peak each landmark falls back to its chirp-mass-equivalent binary', () => {
   const result = landmarkNotes(catalog.events, notes);
   assert.equal(result.length, landmarks.length);
   for (const landmark of result) {
@@ -17,4 +17,10 @@ test('each landmark plays its chirp-mass-equivalent binary', () => {
     assert.ok(Math.abs(landmark.part.frequency * landmark.mass - landmark.note.frequency * landmark.note.mass) < 1e-6);
   }
   assert.equal(result.find(landmark => landmark.name === 'GW170817').note.name, 'C8');
+});
+test('a merger peak sets the landmark pitch and nearest note', () => {
+  const events = catalog.events.map(event => event.name === 'GW190814' ? {...event, peak: 452} : event);
+  const landmark = landmarkNotes(events, notes).find(item => item.name === 'GW190814');
+  assert.equal(landmark.note.name, 'A4');
+  assert.ok(Math.abs(landmark.part.frequency - 452) < 1e-9);
 });

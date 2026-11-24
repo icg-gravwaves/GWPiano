@@ -9,15 +9,32 @@ export function equivalentMass(masses) {
   return masses.length === 2 ? 2 ** 0.2 * chirpMass(masses) : masses[0];
 }
 
-/** One sound per merger: the chirp-mass-equivalent equal-mass binary, resampled from the nearest note by exact mass scaling. */
+/** Nearest note to a value on a log scale (pitch for frequencies, inverse pitch for masses). */
+function nearest(notes, key, value) {
+  return notes.reduce((best, candidate) =>
+    Math.abs(Math.log(candidate[key] / value)) < Math.abs(Math.log(best[key] / value)) ? candidate : best);
+}
+
+/**
+ * One sound per merger, resampled from the nearest note's sample.
+ * With a build-time `peak` (the binary's own IMRPhenomD merger frequency) the sound is tuned to that
+ * frequency, so unequal pairs need no equal-mass assumption. Without one, the event falls back to the
+ * chirp-mass-equivalent equal-mass binary. `mass` is the equal-mass pair that sounds at the same pitch.
+ */
 export function catalogPlan(events, notes, spacing = 0) {
   if (!notes.length) throw new RangeError('Reference piano samples are required');
   const ordered = [...events].sort((a,b) => (a.offset ?? 0)-(b.offset ?? 0) || a.name.localeCompare(b.name));
   return ordered.map((event, index) => {
-    const mass = equivalentMass(event.masses);
-    const note = notes.reduce((best, candidate) =>
-      Math.abs(Math.log(candidate.mass / mass)) < Math.abs(Math.log(best.mass / mass)) ? candidate : best);
-    const playbackRate = note.mass / mass;
+    let note, playbackRate, mass;
+    if (Number.isFinite(event.peak) && event.peak > 0) {
+      note = nearest(notes, 'frequency', event.peak);
+      playbackRate = event.peak / note.frequency;
+      mass = note.mass / playbackRate;
+    } else {
+      mass = equivalentMass(event.masses);
+      note = nearest(notes, 'mass', mass);
+      playbackRate = note.mass / mass;
+    }
     return {event: event.name, offset: event.offset ?? index * spacing, mass, components: event.masses,
       note, playbackRate, frequency: note.frequency * playbackRate};
   });

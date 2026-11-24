@@ -20,9 +20,12 @@ jobs:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: ci/requirements.txt
-      - run: pip install -c ci/requirements.txt .
+      - run: pip install -c ci/requirements.txt ".[cards]"
       - run: python -m unittest discover -s tests -v
       - run: gw-piano --output dist
+      - name: Build printable landmark fact cards
+        # Downloads about 0.5 GB of GWOSC strain into a temporary directory and discards it.
+        run: python scripts/fact_cards.py --output dist/landmark-fact-cards.pdf
       - name: Check sound pack before deploying
         run: python scripts/check_pack.py dist
       - uses: actions/configure-pages@v6

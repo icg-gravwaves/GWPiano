@@ -1,0 +1,71 @@
+{
+  "_help": "Edit this file, then run: python3 conf/sync_palette.py (regenerates src/gw_piano/web/theme.css, copies fonts, rebuilds logos).",
+  "fonts": {
+    "heading": {
+      "family": "Encode Sans Expanded",
+      "weight": 800,
+      "files": {
+        "800": "EncodeSansExpanded-ExtraBold.ttf"
+      }
+    },
+    "body": {
+      "family": "Open Sans",
+      "weight": 400,
+      "files": {
+        "400": "OpenSans-Regular.ttf",
+        "600": "OpenSans-SemiBold.ttf",
+        "700": "OpenSans-Bold.ttf"
+      }
+    },
+    "note": {
+      "family": "Kalam",
+      "weight": 700,
+      "files": {
+        "700": "Kalam-Bold.ttf"
+      }
+    },
+    "label": {
+      "family": "Anton",
+      "weight": 400,
+      "files": {
+        "400": "Anton-Regular.ttf"
+      }
+    }
+  },
+  "colours": {
+    "brand-purple": "#621360",
+    "brand-purple-dark": "#3c0238",
+    "brand-blue": "#0076a6",
+    "brand-blue-bright": "#009ee2",
+    "bg": "#0f1218",
+    "panel": "#251b30",
+    "surface": "#2e253d",
+    "line": "#5d6879",
+    "muted": "#b6bfcc",
+    "text": "#f4f6f9",
+    "accent": "#0076a6",
+    "accent-text": "#009ee2",
+    "signal": "#70ceff",
+    "catalog": "#d5a5ed",
+    "on-accent": "#ffffff",
+    "on-signal": "#0f1218",
+    "white": "#ffffff",
+    "black": "#000000",
+    "key-white": "#eeeeee",
+    "key-ink": "#313131",
+    "key-dark": "#171717",
+    "key-black": "#050505",
+    "success": "#a9df98",
+    "warning": "#ffc56e",
+    "danger": "#ff8eac",
+    "accent-glow": "#009ee255",
+    "signal-glow": "#70ceff55",
+    "accent-wash": "#0076a633",
+    "accent-subtle": "#0076a614",
+    "overlay": "#0f1218dd",
+    "overlay-light": "#0f121855",
+    "shadow": "#00000088",
+    "highlight": "#dcfd35",
+    "highlight-pink": "#e2147e"
+  }
+}

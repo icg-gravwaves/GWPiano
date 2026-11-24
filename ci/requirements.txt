@@ -5,6 +5,7 @@ astropy_iers_data==0.2026.3.16.0.53.33
 contourpy==1.3.0
 cycler==0.12.1
 fonttools==4.60.2
+h5py==3.12.1
 igwn_ligolw==2.1.1
 igwn_segments==2.1.1
 importlib_resources==6.5.2

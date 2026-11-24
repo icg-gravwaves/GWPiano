@@ -9,8 +9,9 @@ import numpy as np
 
 root = Path(sys.argv[1]); dist = root / "dist"; out = root / "docs" / "images"
 out.mkdir(parents=True, exist_ok=True)
-P = json.loads((root / "conf" / "palette.json").read_text())
-FONT = "font-family:Inter,Helvetica,Arial,sans-serif"
+THEME = json.loads((root / "conf" / "theme.json").read_text())
+P = THEME["colours"]
+FONT = f"font-family:{THEME['fonts']['body']['family']},Helvetica,Arial,sans-serif"
 
 def wav(path):
     with wave.open(str(path)) as w:

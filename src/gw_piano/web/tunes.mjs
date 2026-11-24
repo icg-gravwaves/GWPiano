@@ -1,6 +1,6 @@
 /** Public-domain example tunes. Each note is [MIDI number, start time in seconds]. */
 // Quaver length in seconds, matching the opening motif's tempo.
-const Q = 0.18;
+const Q = 0.14;
 const B = 0.75;
 
 /** Play every MIDI note in a chord at the same time. */
@@ -61,10 +61,10 @@ export const tunes = [
     // Bars 1–5: the motif in octaves, G G G E♭ … F F F D.
     // Bars 6–13: G G G E♭ | A♭ A♭ A♭ G | E♭ E♭ E♭ C, then G G G D | A♭ A♭ A♭ G | F F F D.
     notes: [
-      ...[0.18, 0.36, 0.54].flatMap(t => chord([55, 67], t)), ...chord([51, 63], 0.72),
-      ...[2.18, 2.36, 2.54].flatMap(t => chord([53, 65], t)), ...chord([50, 62], 2.72),
-      ...cells(3.6, [[67, 63, [48, 55]], [68, 67, [53, 60]], [75, 72, [56, 63]]]),
-      ...cells(7.2, [[67, 62, [55, 59]], [68, 67, [53, 60]], [77, 74, [55, 59]]])
+      ...[1, 2, 3].flatMap(k => chord([55, 67], k * Q)), ...chord([51, 63], 4 * Q),
+      ...[13, 14, 15].flatMap(k => chord([53, 65], k * Q)), ...chord([50, 62], 16 * Q),
+      ...cells(22 * Q, [[67, 63, [48, 55]], [68, 67, [53, 60]], [75, 72, [56, 63]]]),
+      ...cells(40 * Q, [[67, 62, [55, 59]], [68, 67, [53, 60]], [77, 74, [55, 59]]])
     ]
   },
   {

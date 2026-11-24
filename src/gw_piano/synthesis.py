@@ -32,6 +32,15 @@ def component_mass(midi: int) -> float:
     return 30 * reference / note_frequency(midi)
 
 
+def merger_peak(m1: float, m2: float) -> float:
+    """IMRPhenomD merger-ringdown f_peak (Hz) of a nonspinning binary with these component masses.
+
+    This is the same model parameter that tunes each piano key, so an observed
+    binary can be placed on the keyboard without assuming equal masses.
+    """
+    return lalsim.IMRPhenomDGetPeakFreq(m1, m2, 0, 0)
+
+
 # Longest inspiral kept before the merger peak, in seconds. Low notes are trimmed
 # to start later in the inspiral; higher notes are shorter than this and unchanged.
 MAX_SECONDS = 0.35
@@ -41,14 +50,28 @@ LEAD_IN_FADE = 0.05
 def synthesize(midi: int, ratio: float = 0.12, rate: int = SAMPLE_RATE,
                max_seconds: float = MAX_SECONDS) -> np.ndarray:
     """Return normalized plus polarization with physical inspiral/merger/ringdown."""
-    target = note_frequency(midi)
+    if rate < 8000 or note_frequency(midi) > rate / 8:
+        raise ValueError("Sample rate is too low for this note and its ringdown")
+    mass = component_mass(midi)
+    return synthesize_pair(mass, mass, ratio, rate, max_seconds)
+
+
+def synthesize_pair(m1: float, m2: float, ratio: float = 0.12, rate: int = SAMPLE_RATE,
+                    max_seconds: float = MAX_SECONDS) -> np.ndarray:
+    """Normalized plus polarization of a nonspinning binary with these component masses (solar masses).
+
+    The waveform starts at ratio * f_peak and keeps the physical inspiral, merger and ringdown,
+    trimmed and faded as for the piano keys so both sound alike.
+    """
     if not 0.08 <= ratio <= 0.4:
         raise ValueError("Starting frequency ratio must be between 0.08 and 0.4")
-    if rate < 8000 or target > rate / 8:
-        raise ValueError("Sample rate is too low for this note and its ringdown")
-    mass = component_mass(midi) * lal.MSUN_SI
+    target = merger_peak(m1, m2)
+    # Keys keep their ringdown well below Nyquist (rate / 8); detections such as neutron-star pairs
+    # merge higher, so they are allowed up to rate / 6, which still leaves the ringdown resolved.
+    if rate < 8000 or target > rate / 6:
+        raise ValueError("Sample rate is too low for this binary and its ringdown")
     hp, _ = lalsim.SimInspiralChooseTDWaveform(
-        mass, mass, 0, 0, 0, 0, 0, 0, 100 * 1e6 * lal.PC_SI,
+        m1 * lal.MSUN_SI, m2 * lal.MSUN_SI, 0, 0, 0, 0, 0, 0, 100 * 1e6 * lal.PC_SI,
         0, 0, 0, 0, 0, 1 / rate, target * ratio, 0, lal.CreateDict(), lalsim.IMRPhenomD)
     samples = hp.data.data.copy()
     # Retain the physical signal and trim only numerical padding at the edges.
