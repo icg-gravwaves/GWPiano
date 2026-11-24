@@ -418,6 +418,9 @@ function drawMarkers() {
   }));
 }
 
+// Redraw the histogram whenever its box changes size (window resize, full screen).
+new ResizeObserver(() => { if (catalog) drawHistogram(); }).observe(document.querySelector('#histogram'));
+
 function drawHistogram() {
   const svg = document.querySelector('#histogram');
   const catalogMasses = catalog.events.flatMap(event => event.masses);
@@ -428,7 +431,12 @@ function drawHistogram() {
   for (const mass of state.played) if (mass < 150) playedCounts[bins.index(mass)]++;
   const peak = Math.max(1, ...catalogCounts, ...playedCounts);
   const sounding = state.lastNote ? bins.index(state.lastNote.mass) : -1;
-  const W = 1000, H = 160, bw = W / count;
+  // Draw in the SVG's own pixel size (viewBox = box), so bars fill the panel and text keeps its true shape.
+  const box = svg.getBoundingClientRect();
+  if (!box.width || !box.height) return;
+  const font = parseFloat(getComputedStyle(svg).fontSize) || 13, row = font * 1.25;
+  const W = box.width, H = box.height - font * 1.6, bw = W / count;
+  svg.setAttribute('viewBox', `0 0 ${W.toFixed(1)} ${box.height.toFixed(1)}`);
   const bars = (counts, fill) => counts.map((n, i) => n ?
     `<rect x="${(i * bw).toFixed(1)}" y="${(H - H * n / peak).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${(H * n / peak).toFixed(1)}" fill="${fill(i)}"/>` : '').join('');
   // One rainbow line per key at its component mass, coloured by pitch class as on the main page.
@@ -442,17 +450,17 @@ function drawHistogram() {
     keyLines += `<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="0" y2="${H}" stroke="${color}" stroke-opacity="${selected ? 0.9 : 0.45}" stroke-width="${selected ? 3 : 1}"/>`;
     // Label the low keys, every other key to A3, and every A above, as on the main page.
     if (note.midi <= 45 || (note.midi <= 57 && (note.midi - 45) % 2 === 0) || note.midi % 12 === 9) {
-      const labelX = x + 4, width = note.name.length * 7.5;
-      let row = labelRowEnds.findIndex(end => labelX >= end + 5);
-      if (row === -1) row = labelRowEnds.length;
-      labelRowEnds[row] = labelX + width;
-      const y = 14 + row * 16;
-      keyLabels += `<rect x="${(labelX - 2).toFixed(1)}" y="${y - 12}" width="${width + 4}" height="15" rx="2" fill="var(--panel)"/>` +
+      const labelX = x + font * 0.3, width = note.name.length * font * 0.6;
+      let labelRow = labelRowEnds.findIndex(end => labelX >= end + font * 0.4);
+      if (labelRow === -1) labelRow = labelRowEnds.length;
+      labelRowEnds[labelRow] = labelX + width;
+      const y = font * 1.1 + labelRow * row;
+      keyLabels += `<rect x="${(labelX - 2).toFixed(1)}" y="${(y - font * 0.95).toFixed(1)}" width="${(width + 4).toFixed(1)}" height="${(font * 1.2).toFixed(1)}" rx="2" fill="var(--panel)"/>` +
         `<text x="${labelX.toFixed(1)}" y="${y}" style="fill:${color};font-weight:${selected ? 800 : 500}">${note.name}</text>`;
     }
   }
   const ticks = [0, 25, 50, 75, 100, 125, 150].map(m =>
-    `<text x="${W * m / 150}" y="${H + 18}" text-anchor="middle">${m}${m === 150 ? massMarkup(' M☉') : ''}</text>`).join('');
+    `<text x="${W * m / 150}" y="${(H + font * 1.3).toFixed(1)}" text-anchor="${m === 0 ? 'start' : m === 150 ? 'end' : 'middle'}">${m}${m === 150 ? massMarkup(' M☉') : ''}</text>`).join('');
   svg.innerHTML = `<defs><pattern id="stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <rect width="8" height="8" fill="var(--played)" opacity=".35"/><rect width="3" height="8" fill="var(--played)"/></pattern></defs>
     ${keyLines}${bars(catalogCounts, () => 'var(--catalog)')}${bars(playedCounts, i => i === sounding ? '#fff' : 'url(#stripe)')}
