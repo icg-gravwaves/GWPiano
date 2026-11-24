@@ -115,6 +115,7 @@ function stopAll() {
   voices.clear();
   for (const button of buttons.values()) button.classList.remove('active', 'landmark-active');
   for (const button of document.querySelectorAll('#landmark-buttons button')) button.dataset.state = 'idle';
+  document.querySelector('.keyboard .off-scale')?.classList.remove('show');
   ensembleSource = null;
   catalogBusy = false;
   if (catalogPaused && context && context.state === 'suspended') context.resume();
@@ -587,8 +588,20 @@ function renderLandmarks() {
     return button;
   }));
 }
+/** Pink arrow past the top of the keyboard, labelled with the merger frequency. */
+function offScaleArrow(landmark) {
+  const keyboard = document.querySelector('.keyboard');
+  let arrow = keyboard.querySelector('.off-scale');
+  if (!arrow) { arrow = document.createElement('div'); arrow.className = 'off-scale'; arrow.setAttribute('aria-hidden', 'true'); keyboard.append(arrow); }
+  arrow.textContent = `off the scale · ${Math.round(landmark.part.frequency)} Hz ➜`;
+  arrow.classList.add('show');
+  return arrow;
+}
 /** Key on the displayed keyboard nearest to a landmark's note, clamped to the keyboard's range. */
 function landmarkKey(landmark) {
+  // Mergers above the full 88-key piano (GW170817) light no key; the off-scale arrow shows instead
+  const top = fullNotes.reduce((x, y) => (x.frequency > y.frequency ? x : y));
+  if (landmark.note === top && landmark.cents > 50) return null;
   const midis = [...buttons.keys()];
   const midi = Math.min(Math.max(landmark.note.midi, Math.min(...midis)), Math.max(...midis));
   return buttons.get(midi);
@@ -612,10 +625,16 @@ async function playLandmark(landmark, trigger) {
   // The pressed merger button and its closest key stay pink while the merger sounds
   if (trigger) trigger.dataset.state = 'playing';
   if (key) key.classList.add('active', 'landmark-active');
-  const done = () => {
+  const arrow = key ? null : offScaleArrow(landmark);
+  // Merger sounds can be only a few milliseconds long, so the highlight stays up for at least 1.2 s
+  const shownUntil = performance.now() + 1200;
+  const clear = () => {
+    if (ticket !== generation) return;
     if (trigger) trigger.dataset.state = 'idle';
     if (key) key.classList.remove('active', 'landmark-active');
+    arrow?.classList.remove('show');
   };
+  const done = () => setTimeout(clear, Math.max(0, shownUntil - performance.now()));
   const musical = document.querySelector('#musical-mode').checked;
   try {
     createAudio();
@@ -629,7 +648,7 @@ async function playLandmark(landmark, trigger) {
     const source = scheduleCatalog(context, parts, bufferFor, master, context.currentTime + 0.02, () => {
       voices.delete(source);
       if (ensembleSource === source) ensembleSource = null;
-      if (ticket === generation) done();
+      done();
     });
     ensembleSource = source;
     voices.add(source);

@@ -100,3 +100,12 @@ section>div>h2,.toolbar h2,.landmark h3{transform:rotate(-2deg);transform-origin
 /* A sounding key shows only the pink highlight; the focus ring returns once it stops */
 .key.active:focus-visible,.black.active:focus-visible{outline:none;box-shadow:0 0 24px #e2147e66}
 .landmark .pair{color:var(--highlight-pink);font-weight:600}
+/* Landmark names stretch across the card width */
+.landmark{container-type:inline-size}
+.landmark .eyebrow{font-size:16cqw;line-height:1;white-space:nowrap;letter-spacing:0;margin:0 0 6px}
+
+/* Off-scale arrow for mergers above the piano's range */
+.keyboard .off-scale{position:absolute;right:6px;top:6px;z-index:5;background:var(--highlight-pink);color:var(--white);font-family:var(--font-note);font-weight:var(--weight-note);font-size:clamp(16px,2vw,26px);padding:6px 16px;border-radius:4px;box-shadow:0 0 24px #e2147e66;opacity:0;pointer-events:none;transition:opacity .15s}
+.keyboard .off-scale.show{opacity:1;animation:off-scale-nudge .5s ease-in-out infinite alternate}
+@keyframes off-scale-nudge{to{transform:translateX(8px)}}
+@media(prefers-reduced-motion:reduce){.keyboard .off-scale.show{animation:none}}
