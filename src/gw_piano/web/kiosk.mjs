@@ -303,8 +303,8 @@ async function connectMidi() {
   } catch (error) { console.debug('GW Piano kiosk MIDI access refused', error); }
 }
 
-// Computer keys for testing without a MIDI keyboard: A W S E D F T G Y H U J K = C4..C5, M toggles mode.
-const KEYS = 'awsedftgyhujk';
+// Computer keys for testing without a MIDI keyboard: A W S E D F T G Y H U J K O L P ; ' = C4..F5, M toggles mode.
+const KEYS = "awsedftgyhujkolp;'";
 window.addEventListener('keydown', event => {
   if (event.repeat || !state.ready) return;
   const index = KEYS.indexOf(event.key.toLowerCase());

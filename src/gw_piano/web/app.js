@@ -9,7 +9,7 @@ import {setMassText} from './solar.mjs';
 'use strict';
 const status = document.querySelector('#status');
 const keyboard = document.querySelector('#keyboard');
-const shortcuts = 'awsedftgyhujk';
+const shortcuts = "awsedftgyhujkolp;'";
 let context, master, manifest;
 let loadingAudio = false;
 const buffers = new Map(), musicalBuffers = new Map(), voices = new Set(), buttons = new Map();
