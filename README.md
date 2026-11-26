@@ -91,7 +91,7 @@ The website, fact cards and poster do not include the University of Portsmouth l
 
 GW Piano uses a transparent SVG adaptation of concept A: an accelerating chirp flowing into piano keys, with Portsmouth-blue strokes, light-blue piano-key accents, Portsmouth-blue “GW”, and white “PIANO” for the dark theme. The asset is `src/gw_piano/web/gw-piano-dark.svg`.
 
-The header links to Chirp Lab using its original rising-signal/open-orbit SVG logo from `https://icg-gravwaves.github.io/chirp-lab/assets/chirp-lab.svg`.
+The header links to Whoop! and loads its logo directly from the Whoop! site (`https://icg-gravwaves.github.io/whoop/assets/whoop.svg`), so the logo stays in step with that project.
 
 ## Shared theme (colours and fonts)
 
