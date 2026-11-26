@@ -30,6 +30,7 @@ def theme_css():
 TARGETS = ['src/gw_piano/web/theme.css']
 LOGOS = {
     'gw-piano-dark.svg': ['src/gw_piano/web/gw-piano-dark.svg'],
+    'gw-piano-mark.svg': ['src/gw_piano/web/gw-piano-mark.svg'],
 }
 
 
