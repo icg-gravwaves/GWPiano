@@ -59,7 +59,7 @@ F_LOWER = 15.0
 WINDOW = 1.0
 AFTER = 0.05
 # Detector shown for each landmark: the clearer LIGO site, never Livingston for GW170817 (glitch).
-DETECTOR = {"GW150914": "H1", "GW170817": "H1", "GW170814": "L1", "GW190521": "L1", "GW190814": "L1",
+DETECTOR = {"GW150914": "H1", "GW170817": "H1", "GW170814": "L1", "GW231123_135430": "L1", "GW190814": "L1",
             "GW200115_042309": "L1", "GW230529_181500": "L1", "GW250114_082203": "L1"}
 # Matched-filter SNR above which the merger time is taken from the data.
 MIN_ALIGN_SNR = 7

@@ -58,8 +58,9 @@ function clearHighlights() {
   updateSoundingBars();
   document.querySelectorAll('.sounding-note').forEach(element => {
     element.classList.remove('sounding-note', 'sounding-bin');
-  });
+  });  for (const key of buttons.values()) key.classList.remove('catalog-active');
 }
+const KEY_HOLD = 0.15;
 function highlightTimeline(plan, start, ticket, progress = () => {}) {
   const update = () => {
     if (ticket !== generation || !ensembleSource) { clearHighlights(); return; }
@@ -72,6 +73,10 @@ function highlightTimeline(plan, start, ticket, progress = () => {}) {
     document.querySelectorAll('.note-marker, .note-label').forEach(element => {
       element.classList.toggle('sounding-note', active.has(Number(element.dataset.midi)));
     });
+    // Light the displayed key nearest each sounding merger; held for at least KEY_HOLD seconds so short chirps stay visible
+    const lit = new Set(plan.filter(part => elapsed >= part.offset && elapsed < part.offset + Math.max(part.duration, KEY_HOLD))
+      .map(part => part.note.midi));
+    for (const [midi, key] of buttons) key.classList.toggle('catalog-active', lit.has(midi));
     markerFrame = requestAnimationFrame(update);
   };
   update();
@@ -568,7 +573,7 @@ function renderLandmarks() {
     const pair = document.createElement('p'); pair.className = 'pair';
     setMassText(pair, `${landmark.event.masses.join(' + ')} M☉`);
     const note = document.createElement('p'); note.className = 'landmark-note';
-    note.textContent = landmark.note === top && landmark.cents > 50
+    note.textContent = aboveFullPiano(landmark)
       ? `Above ${top.name} · ${Math.round(landmark.part.frequency)} Hz`
       : `${landmark.note.name} · ${Math.round(landmark.part.frequency)} Hz`;
     const button = document.createElement('button');
@@ -590,23 +595,29 @@ function renderLandmarks() {
     return button;
   }));
 }
-/** Pink arrow past the top of the keyboard, labelled with the merger frequency. */
+/** Pink arrow beside the keyboard for a landmark whose note lies outside the displayed keys,
+ * labelled with its true note and merger frequency (or "off the scale" above the 88-key piano). */
 function offScaleArrow(landmark) {
   const keyboard = document.querySelector('.keyboard');
   let arrow = keyboard.querySelector('.off-scale');
   if (!arrow) { arrow = document.createElement('div'); arrow.className = 'off-scale'; arrow.setAttribute('aria-hidden', 'true'); keyboard.append(arrow); }
-  arrow.textContent = `off the scale · ${Math.round(landmark.part.frequency)} Hz ➜`;
+  const hz = `${Math.round(landmark.part.frequency)} Hz`;
+  const low = landmark.note.midi < Math.min(...buttons.keys());
+  arrow.textContent = low ? `⬅ ${landmark.note.name} · ${hz}`
+    : aboveFullPiano(landmark) ? `off the scale · ${hz} ➜` : `${landmark.note.name} · ${hz} ➜`;
+  arrow.classList.toggle('low', low);
   arrow.classList.add('show');
   return arrow;
 }
-/** Key on the displayed keyboard nearest to a landmark's note, clamped to the keyboard's range. */
-function landmarkKey(landmark) {
-  // Mergers above the full 88-key piano (GW170817) light no key; the off-scale arrow shows instead
+/** True when a landmark merges more than half a semitone above the top of the 88-key piano. */
+function aboveFullPiano(landmark) {
   const top = fullNotes.reduce((x, y) => (x.frequency > y.frequency ? x : y));
-  if (landmark.note === top && landmark.cents > 50) return null;
-  const midis = [...buttons.keys()];
-  const midi = Math.min(Math.max(landmark.note.midi, Math.min(...midis)), Math.max(...midis));
-  return buttons.get(midi);
+  return landmark.note === top && landmark.cents > 50;
+}
+/** Displayed key for a landmark's nearest note, or null when that note is not on the displayed keyboard. */
+function landmarkKey(landmark) {
+  if (aboveFullPiano(landmark)) return null;
+  return buttons.get(landmark.note.midi) ?? null;
 }
 const landmarkBuffers = new Map();
 /** Decode a notable detection's own real-mass waveform once and reuse it. */
